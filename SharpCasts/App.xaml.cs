@@ -1,4 +1,6 @@
-﻿namespace SharpCasts;
+﻿using SharpCasts.Views;
+
+namespace SharpCasts;
 
 /// <summary>
 /// The class that represents the main enrty-point for the application.

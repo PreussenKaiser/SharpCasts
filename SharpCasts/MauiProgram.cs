@@ -1,4 +1,8 @@
-﻿namespace SharpCasts;
+﻿using SharpCasts.Services;
+using SharpCasts.ViewModels;
+using SharpCasts.Views;
+
+namespace SharpCasts;
 
 /// <summary>
 /// 
