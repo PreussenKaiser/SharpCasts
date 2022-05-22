@@ -1,4 +1,4 @@
-﻿namespace SharpCasts.Views;
+﻿namespace SharpCasts.Main.Views;
 
 /// <summary>
 /// The class which represents the main page.

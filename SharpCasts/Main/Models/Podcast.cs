@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SharpCasts.Models;
+namespace SharpCasts.Main.Models;
 
 /// <summary>
 /// The model that represents a podcast.

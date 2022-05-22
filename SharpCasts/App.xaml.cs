@@ -1,4 +1,4 @@
-﻿using SharpCasts.Views;
+﻿using SharpCasts.Main.Views;
 
 namespace SharpCasts;
 
@@ -8,7 +8,7 @@ namespace SharpCasts;
 public partial class App : Application
 {
 	/// <summary>
-	/// Initializes a new instance of the <see cref="App">App</see> class.
+	/// Initializes a new instance of the App class.
 	/// </summary>
 	public App()
 	{

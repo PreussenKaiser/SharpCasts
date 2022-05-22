@@ -1,9 +1,9 @@
-﻿using SharpCasts.Models;
-using SharpCasts.Services;
-using SharpCasts.Views;
+﻿using SharpCasts.Main.Models;
+using SharpCasts.Main.Services;
+using SharpCasts.Main.Views;
 using System.Windows.Input;
 
-namespace SharpCasts.ViewModels;
+namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
 /// The viewmodel for the <see cref="MainPage">MainPage</see> content page.

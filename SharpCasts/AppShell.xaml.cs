@@ -9,7 +9,5 @@ public partial class AppShell : Shell
     /// Initializes a new instance of the <see cref="AppShell">AppShell</see> class.
     /// </summary>
     public AppShell()
-    {
-        this.InitializeComponent();
-    }
+        => this.InitializeComponent();
 }

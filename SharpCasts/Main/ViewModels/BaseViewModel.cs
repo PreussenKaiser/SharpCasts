@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SharpCasts.ViewModels;
+namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
 /// The class that represents the base viewmodel.

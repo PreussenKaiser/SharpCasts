@@ -15,9 +15,7 @@ public partial class App : MauiWinUIApplication
     /// executed, and as such is the logical equivalent of main() or WinMain().
     /// </summary>
     public App()
-    {
-        this.InitializeComponent();
-    }
+        => this.InitializeComponent();
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }
