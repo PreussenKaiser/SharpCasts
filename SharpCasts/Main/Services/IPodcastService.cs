@@ -7,5 +7,9 @@ namespace SharpCasts.Main.Services;
 /// </summary>
 public interface IPodcastService
 {
+    /// <summary>
+    /// Gets podcasts from the service.
+    /// </summary>
+    /// <returns>Podcasts in the service.</returns>
     public Task<IEnumerable<Podcast>> GetPodcasts();
 }

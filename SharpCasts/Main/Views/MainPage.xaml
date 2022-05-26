@@ -4,10 +4,6 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.MainPage">
 
-    <ContentPage.BindingContext>
-        <vm:MainPageViewmodel/>
-    </ContentPage.BindingContext>
-
     <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsBusy}"
                  WidthRequest="1200">

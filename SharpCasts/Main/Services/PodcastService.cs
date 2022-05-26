@@ -1,7 +1,7 @@
 ﻿using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.Newtonsoft;
-
+using GraphQL.Client.Serializer.SystemTextJson;
 using SharpCasts.Main.Models;
+using System.Text.Json;
 
 namespace SharpCasts.Main.Services;
 
@@ -20,17 +20,40 @@ public class PodcastService : IPodcastService
     /// </summary>
     public PodcastService()
     {
+        string endpoint = Preferences.Get("endpoint", "");
+        string accessToken = Preferences.Get("access_token", "");
+
         this.client = new GraphQLHttpClient(
-            Preferences.Get("endpoint", ""),
-            new NewtonsoftJsonSerializer());
+            endpoint,
+            new SystemTextJsonSerializer());
+
+        this.client.HttpClient.DefaultRequestHeaders
+                                .Add("Authorization", $"Bearer {accessToken}");
     }
 
     /// <summary>
-    /// 
+    /// Gets podcasts from Podchaser
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The latest 10 podcasts.</returns>
     public async Task<IEnumerable<Podcast>> GetPodcasts()
     {
-        return new List<Podcast>();
+        var request = new GraphQLHttpRequest
+        {
+            Query = @"
+            query {
+                podcasts {
+                    data {
+                        id,
+                        title,
+                        description
+                    }
+                }
+            }",
+        };
+
+        var response = await this.client.SendQueryAsync<PodcastResponse>(request);
+        List<Podcast> podcasts = response.Data.Data.Podcasts;
+
+        return podcasts;
     }
 }

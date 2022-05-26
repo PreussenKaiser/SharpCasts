@@ -16,11 +16,12 @@ public class MainPageViewmodel : BaseViewModel
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes a new instance of the MainPageViewmodel viewmodel.
+    /// Initializes the viewmodel's services.
     /// </summary>
-    public MainPageViewmodel()
+    /// <param name="podcastService">The service to get podcasts with.</param>
+    public MainPageViewmodel(IPodcastService podcastService)
     {
-        this.podcastService = new PodcastService();
+        this.podcastService = podcastService;
 
         this.Title = "Home";
         this.RefreshCommand = new Command(this.OnRefresh);

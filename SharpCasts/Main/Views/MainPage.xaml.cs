@@ -1,4 +1,6 @@
-﻿namespace SharpCasts.Main.Views;
+﻿using SharpCasts.Main.ViewModels;
+
+namespace SharpCasts.Main.Views;
 
 /// <summary>
 /// The class which represents the main page.
@@ -8,7 +10,12 @@ public partial class MainPage : ContentPage
 	/// <summary>
 	/// Initializes a new instance of the MainPage content page.
 	/// </summary>
-	public MainPage()
-		=> this.InitializeComponent();
+	/// <param name="viewmodel">The viewmodel for the main page.</param>
+	public MainPage(MainPageViewmodel viewmodel)
+    {
+		this.InitializeComponent();
+
+		this.BindingContext = viewmodel;
+    }
 }
 

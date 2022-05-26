@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SharpCasts.Main.Services;
+using SharpCasts.Main.ViewModels;
+using SharpCasts.Main.Views;
 using System.Reflection;
 
 namespace SharpCasts;
@@ -16,7 +19,7 @@ public static class MauiProgram
     /// <summary>
     /// Loads application configuration.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The configured application.</returns>
     public static MauiApp CreateMauiApp()
 	{
         LoadPreferences();
@@ -26,9 +29,20 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular")
+				     .AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
+        // Register views.
+        builder.Services.AddTransient<MainPage>()
+                        .AddTransient<DiscoverPage>();
+
+        // Register viewmodels.
+        builder.Services.AddSingleton<MainPageViewmodel>()
+                        .AddSingleton<DiscoverPageViewmodel>();
+
+        // Register services.
+        builder.Services.AddSingleton<IPodcastService, PodcastService>();
 
 		return builder.Build();
 	}
@@ -53,11 +67,11 @@ public static class MauiProgram
 	private static IConfiguration BuildConfig()
     {
         using var stream = Assembly
-                    .GetExecutingAssembly()
-                    .GetManifestResourceStream(CONFIG_PATH);
+                            .GetExecutingAssembly()
+                            .GetManifestResourceStream(CONFIG_PATH);
 
         return new ConfigurationBuilder()
-            .AddJsonStream(stream)
-            .Build();
+                    .AddJsonStream(stream)
+                    .Build();
     }
 }
