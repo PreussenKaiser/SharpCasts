@@ -1,4 +1,4 @@
-using SharpCasts.Main.Services;
+using SharpCasts.Main.Services.Podcasts;
 using SharpCasts.Main.ViewModels;
 
 namespace SharpCasts.Main.Views;

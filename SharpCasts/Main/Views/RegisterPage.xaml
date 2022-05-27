@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SharpCasts.Main.Views.RegisterPage">
+
+    <VerticalStackLayout>
+        <VerticalStackLayout VerticalOptions="End"
+                             Margin="48,0">
+            
+            <VerticalStackLayout Margin="0,16">
+                <Label Text="Username"
+                       Margin="0,8"/>
+                
+                <Frame BorderColor="Black"
+                       Padding="0">
+
+                    <Entry Text="{Binding Username}"
+                           TextColor="Black"/>
+
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,16">
+                <Label Text="Password"
+                       Margin="0,8"/>
+                
+                <Frame BorderColor="Black"
+                       Padding="0">
+
+                    <Entry Text="{Binding Password}"
+                           TextColor="Black"
+                           IsPassword="True"/>
+
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,16">
+                <Label Text="Re-enter password"
+                       Margin="0,8"/>
+                
+                <Frame BorderColor="Black"
+                       Padding="0">
+
+                    <Entry Text="{Binding PasswordRe}"
+                           TextColor="Black"
+                           IsPassword="True"/>
+
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Margin="0,16">
+                <Button Command="{Binding LoginCommand}"
+                        Text="Login"
+                        BackgroundColor="{StaticResource Primary}"/>
+                
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

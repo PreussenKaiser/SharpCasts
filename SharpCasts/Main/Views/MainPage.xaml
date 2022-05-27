@@ -5,7 +5,7 @@
              x:Class="SharpCasts.Main.Views.MainPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding ViewProfile}"
+        <ToolbarItem Command="{Binding ViewProfileCommand}"
                      Text="Profile"/>
         
     </ContentPage.ToolbarItems>

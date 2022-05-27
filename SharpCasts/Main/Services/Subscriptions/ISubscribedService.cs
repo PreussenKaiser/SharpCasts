@@ -1,4 +1,4 @@
-﻿namespace SharpCasts.Main.Services;
+﻿namespace SharpCasts.Main.Services.Subscriptions;
 
 /// <summary>
 /// The interface which implements subscribed podcasts services.

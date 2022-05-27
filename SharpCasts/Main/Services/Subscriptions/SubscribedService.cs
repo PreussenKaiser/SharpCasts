@@ -1,6 +1,6 @@
 ﻿using SharpCasts.Contexts;
 
-namespace SharpCasts.Main.Services;
+namespace SharpCasts.Main.Services.Subscriptions;
 
 /// <summary>
 /// The service which gets subscribed podcasts from a remote Azure SQL Server database.
@@ -16,5 +16,5 @@ public class SubscribedService : ISubscribedService
     /// Initializes a new instance of the <see cref="SubscribedService">SubscribedService</see> service.
     /// </summary>
     public SubscribedService()
-        => this.context = new PodcastContext();
+        => context = new PodcastContext();
 }

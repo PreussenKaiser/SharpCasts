@@ -14,8 +14,13 @@ public partial class AppShell : Shell
     {
         this.InitializeComponent();
 
+        // Routes in tabbed navigation.
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(DiscoverPage), typeof(DiscoverPage));
         Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
+
+        // Other routes.
+        Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+        Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
     }
 }

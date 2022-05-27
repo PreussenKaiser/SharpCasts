@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SharpCasts.Main.Services;
+using SharpCasts.Main.Services.Podcasts;
+using SharpCasts.Main.Services.Subscriptions;
+using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.ViewModels;
 using SharpCasts.Main.Views;
 using System.Reflection;
@@ -35,11 +37,17 @@ public static class MauiProgram
 
         // Register views.
         builder.Services.AddTransient<MainPage>()
-                        .AddTransient<DiscoverPage>();
+                        .AddTransient<DiscoverPage>()
+                        .AddTransient<PodcastPage>()
+                        .AddTransient<LoginPage>()
+                        .AddTransient<RegisterPage>();
 
         // Register viewmodels.
         builder.Services.AddSingleton<MainPageViewmodel>()
-                        .AddSingleton<DiscoverPageViewmodel>();
+                        .AddSingleton<DiscoverPageViewmodel>()
+                        .AddSingleton<PodcastPageViewmodel>()
+                        .AddSingleton<LoginPageViewmodel>()
+                        .AddSingleton<RegisterPageViewmodel>();
 
         // Register services.
         builder.Services.AddSingleton<IPodcastService, PodcastService>()

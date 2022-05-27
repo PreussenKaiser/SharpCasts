@@ -1,6 +1,6 @@
 ﻿using SharpCasts.Main.Models;
 
-namespace SharpCasts.Main.Services;
+namespace SharpCasts.Main.Services.Podcasts;
 
 /// <summary>
 /// The interface which implements podcast query methods.

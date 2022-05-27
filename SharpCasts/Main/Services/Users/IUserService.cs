@@ -1,6 +1,6 @@
 ﻿using SharpCasts.Main.Models;
 
-namespace SharpCasts.Main.Services;
+namespace SharpCasts.Main.Services.Users;
 
 /// <summary>
 /// The interface which implements user query methods.
@@ -13,6 +13,13 @@ public interface IUserService
     /// <param name="user">The user to add.</param>
     /// <returns>Whether the task was completed or not.</returns>
     public Task AddUser(User user);
+
+    /// <summary>
+    /// Gets a user from the service.
+    /// </summary>
+    /// <param name="user">The user to get.</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public Task<User> GetUser(User user);
 
     /// <summary>
     /// Removes a user from the service.

@@ -17,7 +17,7 @@ public class PodcastContext : DbContext
     /// <summary>
     /// Gets or sets subscribed podcasts in the database.
     /// </summary>
-    public DbSet<Subscribed> Subscribed { get; set; }
+    public DbSet<Subscribed> Subscriptions { get; set; }
 
     /// <summary>
     /// Connects the context to the remote database.

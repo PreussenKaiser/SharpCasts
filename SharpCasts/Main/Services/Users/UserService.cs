@@ -1,7 +1,7 @@
 ﻿using SharpCasts.Contexts;
 using SharpCasts.Main.Models;
 
-namespace SharpCasts.Main.Services;
+namespace SharpCasts.Main.Services.Users;
 
 /// <summary>
 /// The service which gets users from an Azure database.
@@ -17,7 +17,7 @@ public class UserService : IUserService
     /// Initializes a new instance of the <see cref="UserService">UserService</see> service.
     /// </summary>
     public UserService()
-        => this.context = new PodcastContext();
+        => context = new PodcastContext();
 
     /// <summary>
     /// Adds a user to the database.
@@ -26,6 +26,16 @@ public class UserService : IUserService
     /// <returns>Whether the task was completed or not.</returns>
     public async Task AddUser(User user)
     {
+    }
+
+    /// <summary>
+    /// Gets a user from the database.
+    /// </summary>
+    /// <param name="user">The user to get.</param>
+    /// <returns>The user, null if none were found.</returns>
+    public Task<User> GetUser(User user)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>

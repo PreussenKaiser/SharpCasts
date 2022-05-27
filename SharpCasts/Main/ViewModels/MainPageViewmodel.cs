@@ -1,12 +1,15 @@
 ﻿using SharpCasts.Main.Models;
-using SharpCasts.Main.Services;
+using SharpCasts.Main.Services.Podcasts;
+using SharpCasts.Main.Services.Subscriptions;
+using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.Views;
+
 using System.Windows.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The viewmodel for the <see cref="MainPage">MainPage</see> content page.
+/// The viewmodel for the <see cref="MainPage"/> content page.
 /// </summary>
 public class MainPageViewmodel : BaseViewModel
 {
@@ -26,7 +29,7 @@ public class MainPageViewmodel : BaseViewModel
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainPageViewmodel">MainPageViewmodel</see> viewmodel.
+    /// Initializes a new instance of the <see cref="MainPageViewmodel"/> viewmodel.
     /// </summary>
     /// <param name="podcastService">The service to get podcasts with.</param>
     public MainPageViewmodel(IUserService userService,
@@ -39,12 +42,18 @@ public class MainPageViewmodel : BaseViewModel
 
         this.Title = "Home";
         this.RefreshCommand = new Command(this.OnRefresh);
+        this.ViewProfileCommand = new Command(this.ViewProfile);
     }
 
     /// <summary>
     /// Gets the command to execute when the page refreshes.
     /// </summary>
     public ICommand RefreshCommand { get; }
+
+    /// <summary>
+    /// Gets the command to execute when the user navigates to their profile.
+    /// </summary>
+    public ICommand ViewProfileCommand { get; }
 
     /// <summary>
     /// Gets or sets the list of podcasts.
@@ -61,5 +70,17 @@ public class MainPageViewmodel : BaseViewModel
         this.Podcasts = await this.podcastService.GetAllPodcasts();
 
         this.IsBusy = false;
+    }
+
+    /// <summary>
+    /// Navigates to a page depending on the user's status.
+    /// </summary>
+    private async void ViewProfile()
+    {
+        string destination = App.CurrentUser is null
+            ? nameof(LoginPage)
+            : "ProfilePage";
+
+        await Shell.Current.GoToAsync(destination);
     }
 }
