@@ -4,16 +4,24 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.MainPage">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ViewProfile}"
+                     Text="Profile"/>
+        
+    </ContentPage.ToolbarItems>
+
     <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsBusy}"
                  WidthRequest="1200">
 
         <ScrollView>
             <VerticalStackLayout>
-                <StackLayout BackgroundColor="{StaticResource Primary}">
+                <StackLayout BackgroundColor="{StaticResource Primary}"
+                             Padding="32">
+                    
                     <Label Text="Here are your podcasts" TextColor="White"
                            FontSize="Title" SemanticProperties.HeadingLevel="Level1"
-                           Padding="32" HorizontalOptions="Center"/>
+                           HorizontalOptions="Center"/>
 
                 </StackLayout>
             </VerticalStackLayout>

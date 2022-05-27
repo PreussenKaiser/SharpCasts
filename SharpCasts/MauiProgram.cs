@@ -42,7 +42,9 @@ public static class MauiProgram
                         .AddSingleton<DiscoverPageViewmodel>();
 
         // Register services.
-        builder.Services.AddSingleton<IPodcastService, PodcastService>();
+        builder.Services.AddSingleton<IPodcastService, PodcastService>()
+                        .AddSingleton<IUserService, UserService>()
+                        .AddSingleton<ISubscribedService, SubscribedService>();
 
 		return builder.Build();
 	}

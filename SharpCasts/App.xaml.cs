@@ -6,7 +6,7 @@
 public partial class App : Application
 {
 	/// <summary>
-	/// Initializes a new instance of the App class.
+	/// Initializes a new instance of the <see cref="App">App</see> class.
 	/// </summary>
 	public App()
 	{

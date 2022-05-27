@@ -14,7 +14,7 @@ public class DiscoverPageViewmodel : BaseViewModel
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes a new instance of the DiscoverPageViewmodel viewmodel.
+    /// Initializes a new instance of the <see cref="DiscoverPageViewmodel">DiscoverPageViewmodel</see> viewmodel.
     /// </summary>
     /// <param name="podcastService">The service to get podcasts with.</param>
     public DiscoverPageViewmodel(IPodcastService podcastService)

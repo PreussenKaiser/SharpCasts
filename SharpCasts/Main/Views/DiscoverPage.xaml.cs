@@ -5,7 +5,7 @@ namespace SharpCasts.Main.Views;
 /// <summary>
 /// The class which represents the discover page.
 /// </summary>
-public partial class DiscoverPage : ContentView
+public partial class DiscoverPage : ContentPage
 {
 	/// <summary>
 	/// Initializes a new instance of the DiscoverPage content page.

@@ -11,16 +11,30 @@ namespace SharpCasts.Main.ViewModels;
 public class MainPageViewmodel : BaseViewModel
 {
     /// <summary>
+    /// The service to get user information with.
+    /// </summary>
+    private readonly IUserService userService;
+
+    /// <summary>
+    /// The service to get subscribed podcasts with.
+    /// </summary>
+    private readonly ISubscribedService subscribedService;
+
+    /// <summary>
     /// The service to get podcasts with.
     /// </summary>
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes the viewmodel's services.
+    /// Initializes a new instance of the <see cref="MainPageViewmodel">MainPageViewmodel</see> viewmodel.
     /// </summary>
     /// <param name="podcastService">The service to get podcasts with.</param>
-    public MainPageViewmodel(IPodcastService podcastService)
+    public MainPageViewmodel(IUserService userService,
+                             ISubscribedService subscribedService,
+                             IPodcastService podcastService)
     {
+        this.userService = userService;
+        this.subscribedService = subscribedService;
         this.podcastService = podcastService;
 
         this.Title = "Home";
@@ -44,7 +58,7 @@ public class MainPageViewmodel : BaseViewModel
     {
         this.IsBusy = true;
 
-        this.Podcasts = await this.podcastService.GetPodcasts();
+        this.Podcasts = await this.podcastService.GetAllPodcasts();
 
         this.IsBusy = false;
     }

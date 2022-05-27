@@ -1,4 +1,6 @@
-﻿namespace SharpCasts;
+﻿using SharpCasts.Main.Views;
+
+namespace SharpCasts;
 
 /// <summary>
 /// The class which represents the app's shell.
@@ -9,5 +11,11 @@ public partial class AppShell : Shell
     /// Initializes a new instance of the <see cref="AppShell">AppShell</see> class.
     /// </summary>
     public AppShell()
-        => this.InitializeComponent();
+    {
+        this.InitializeComponent();
+
+        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+        Routing.RegisterRoute(nameof(DiscoverPage), typeof(DiscoverPage));
+        Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
+    }
 }
