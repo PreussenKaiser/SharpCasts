@@ -8,7 +8,7 @@ namespace SharpCasts.Main.Views;
 public partial class DiscoverPage : ContentPage
 {
 	/// <summary>
-	/// Initializes a new instance of the DiscoverPage content page.
+	/// Initializes a new instance of the <see cref="DiscoverPage"/> content page.
 	/// </summary>
 	/// <param name="viewmodel">The viewmodel for the discover page.</param>
 	public DiscoverPage(DiscoverPageViewmodel viewmodel)

@@ -21,7 +21,7 @@ public partial class PodcastPage : ContentPage
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PodcastPage">PodcastPage</see> content page.
+    /// Initializes a new instance of the <see cref="PodcastPage"/> content page.
     /// </summary>
     public PodcastPage(PodcastPageViewmodel viewmodel,
                        IPodcastService podcastService)

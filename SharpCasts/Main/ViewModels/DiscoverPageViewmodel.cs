@@ -4,7 +4,7 @@ using SharpCasts.Main.Services.Podcasts;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The viewmodel for the <see cref="DiscoverPage">DiscoverPage</see> content page.
+/// The viewmodel for the <see cref="DiscoverPage"/> content page.
 /// </summary>
 public class DiscoverPageViewmodel : BaseViewModel
 {

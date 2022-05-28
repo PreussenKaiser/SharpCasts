@@ -1,5 +1,7 @@
-﻿using SharpCasts.Main.Services.Users;
+﻿using SharpCasts.Main.Models;
+using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.Views;
+
 using System.Windows.Input;
 
 namespace SharpCasts.Main.ViewModels;
@@ -15,6 +17,11 @@ public class RegisterPageViewmodel : BaseViewModel
     private readonly IUserService userService;
 
     /// <summary>
+    /// The error message to display.
+    /// </summary>
+    private string errorMsg;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="RegisterPageViewmodel"/> viewmodel.
     /// </summary>
     /// <param name="userService">The service to register users with.</param>
@@ -23,6 +30,7 @@ public class RegisterPageViewmodel : BaseViewModel
         this.userService = userService;
 
         this.Title = "Register";
+        this.ErrorMsg = string.Empty;
         this.RegisterCommand = new Command(this.Register);
     }
 
@@ -34,7 +42,15 @@ public class RegisterPageViewmodel : BaseViewModel
     /// <summary>
     /// Gets or sets the error message in the form.
     /// </summary>
-    public string ErrorMsg { get; set; }
+    public string ErrorMsg
+    {
+        get => this.errorMsg;
+        set
+        {
+            this.errorMsg = value;
+            this.OnPropertyChanged(nameof(this.ErrorMsg));
+        }
+    }
 
     /// <summary>
     /// Gets or sets the user's username.
@@ -57,6 +73,21 @@ public class RegisterPageViewmodel : BaseViewModel
     /// </summary>
     private async void Register()
     {
+        this.ValidateInputs();
+
+        if (!string.IsNullOrEmpty(this.ErrorMsg))
+            return;
+
+        User newUser = new()
+        {
+            Name = this.Username,
+            Password = this.Password
+        };
+
+        await this.userService.AddUser(newUser);
+
+        // Logs the user in.
+        App.CurrentUser = await this.userService.GetUser(newUser);
     }
 
     /// <summary>
@@ -64,6 +95,25 @@ public class RegisterPageViewmodel : BaseViewModel
     /// </summary>
     private void ValidateInputs()
     {
-        
+        if (string.IsNullOrEmpty(this.Username))
+        {
+            this.ErrorMsg = "Please enter a username";
+        }
+        else if (this.Username.Length > 32)
+        {
+            this.ErrorMsg = "Username character length must be below 32";
+        }
+        else if (string.IsNullOrEmpty(this.Password))
+        {
+            this.ErrorMsg = "Please enter a password";
+        }
+        else if (this.Password.Length > 128)
+        {
+            this.ErrorMsg = "Password character length must be below 128";
+        }
+        else if (this.Password != this.PasswordRe)
+        {
+            this.ErrorMsg = "Re-entered password does not match original";
+        }
     }
 }

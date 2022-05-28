@@ -4,7 +4,7 @@ using SharpCasts.Main.Views;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The viewmodel for the <see cref="PodcastPage">PodcastPage</see> content page.
+/// The viewmodel for the <see cref="PodcastPage">PodcastPage/> content page.
 /// </summary>
 public class PodcastPageViewmodel : BaseViewModel
 {
@@ -13,7 +13,6 @@ public class PodcastPageViewmodel : BaseViewModel
     /// </summary>
     public PodcastPageViewmodel()
     {
-
     }
 
     /// <summary>

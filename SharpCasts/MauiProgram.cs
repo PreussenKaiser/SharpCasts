@@ -40,14 +40,16 @@ public static class MauiProgram
                         .AddTransient<DiscoverPage>()
                         .AddTransient<PodcastPage>()
                         .AddTransient<LoginPage>()
-                        .AddTransient<RegisterPage>();
+                        .AddTransient<RegisterPage>()
+                        .AddTransient<ProfilePage>();
 
         // Register viewmodels.
         builder.Services.AddSingleton<MainPageViewmodel>()
                         .AddSingleton<DiscoverPageViewmodel>()
                         .AddSingleton<PodcastPageViewmodel>()
                         .AddSingleton<LoginPageViewmodel>()
-                        .AddSingleton<RegisterPageViewmodel>();
+                        .AddSingleton<RegisterPageViewmodel>()
+                        .AddSingleton<ProfilePageViewmodel>();
 
         // Register services.
         builder.Services.AddSingleton<IPodcastService, PodcastService>()

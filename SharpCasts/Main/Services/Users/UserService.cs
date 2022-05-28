@@ -1,5 +1,6 @@
 ﻿using SharpCasts.Contexts;
 using SharpCasts.Main.Models;
+using System.Linq;
 
 namespace SharpCasts.Main.Services.Users;
 
@@ -11,13 +12,13 @@ public class UserService : IUserService
     /// <summary>
     /// The context to connect to the database with.
     /// </summary>
-    private readonly PodcastContext context;
+    private readonly PodcastContext database;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserService">UserService</see> service.
+    /// Initializes a new instance of the <see cref="UserService"/> service.
     /// </summary>
     public UserService()
-        => context = new PodcastContext();
+        => this.database = new PodcastContext();
 
     /// <summary>
     /// Adds a user to the database.
@@ -26,6 +27,9 @@ public class UserService : IUserService
     /// <returns>Whether the task was completed or not.</returns>
     public async Task AddUser(User user)
     {
+        await this.database.Users.AddAsync(user);
+
+        await this.database.SaveChangesAsync();
     }
 
     /// <summary>
@@ -33,9 +37,13 @@ public class UserService : IUserService
     /// </summary>
     /// <param name="user">The user to get.</param>
     /// <returns>The user, null if none were found.</returns>
-    public Task<User> GetUser(User user)
+    public async Task<User> GetUser(User user)
     {
-        throw new NotImplementedException();
+        User foundUser = this.database.Users
+                    .Select(u => u.Name == user.Name && u.Password == user.Password)
+                    as User;
+
+        return foundUser;
     }
 
     /// <summary>
@@ -45,5 +53,8 @@ public class UserService : IUserService
     /// <returns>Whether the task was completed or not.</returns>
     public async Task RemoveUser(User user)
     {
+        this.database.Remove(user);
+
+        await this.database.SaveChangesAsync();
     }
 }
