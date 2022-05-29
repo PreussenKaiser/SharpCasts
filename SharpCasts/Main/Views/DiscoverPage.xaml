@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:SharpCasts.Main.Models"
              x:Class="SharpCasts.Main.Views.DiscoverPage">
 
     <RefreshView Command="{Binding RefreshCommand}"
+                 CommandParameter="{Binding Source={x:Reference Search}, Path=Text}"
                  IsRefreshing="{Binding IsBusy}"
                  WidthRequest="1200">
 
         <ScrollView>
             <VerticalStackLayout>
-                <StackLayout BackgroundColor="{StaticResource Primary}"
-                             Padding="24">
-                    <SearchBar Placeholder="Search for podcasts..."
+                <VerticalStackLayout BackgroundColor="{StaticResource Primary}"
+                                     Padding="24">
+                    
+                    <SearchBar x:Name="Search"
+                               Placeholder="Search for podcasts..."
                                TextColor="White" FontSize="Medium"
                                PlaceholderColor="White" CancelButtonColor="White"
-                               HorizontalOptions="Center"/>
+                               HorizontalOptions="Center"
+                               SearchCommand="{Binding SearchCommand}"
+                               SearchCommandParameter="{Binding Source={x:Reference Search}, Path=Text}"/>
 
-                </StackLayout>
+                </VerticalStackLayout>
+                
+                <CollectionView ItemsSource="{Binding Podcasts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Podcast">
+                            <HorizontalStackLayout>
+                                <Image Source="{Binding ImageUrl}"/>
+
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Medium"/>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
             </VerticalStackLayout>
         </ScrollView>
     </RefreshView>

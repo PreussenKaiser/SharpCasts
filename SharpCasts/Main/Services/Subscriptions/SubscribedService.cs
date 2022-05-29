@@ -1,4 +1,4 @@
-﻿using SharpCasts.Contexts;
+﻿using SharpCasts.Core.Contexts;
 
 namespace SharpCasts.Main.Services.Subscriptions;
 
@@ -10,11 +10,11 @@ public class SubscribedService : ISubscribedService
     /// <summary>
     /// The context which gets subscribed podcasts from the database.
     /// </summary>
-    private readonly PodcastContext context;
+    private readonly PodcastContext database;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SubscribedService">SubscribedService</see> service.
+    /// Initializes a new instance of the <see cref="SubscribedService"/> service.
     /// </summary>
     public SubscribedService()
-        => context = new PodcastContext();
+        => this.database = new PodcastContext();
 }

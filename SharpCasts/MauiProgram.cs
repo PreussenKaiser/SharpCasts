@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using SharpCasts.Main.Services.Podcasts;
+﻿using SharpCasts.Main.Services.Podcasts;
 using SharpCasts.Main.Services.Subscriptions;
 using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.ViewModels;
 using SharpCasts.Main.Views;
+
 using System.Reflection;
+
+using Microsoft.Extensions.Configuration;
 
 namespace SharpCasts;
 

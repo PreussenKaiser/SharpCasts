@@ -14,6 +14,11 @@ public class BaseViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
+    /// Whether the page is busy or not.
+    /// </summary>
+    private bool isBusy;
+
+    /// <summary>
     /// Gets or sets the title of the page.
     /// </summary>
     public string Title { get; set; }
@@ -32,7 +37,15 @@ public class BaseViewModel : INotifyPropertyChanged
     ///     </item>
     /// </list>
     /// </remarks>
-    public bool IsBusy { get; set; }
+    public bool IsBusy
+    {
+        get => this.isBusy;
+        set
+        {
+            this.isBusy = value;
+            this.OnPropertyChanged(nameof(this.IsBusy));
+        }
+    }
 
     /// <summary>
     /// Raises the property changed event.

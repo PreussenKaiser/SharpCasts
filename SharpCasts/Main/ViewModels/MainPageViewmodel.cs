@@ -79,7 +79,7 @@ public class MainPageViewmodel : BaseViewModel
     {
         string destination = App.CurrentUser is null
             ? nameof(LoginPage)
-            : "ProfilePage";
+            : nameof(ProfilePage);
 
         await Shell.Current.GoToAsync(destination);
     }

@@ -1,6 +1,5 @@
-﻿using SharpCasts.Contexts;
+﻿using SharpCasts.Core.Contexts;
 using SharpCasts.Main.Models;
-using System.Linq;
 
 namespace SharpCasts.Main.Services.Users;
 
@@ -32,19 +31,37 @@ public class UserService : IUserService
         await this.database.SaveChangesAsync();
     }
 
+
     /// <summary>
     /// Gets a user from the database.
     /// </summary>
     /// <param name="user">The user to get.</param>
     /// <returns>The user, null if none were found.</returns>
-    public async Task<User> GetUser(User user)
+    public User GetUserByCredentials(User user)
     {
-        User foundUser = this.database.Users
-                    .Select(u => u.Name == user.Name && u.Password == user.Password)
-                    as User;
+        User foundUser = null;
+
+        foreach (User u in this.database.Users)
+        {
+            if (u.Name == user.Name 
+                && u.Password == user.Password)
+            {
+                foundUser = u;
+
+                break;
+            }
+        }
 
         return foundUser;
     }
+
+    /// <summary>
+    /// Gets a user from the database by their unique identifier.
+    /// </summary>
+    /// <param name="id">The user to get.</param>
+    /// <returns>The found user, null of none were found.</returns>
+    public async Task<User> GetUser(int id)
+        => await this.database.Users.FindAsync(id);
 
     /// <summary>
     /// Removes a user from the database.

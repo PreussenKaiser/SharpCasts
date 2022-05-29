@@ -23,7 +23,7 @@ public class Subscribed
     /// <summary>
     /// Gets or sets the user who subscribed to the podcast.
     /// </summary>
-    [ForeignKey]
+    [ForeignKey(nameof(User))]
     [Required]
     public int UserId { get; set; }
 }

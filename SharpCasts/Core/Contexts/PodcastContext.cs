@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SharpCasts.Main.Models;
 
-namespace SharpCasts.Contexts;
+namespace SharpCasts.Core.Contexts;
 
 /// <summary>
 /// The context which interacts with the SharpCasts Azure database.

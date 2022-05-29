@@ -15,11 +15,18 @@ public interface IUserService
     public Task AddUser(User user);
 
     /// <summary>
-    /// Gets a user from the service.
+    /// Gets a user from the service using their credentials.
     /// </summary>
     /// <param name="user">The user to get.</param>
-    /// <returns>Whether the task was completed or not.</returns>
-    public Task<User> GetUser(User user);
+    /// <returns>The found user.</returns>
+    public User GetUserByCredentials(User user);
+
+    /// <summary>
+    /// Gets a user by their unique identifier.
+    /// </summary>
+    /// <param name="id">The user to get.</param>
+    /// <returns>The found user.</returns>
+    public Task<User> GetUser(int id);
 
     /// <summary>
     /// Removes a user from the service.

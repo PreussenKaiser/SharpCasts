@@ -87,7 +87,7 @@ public class RegisterPageViewmodel : BaseViewModel
         await this.userService.AddUser(newUser);
 
         // Logs the user in.
-        App.CurrentUser = await this.userService.GetUser(newUser);
+        App.CurrentUser = this.userService.GetUserByCredentials(newUser);
     }
 
     /// <summary>

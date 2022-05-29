@@ -19,8 +19,12 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(DiscoverPage), typeof(DiscoverPage));
         Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
 
-        // Other routes.
+        // User routes.
         Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
+        Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+
+        // Podcast routes.
+        Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
     }
 }

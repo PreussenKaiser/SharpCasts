@@ -25,6 +25,12 @@ public class Podcast
     /// </summary>
     [JsonPropertyName("description")]
     public string Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets a url leading to an image of the podcast.
+    /// </summary>
+    [JsonPropertyName("imageUrl")]
+    public string ImageUrl { get; set; }
 }
 
 /// <summary>
