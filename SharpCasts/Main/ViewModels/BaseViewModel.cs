@@ -43,7 +43,7 @@ public class BaseViewModel : INotifyPropertyChanged
         set
         {
             this.isBusy = value;
-            this.OnPropertyChanged(nameof(this.IsBusy));
+            this.OnPropertyChanged();
         }
     }
 

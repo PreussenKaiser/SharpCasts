@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using SharpCasts.Main.Models.Podcast.Fields;
+using System.Text.Json.Serialization;
 
-namespace SharpCasts.Main.Models;
+namespace SharpCasts.Main.Models.Podcast;
 
 /// <summary>
 /// The model that represents a podcast.
@@ -31,28 +32,10 @@ public class Podcast
     /// </summary>
     [JsonPropertyName("imageUrl")]
     public string ImageUrl { get; set; }
-}
 
-/// <summary>
-/// The class that represents the response from a podcasts query to Podchaser.
-/// </summary>
-public class PodcastResponse
-{
     /// <summary>
-    /// Gets or sets the data from the response.
+    /// Gets or sets the podcast's author.
     /// </summary>
-    [JsonPropertyName("podcasts")]
-    public PodcastData Data { get; set; }
-}
-
-/// <summary>
-/// The class that represents the data from a podcasts response.
-/// </summary>
-public class PodcastData
-{
-    /// <summary>
-    /// Gets or sets podcasts received by the query.
-    /// </summary>
-    [JsonPropertyName("data")]
-    public List<Podcast> Podcasts { get; set; }
+    [JsonPropertyName("author")]
+    public EmailContact Author { get; set; }
 }

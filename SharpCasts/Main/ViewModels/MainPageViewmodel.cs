@@ -1,7 +1,6 @@
-﻿using SharpCasts.Main.Models;
+﻿using SharpCasts.Main.Models.Podcast;
 using SharpCasts.Main.Services.Podcasts;
 using SharpCasts.Main.Services.Subscriptions;
-using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.Views;
 
 using System.Windows.Input;
@@ -13,11 +12,6 @@ namespace SharpCasts.Main.ViewModels;
 /// </summary>
 public class MainPageViewmodel : BaseViewModel
 {
-    /// <summary>
-    /// The service to get user information with.
-    /// </summary>
-    private readonly IUserService userService;
-
     /// <summary>
     /// The service to get subscribed podcasts with.
     /// </summary>
@@ -31,12 +25,11 @@ public class MainPageViewmodel : BaseViewModel
     /// <summary>
     /// Initializes a new instance of the <see cref="MainPageViewmodel"/> viewmodel.
     /// </summary>
+    /// <param name="subscribedService">The service to get subscribed podcasts with.</param>
     /// <param name="podcastService">The service to get podcasts with.</param>
-    public MainPageViewmodel(IUserService userService,
-                             ISubscribedService subscribedService,
+    public MainPageViewmodel(ISubscribedService subscribedService,
                              IPodcastService podcastService)
     {
-        this.userService = userService;
         this.subscribedService = subscribedService;
         this.podcastService = podcastService;
 
@@ -66,9 +59,6 @@ public class MainPageViewmodel : BaseViewModel
     private async void OnRefresh()
     {
         this.IsBusy = true;
-
-        this.Podcasts = await this.podcastService.GetAllPodcasts();
-
         this.IsBusy = false;
     }
 

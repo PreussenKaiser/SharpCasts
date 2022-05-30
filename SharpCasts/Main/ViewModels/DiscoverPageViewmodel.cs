@@ -1,9 +1,7 @@
 ﻿using SharpCasts.Main.Views;
 using SharpCasts.Main.Services.Podcasts;
-using SharpCasts.Main.Models;
-
 using System.Windows.Input;
-using System.Collections.ObjectModel;
+using SharpCasts.Main.Models.Podcast;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -23,18 +21,19 @@ public class DiscoverPageViewmodel : BaseViewModel
     private IEnumerable<Podcast> podcasts;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DiscoverPageViewmodel">DiscoverPageViewmodel</see> viewmodel.
+    /// Initializes a new instance of the <see cref="DiscoverPageViewmodel"/> viewmodel.
     /// </summary>
     /// <param name="podcastService">The service to get podcasts with.</param>
     public DiscoverPageViewmodel(IPodcastService podcastService)
     {
         this.podcastService = podcastService;
-        this.podcasts = new ObservableCollection<Podcast>();
 
         this.Title = "Discover";
+        this.Podcasts = new List<Podcast>();
+
         this.RefreshCommand = new Command<string>(this.Search);
         this.SearchCommand = new Command<string>(this.Search);
-        this.SelectPodcastCommand = new Command<Podcast>(this.PodcastSelected);
+        this.SelectPodcastCommand = new Command(this.PodcastSelected);
     }
 
     /// <summary>
@@ -61,9 +60,14 @@ public class DiscoverPageViewmodel : BaseViewModel
         set
         {
             this.podcasts = value;
-            this.OnPropertyChanged(nameof(this.Podcasts));
+            this.OnPropertyChanged();
         }
     }
+
+    /// <summary>
+    /// Gets or sets the currently selected podcast.
+    /// </summary>
+    public Podcast SelectedPodcast { get; set; }
 
     /// <summary>
     /// Searches for podcasts.
@@ -81,9 +85,19 @@ public class DiscoverPageViewmodel : BaseViewModel
     /// <summary>
     /// Navigates to the selected podcast's page.
     /// </summary>
-    /// <param name="podcast">The podcast to navigate to.</param>
-    private async void PodcastSelected(Podcast podcast)
+    private async void PodcastSelected()
     {
+        if (this.SelectedPodcast is null)
+            return;
 
+        Dictionary<string, object> args = new()
+        {
+            { "Podcast", this.SelectedPodcast }
+        };
+
+        // _ = await this.podcastService.GetEpisodes(this.SelectedPodcast.Id);
+
+        await Shell.Current.GoToAsync(
+            $"{nameof(PodcastPage)}", true, args);
     }
 }

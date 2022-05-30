@@ -48,7 +48,7 @@ public class RegisterPageViewmodel : BaseViewModel
         set
         {
             this.errorMsg = value;
-            this.OnPropertyChanged(nameof(this.ErrorMsg));
+            this.OnPropertyChanged();
         }
     }
 

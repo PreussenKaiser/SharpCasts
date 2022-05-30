@@ -1,7 +1,7 @@
-﻿using SharpCasts.Main.Models;
-
-using GraphQL.Client.Http;
+﻿using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
+using SharpCasts.Main.Models.Podcast;
+using SharpCasts.Main.Models.Podcast.Fields;
 
 namespace SharpCasts.Main.Services.Podcasts;
 
@@ -34,33 +34,6 @@ public class PodcastService : IPodcastService
     }
 
     /// <summary>
-    /// Gets podcasts from Podchaser
-    /// </summary>
-    /// <returns>The latest 10 podcasts.</returns>
-    public async Task<IEnumerable<Podcast>> GetAllPodcasts()
-    {
-        GraphQLHttpRequest request = new()
-        {
-            Query = @"
-            query {
-                podcasts {
-                    data {
-                        id,
-                        title,
-                        description,
-                        imageUrl
-                    }
-                }
-            }",
-        };
-
-        var response = await client.SendQueryAsync<PodcastResponse>(request);
-        List<Podcast> podcasts = response.Data.Data.Podcasts;
-
-        return podcasts;
-    }
-
-    /// <summary>
     /// Gets a podcast from the API.
     /// </summary>
     /// <param name="podcastId">The identifier of the podcast to get.</param>
@@ -81,14 +54,15 @@ public class PodcastService : IPodcastService
         {
             Query = @"
             query Search($search: String) {
-                podcasts(
-                    searchTerm: $search
-                ) {
+                podcasts(searchTerm: $search) {
                     data {
                         id,
                         title,
                         description,
-                        imageUrl
+                        imageUrl,
+                        author {
+                            name
+                        }
                     }
                 }
             }",
@@ -100,5 +74,37 @@ public class PodcastService : IPodcastService
         List<Podcast> podcasts = response.Data.Data.Podcasts;
 
         return podcasts;
+    }
+
+    /// <summary>
+    /// Gets a list of episodes from a podcast.
+    /// </summary>
+    /// <param name="podcastId"></param>
+    /// <returns></returns>
+    public async Task<List<Episode>> GetEpisodes(int podcastId)
+    {
+        GraphQLHttpRequest request = new()
+        {
+            Query = @"
+            query GetEpisodes($id: PodcastIdentifier!) {
+                podcast(identifier: $id) {
+                    episodes {
+                        data {
+                            title,
+                            description,
+                            airDate,
+                            audioUrl
+                        }
+                    }
+                }
+            }",
+            OperationName = "GetEpisodes",
+            Variables = new { id = podcastId }
+        };
+
+        var response = await this.client.SendQueryAsync<EpisodeList>(request);
+        List<Episode> episodes = response.Data.Episodes;
+
+        return episodes;
     }
 }

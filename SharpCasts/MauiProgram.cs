@@ -48,7 +48,7 @@ public static class MauiProgram
         // Register viewmodels.
         builder.Services.AddSingleton<MainPageViewmodel>()
                         .AddSingleton<DiscoverPageViewmodel>()
-                        .AddSingleton<PodcastPageViewmodel>()
+                        .AddTransient<PodcastPageViewmodel>()
                         .AddSingleton<LoginPageViewmodel>()
                         .AddSingleton<RegisterPageViewmodel>()
                         .AddSingleton<ProfilePageViewmodel>();

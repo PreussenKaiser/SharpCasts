@@ -1,4 +1,5 @@
-﻿using SharpCasts.Main.Models;
+﻿using SharpCasts.Main.Models.Podcast;
+using SharpCasts.Main.Models.Podcast.Fields;
 
 namespace SharpCasts.Main.Services.Podcasts;
 
@@ -7,12 +8,6 @@ namespace SharpCasts.Main.Services.Podcasts;
 /// </summary>
 public interface IPodcastService
 {
-    /// <summary>
-    /// Gets podcasts from the service.
-    /// </summary>
-    /// <returns>Podcasts in the service.</returns>
-    public Task<IEnumerable<Podcast>> GetAllPodcasts();
-
     /// <summary>
     /// Gets a podcast from the service.
     /// </summary>
@@ -26,4 +21,11 @@ public interface IPodcastService
     /// <param name="search">The search term to filter with.</param>
     /// <returns>Podcasts that match the search term.</returns>
     public Task<List<Podcast>> SearchPodcasts(string search);
+
+    /// <summary>
+    /// Gets a list of episodes from a podcast.
+    /// </summary>
+    /// <param name="podcastId">The unique identifier of the podcast to get episodes from.</param>
+    /// <returns>A list of episodes from that podcast.</returns>
+    public Task<List<Episode>> GetEpisodes(int podcastId);
 }
