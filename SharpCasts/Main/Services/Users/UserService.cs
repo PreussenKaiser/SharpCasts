@@ -27,7 +27,6 @@ public class UserService : IUserService
     public async Task AddUser(User user)
     {
         await this.database.Users.AddAsync(user);
-
         await this.database.SaveChangesAsync();
     }
 

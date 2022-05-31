@@ -6,7 +6,7 @@ namespace SharpCasts.Main.Models;
 /// <summary>
 /// The model that represents a subscribed podcast.
 /// </summary>
-public class Subscribed
+public class Subscription
 {
     /// <summary>
     /// Gets or sets the subscribed podcast's unique identifier.

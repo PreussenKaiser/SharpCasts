@@ -1,6 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using SharpCasts.Main.Models;
+
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using SharpCasts.Main.Models;
 
 namespace SharpCasts.Core.Contexts;
 
@@ -17,28 +18,33 @@ public class PodcastContext : DbContext
     /// <summary>
     /// Gets or sets subscribed podcasts in the database.
     /// </summary>
-    public DbSet<Subscribed> Subscriptions { get; set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
 
     /// <summary>
     /// Connects the context to the remote database.
     /// </summary>
     /// <param name="optionsBuilder">Sets the connection string.</param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(this.BuildConnectionString());
+        => optionsBuilder.UseSqlServer(BuildConnectionString());
 
     /// <summary>
     /// Builds the connection string for the Azure SQL Server database.
     /// </summary>
     /// <returns>The connection string for the remote database.</returns>
-    private string BuildConnectionString()
+    private static string BuildConnectionString()
     {
+        string source = Preferences.Get("Source", "");
+        string initialCatalog = Preferences.Get("InitialCatalog", "");
+        string userId = Preferences.Get("UserID", "");
+        string password = Preferences.Get("Password", "");
+
         SqlConnectionStringBuilder connectionString = new SqlConnectionStringBuilder
         {
-            DataSource = "klukan.database.windows.net",
-            InitialCatalog = "sharpcasts",
+            DataSource = source,
+            InitialCatalog = initialCatalog,
             PersistSecurityInfo = false,
-            UserID = "pkaiser",
-            Password = "&lJ@F<qANO[!(^BQc_HX",
+            UserID = userId,
+            Password = password,
             MultipleActiveResultSets = false,
             Encrypt = true,
             TrustServerCertificate = false,

@@ -1,15 +1,19 @@
-﻿using SharpCasts.Main.Models;
+﻿using SharpCasts.Core.Validation;
+using SharpCasts.Main.Models;
 using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.Views;
 
 using System.Windows.Input;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using SharpCasts.Core.Validation.Inputs;
 
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
 /// The viewmodel for the <see cref="RegisterPage"/> content page.
 /// </summary>
-public class RegisterPageViewmodel : BaseViewModel
+public partial class RegisterPageViewmodel : BaseViewModel
 {
     /// <summary>
     /// The service to register users with.
@@ -17,8 +21,14 @@ public class RegisterPageViewmodel : BaseViewModel
     private readonly IUserService userService;
 
     /// <summary>
+    /// Validates inputs from the register form.
+    /// </summary>
+    private readonly Validator validator;
+
+    /// <summary>
     /// The error message to display.
     /// </summary>
+    [ObservableProperty]
     private string errorMsg;
 
     /// <summary>
@@ -28,6 +38,7 @@ public class RegisterPageViewmodel : BaseViewModel
     public RegisterPageViewmodel(IUserService userService)
     {
         this.userService = userService;
+        this.validator = new Validator();
 
         this.Title = "Register";
         this.ErrorMsg = string.Empty;
@@ -38,19 +49,6 @@ public class RegisterPageViewmodel : BaseViewModel
     /// Gets the command to execute when the user submits the form.
     /// </summary>
     public ICommand RegisterCommand { get; }
-
-    /// <summary>
-    /// Gets or sets the error message in the form.
-    /// </summary>
-    public string ErrorMsg
-    {
-        get => this.errorMsg;
-        set
-        {
-            this.errorMsg = value;
-            this.OnPropertyChanged();
-        }
-    }
 
     /// <summary>
     /// Gets or sets the user's username.
@@ -78,42 +76,25 @@ public class RegisterPageViewmodel : BaseViewModel
         if (!string.IsNullOrEmpty(this.ErrorMsg))
             return;
 
-        User newUser = new()
+        User registeringUser = new()
         {
             Name = this.Username,
             Password = this.Password
         };
 
-        await this.userService.AddUser(newUser);
+        await this.userService.AddUser(registeringUser);
 
         // Logs the user in.
-        App.CurrentUser = this.userService.GetUserByCredentials(newUser);
+        App.CurrentUser = this.userService.GetUserByCredentials(registeringUser);
     }
 
     /// <summary>
-    /// Validates form inputs.
+    /// Validates inputs in the register form.
     /// </summary>
     private void ValidateInputs()
-    {
-        if (string.IsNullOrEmpty(this.Username))
-        {
-            this.ErrorMsg = "Please enter a username";
-        }
-        else if (this.Username.Length > 32)
-        {
-            this.ErrorMsg = "Username character length must be below 32";
-        }
-        else if (string.IsNullOrEmpty(this.Password))
-        {
-            this.ErrorMsg = "Please enter a password";
-        }
-        else if (this.Password.Length > 128)
-        {
-            this.ErrorMsg = "Password character length must be below 128";
-        }
-        else if (this.Password != this.PasswordRe)
-        {
-            this.ErrorMsg = "Re-entered password does not match original";
-        }
-    }
+        => this.ErrorMsg = this.validator
+            .Reset()
+            .AddInput(new TextInput("Username", this.Username, 32))
+            .AddInput(new TextInput("Password", this.Password, 128))
+            .Validate();
 }

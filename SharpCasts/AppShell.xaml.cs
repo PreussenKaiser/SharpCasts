@@ -17,12 +17,11 @@ public partial class AppShell : Shell
         // Routes in tabbed navigation.
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(DiscoverPage), typeof(DiscoverPage));
-        Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
+        Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
 
         // User routes.
         Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
-        Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
 
         // Podcast routes.
         Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));

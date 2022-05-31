@@ -22,14 +22,14 @@ public class PodcastService : IPodcastService
     /// </summary>
     public PodcastService()
     {
-        string endpoint = Preferences.Get("endpoint", "");
-        string accessToken = Preferences.Get("access_token", "");
+        string endpoint = Preferences.Get("Endpoint", "");
+        string accessToken = Preferences.Get("AccessToken", "");
 
-        client = new GraphQLHttpClient(
+        this.client = new GraphQLHttpClient(
             endpoint,
             new SystemTextJsonSerializer());
 
-        client.HttpClient.DefaultRequestHeaders
+        this.client.HttpClient.DefaultRequestHeaders
                                 .Add("Authorization", $"Bearer {accessToken}");
     }
 
@@ -38,9 +38,36 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="podcastId">The identifier of the podcast to get.</param>
     /// <returns>The podcast which matched the supplied identifier.</returns>
-    public Task<Podcast> GetPodcast(int podcastId)
+    public async Task<Podcast> GetPodcast(int podcastId)
     {
-        throw new NotImplementedException();
+        PodcastIdentifier identifier = new()
+        {
+            Id = podcastId.ToString(),
+            Type = PodcastIdentifierType.PODCHASER
+        };
+
+        GraphQLHttpRequest request = new()
+        {
+            Query = @"
+            query GetPodcast($identifier: PodcastIdentifier!) {
+                podcast(identifier: $identifier) {
+                    id,
+                    title,
+                    description,
+                    imageUrl,
+                    author {
+                        name
+                    }
+                }
+            }",
+            OperationName = "GetPodcast",
+            Variables = new { identifier }
+        };
+
+        var response = await this.client.SendQueryAsync<PodcastResponse>(request);
+        Podcast podcast = response.Data.Data.Podcasts.FirstOrDefault();
+
+        return podcast;
     }
 
     /// <summary>
@@ -67,7 +94,7 @@ public class PodcastService : IPodcastService
                 }
             }",
             OperationName = "Search",
-            Variables = new { search = search }
+            Variables = new { search }
         };
 
         var response = await this.client.SendQueryAsync<PodcastResponse>(request);
@@ -79,15 +106,21 @@ public class PodcastService : IPodcastService
     /// <summary>
     /// Gets a list of episodes from a podcast.
     /// </summary>
-    /// <param name="podcastId"></param>
-    /// <returns></returns>
+    /// <param name="podcastId">The podcast to get episodes from.</param>
+    /// <returns>Episodes from that podcast.</returns>
     public async Task<List<Episode>> GetEpisodes(int podcastId)
     {
+        PodcastIdentifier identifier = new()
+        {
+            Id = podcastId.ToString(),
+            Type = PodcastIdentifierType.PODCHASER
+        };
+
         GraphQLHttpRequest request = new()
         {
             Query = @"
-            query GetEpisodes($id: PodcastIdentifier!) {
-                podcast(identifier: $id) {
+            query GetEpisodes($identifier: PodcastIdentifier!) {
+                podcast(identifier: $identifier) {
                     episodes {
                         data {
                             title,
@@ -99,12 +132,11 @@ public class PodcastService : IPodcastService
                 }
             }",
             OperationName = "GetEpisodes",
-            Variables = new { id = podcastId }
+            Variables = new { identifier }
         };
 
-        var response = await this.client.SendQueryAsync<EpisodeList>(request);
-        List<Episode> episodes = response.Data.Episodes;
+        var response = await this.client.SendQueryAsync<dynamic>(request);
 
-        return episodes;
+        return null;
     }
 }

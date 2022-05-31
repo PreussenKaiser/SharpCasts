@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="SharpCasts.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SharpCasts.Main.Views"
+    x:Class="SharpCasts.AppShell"
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
@@ -16,6 +16,11 @@
             Title="Discover"
             ContentTemplate="{DataTemplate local:DiscoverPage}"
             Route="DiscoverPage"/>
-            
+
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Route="ProfilePage"/>
+
     </TabBar>
 </Shell>

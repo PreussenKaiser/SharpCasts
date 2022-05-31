@@ -2,13 +2,14 @@
 using SharpCasts.Main.Services.Podcasts;
 using System.Windows.Input;
 using SharpCasts.Main.Models.Podcast;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
 /// The viewmodel for the <see cref="DiscoverPage"/> content page.
 /// </summary>
-public class DiscoverPageViewmodel : BaseViewModel
+public partial class DiscoverPageViewmodel : BaseViewModel
 {
     /// <summary>
     /// The service to get podcasts with.
@@ -18,6 +19,7 @@ public class DiscoverPageViewmodel : BaseViewModel
     /// <summary>
     /// A list of podcasts that match the search.
     /// </summary>
+    [ObservableProperty]
     private IEnumerable<Podcast> podcasts;
 
     /// <summary>
@@ -52,19 +54,6 @@ public class DiscoverPageViewmodel : BaseViewModel
     public ICommand SelectPodcastCommand { get; }
 
     /// <summary>
-    /// Gets or sets a list of podcasts that match the search.
-    /// </summary>
-    public IEnumerable<Podcast> Podcasts
-    {
-        get => this.podcasts;
-        set
-        {
-            this.podcasts = value;
-            this.OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
     /// Gets or sets the currently selected podcast.
     /// </summary>
     public Podcast SelectedPodcast { get; set; }
@@ -95,7 +84,7 @@ public class DiscoverPageViewmodel : BaseViewModel
             { "Podcast", this.SelectedPodcast }
         };
 
-        // _ = await this.podcastService.GetEpisodes(this.SelectedPodcast.Id);
+        _ = await this.podcastService.GetEpisodes(this.SelectedPodcast.Id);
 
         await Shell.Current.GoToAsync(
             $"{nameof(PodcastPage)}", true, args);

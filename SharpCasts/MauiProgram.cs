@@ -7,6 +7,7 @@ using SharpCasts.Main.Views;
 using System.Reflection;
 
 using Microsoft.Extensions.Configuration;
+using CommunityToolkit.Maui;
 
 namespace SharpCasts;
 
@@ -26,17 +27,49 @@ public static class MauiProgram
     /// <returns>The configured application.</returns>
     public static MauiApp CreateMauiApp()
 	{
-        LoadPreferences();
 		MauiAppBuilder builder = MauiApp.CreateBuilder();
 
 		builder
 			.UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular")
 				     .AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+        LoadServices(ref builder);
+        LoadPreferences();
+
+		return builder.Build();
+	}
+
+    /// <summary>
+    /// Sets application preferences.
+    /// </summary>
+	private static void LoadPreferences()
+    {
+        var config = BuildConfig();
+
+        // Api settings.
+        Preferences.Set("Endpoint", config["Api:Endpoint"]);
+        Preferences.Set("ApiKey", config["Api:Key"]);
+        Preferences.Set("ApiSecret", config["Api:Secret"]);
+        Preferences.Set("AccessToken", config["Api:AccessToken"]);
+
+        // Database settings.
+        Preferences.Set("Source", config["Database:Source"]);
+        Preferences.Set("InitialCatalog", config["InitialCatalog"]);
+        Preferences.Set("UserID", config["UserID"]);
+        Preferences.Set("Password", config["Password"]);
+    }
+
+    /// <summary>
+    /// Loads application services.
+    /// </summary>
+    /// <param name="builder">The app builder to load services to.</param>
+    private static void LoadServices(ref MauiAppBuilder builder)
+    {
         // Register views.
         builder.Services.AddTransient<MainPage>()
                         .AddTransient<DiscoverPage>()
@@ -56,22 +89,7 @@ public static class MauiProgram
         // Register services.
         builder.Services.AddSingleton<IPodcastService, PodcastService>()
                         .AddSingleton<IUserService, UserService>()
-                        .AddSingleton<ISubscribedService, SubscribedService>();
-
-		return builder.Build();
-	}
-
-    /// <summary>
-    /// Sets application preferences.
-    /// </summary>
-	private static void LoadPreferences()
-    {
-        var config = BuildConfig();
-
-        Preferences.Set("endpoint", config["endpoint"]);
-        Preferences.Set("api_key", config["api_key"]);
-        Preferences.Set("api_secret", config["api_secret"]);
-        Preferences.Set("access_token", config["access_token"]);
+                        .AddSingleton<ISubscriptionService, SubscriptionService>();
     }
 
     /// <summary>

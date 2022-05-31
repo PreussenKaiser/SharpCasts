@@ -1,4 +1,5 @@
-﻿using SharpCasts.Core.Validation;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SharpCasts.Core.Validation;
 using SharpCasts.Core.Validation.Inputs;
 using SharpCasts.Main.Models;
 using SharpCasts.Main.Services.Users;
@@ -11,7 +12,7 @@ namespace SharpCasts.Main.ViewModels;
 /// <summary>
 /// The viewmodel for the <see cref="LoginPage"/> content page.
 /// </summary>
-public class LoginPageViewmodel : BaseViewModel
+public partial class LoginPageViewmodel : BaseViewModel
 {
     /// <summary>
     /// The service to get user data with.
@@ -26,6 +27,7 @@ public class LoginPageViewmodel : BaseViewModel
     /// <summary>
     /// The message to display when an input is incorrect.
     /// </summary>
+    [ObservableProperty]
     private string errorMsg;
 
     /// <summary>
@@ -52,19 +54,6 @@ public class LoginPageViewmodel : BaseViewModel
     /// Gets the command to execute when the user opts to register.
     /// </summary>
     public ICommand RegisterCommand { get; }
-
-    /// <summary>
-    /// Gets or sets the error message to display.
-    /// </summary>
-    public string ErrorMsg
-    {
-        get => this.errorMsg;
-        set
-        {
-            this.errorMsg = value;
-            this.OnPropertyChanged();
-        }
-    }
 
     /// <summary>
     /// Gets or sets the entered username.
@@ -103,7 +92,7 @@ public class LoginPageViewmodel : BaseViewModel
         => await Shell.Current.GoToAsync(nameof(RegisterPage));
 
     /// <summary>
-    /// Validates inputs in the form.
+    /// Validates inputs in the login form.
     /// </summary>
     private void ValidateInputs(User user)
         => this.ErrorMsg = this.validator

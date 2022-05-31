@@ -3,6 +3,6 @@
 /// <summary>
 /// The interface which implements subscribed podcasts services.
 /// </summary>
-public interface ISubscribedService
+public interface ISubscriptionService
 {
 }
