@@ -13,9 +13,8 @@ public partial class ProfilePageViewmodel : BaseViewModel
     /// </summary>
     public ProfilePageViewmodel()
     {
-        this.Title = "Profile";
-
-        this.AppearingCommand = new Command(this.Appearing);
+        this.AppearingCommand = new Command(this.AppearingAsync);
+        this.SettingsCommand = new Command(this.SettingsAsync);
     }
 
     /// <summary>
@@ -24,10 +23,15 @@ public partial class ProfilePageViewmodel : BaseViewModel
     public ICommand AppearingCommand { get; }
 
     /// <summary>
+    /// Gets the command to execute when the user opts to navigate to the settings page.
+    /// </summary>
+    public ICommand SettingsCommand { get; }
+
+    /// <summary>
     /// Navigates to a page depending on the user's status.
     /// Called when the page appears.
     /// </summary>
-    private async void Appearing()
+    private async void AppearingAsync()
     {
         string destination = App.CurrentUser is null
             ? nameof(LoginPage)
@@ -35,4 +39,11 @@ public partial class ProfilePageViewmodel : BaseViewModel
 
         await Shell.Current.GoToAsync(destination);
     }
+
+    /// <summary>
+    /// Navigates to the settings page.
+    /// Called when the user opts to navigate to the settings page.
+    /// </summary>
+    private async void SettingsAsync()
+        => await Shell.Current.GoToAsync(nameof(SettingsPage));
 }

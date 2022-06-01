@@ -4,20 +4,42 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.MainPage"
              x:DataType="vm:MainPageViewmodel"
-             Title="{Binding Title}">
+             BackgroundColor="{StaticResource Primary}">
+
+    <Shell.TitleView>
+        <Label Text="SharpCasts"
+               TextColor="White"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"/>
+
+    </Shell.TitleView>
 
     <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsBusy}">
 
-        <VerticalStackLayout>
-            <StackLayout BackgroundColor="{StaticResource Primary}"
-                         Padding="32">
-
-                <Label Text="Here are your podcasts" TextColor="White"
-                        FontSize="Title" SemanticProperties.HeadingLevel="Level1"
-                        HorizontalOptions="Center"/>
+        <Grid RowDefinitions="Auto,*">
+            <StackLayout Padding="32">
+                <Label Text="Here are your podcasts"
+                       TextColor="White"
+                       FontSize="Title"
+                       SemanticProperties.HeadingLevel="Level1"
+                       HorizontalOptions="Center"/>
 
             </StackLayout>
-        </VerticalStackLayout>
+
+            <Border Grid.Row="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24,24,0,0"/>
+                </Border.StrokeShape>
+                
+                <VerticalStackLayout BackgroundColor="White"
+                                     Padding="32,16">
+                
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
     </RefreshView>
 </ContentPage>

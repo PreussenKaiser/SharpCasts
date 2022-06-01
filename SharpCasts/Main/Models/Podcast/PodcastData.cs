@@ -11,5 +11,5 @@ public class PodcastData
     /// Gets or sets podcasts received by the query.
     /// </summary>
     [JsonPropertyName("data")]
-    public List<Podcast> Podcasts { get; set; }
+    public List<Podcast> Podcasts { get; init; }
 }

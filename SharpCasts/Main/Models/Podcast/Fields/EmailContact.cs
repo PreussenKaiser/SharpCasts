@@ -11,5 +11,5 @@ public class EmailContact
     /// Gets or sets the name of the author.
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string Name { get; init; }
 }

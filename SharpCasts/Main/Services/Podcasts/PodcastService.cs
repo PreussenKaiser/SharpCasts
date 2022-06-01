@@ -135,8 +135,9 @@ public class PodcastService : IPodcastService
             Variables = new { identifier }
         };
 
-        var response = await this.client.SendQueryAsync<dynamic>(request);
+        var response = await this.client.SendQueryAsync<EpisodeResponse>(request);
+        List<Episode> episodes = response.Data.Podcast.Episodes.List;
 
-        return null;
+        return episodes;
     }
 }

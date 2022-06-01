@@ -39,10 +39,10 @@ public partial class LoginPageViewmodel : BaseViewModel
         this.userService = userService;
         this.validator = new Validator();
 
-        this.Title = "Login";
         this.ErrorMsg = string.Empty;
-        this.LoginCommand = new Command(this.Login);
-        this.RegisterCommand = new Command(this.Register);
+
+        this.LoginCommand = new Command(this.LoginAsync);
+        this.RegisterCommand = new Command(this.RegisterAsync);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public partial class LoginPageViewmodel : BaseViewModel
     /// <summary>
     /// Verifies if the user entered the correct credentials and logs them in.
     /// </summary>
-    private void Login()
+    private void LoginAsync()
     {
         User loggingInUser = new()
         {
@@ -88,7 +88,7 @@ public partial class LoginPageViewmodel : BaseViewModel
     /// <summary>
     /// Sends the user to the register page.
     /// </summary>
-    private async void Register()
+    private async void RegisterAsync()
         => await Shell.Current.GoToAsync(nameof(RegisterPage));
 
     /// <summary>

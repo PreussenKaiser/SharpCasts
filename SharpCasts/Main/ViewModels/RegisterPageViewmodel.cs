@@ -40,9 +40,8 @@ public partial class RegisterPageViewmodel : BaseViewModel
         this.userService = userService;
         this.validator = new Validator();
 
-        this.Title = "Register";
         this.ErrorMsg = string.Empty;
-        this.RegisterCommand = new Command(this.Register);
+        this.RegisterCommand = new Command(this.RegisterAsync);
     }
 
     /// <summary>
@@ -69,7 +68,7 @@ public partial class RegisterPageViewmodel : BaseViewModel
     /// Determine if the user can register.
     /// If so, a new account is created.
     /// </summary>
-    private async void Register()
+    private async void RegisterAsync()
     {
         this.ValidateInputs();
 

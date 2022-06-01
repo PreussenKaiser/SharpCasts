@@ -30,12 +30,11 @@ public partial class DiscoverPageViewmodel : BaseViewModel
     {
         this.podcastService = podcastService;
 
-        this.Title = "Discover";
         this.Podcasts = new List<Podcast>();
 
-        this.RefreshCommand = new Command<string>(this.Search);
-        this.SearchCommand = new Command<string>(this.Search);
-        this.SelectPodcastCommand = new Command(this.PodcastSelected);
+        this.RefreshCommand = new Command<string>(this.SearchAsync);
+        this.SearchCommand = new Command<string>(this.SearchAsync);
+        this.SelectPodcastCommand = new Command(this.PodcastSelectedAsync);
     }
 
     /// <summary>
@@ -62,7 +61,7 @@ public partial class DiscoverPageViewmodel : BaseViewModel
     /// Searches for podcasts.
     /// </summary>
     /// <param name="search">The search term to use.</param>
-    private async void Search(string search)
+    private async void SearchAsync(string search)
     {
         this.IsBusy = true;
 
@@ -74,7 +73,7 @@ public partial class DiscoverPageViewmodel : BaseViewModel
     /// <summary>
     /// Navigates to the selected podcast's page.
     /// </summary>
-    private async void PodcastSelected()
+    private async void PodcastSelectedAsync()
     {
         if (this.SelectedPodcast is null)
             return;
@@ -83,8 +82,6 @@ public partial class DiscoverPageViewmodel : BaseViewModel
         {
             { "Podcast", this.SelectedPodcast }
         };
-
-        _ = await this.podcastService.GetEpisodes(this.SelectedPodcast.Id);
 
         await Shell.Current.GoToAsync(
             $"{nameof(PodcastPage)}", true, args);

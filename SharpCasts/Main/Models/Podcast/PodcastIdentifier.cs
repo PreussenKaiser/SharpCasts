@@ -11,13 +11,13 @@ public class PodcastIdentifier
     /// Gets or sets the numeric identifier.
     /// </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string Id { get; init; }
 
     /// <summary>
     /// Gets or sets the identifier's type.
     /// </summary>
     [JsonPropertyName("type")]
-    public PodcastIdentifierType Type { get; set; }
+    public PodcastIdentifierType Type { get; init; }
 }
 
 /// <summary>

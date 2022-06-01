@@ -2,49 +2,95 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
+             xmlns:e="clr-namespace:SharpCasts.Main.Models.Podcast.Fields"
              x:DataType="vm:PodcastPageViewmodel"
-             x:Class="SharpCasts.Main.Views.PodcastPage">
+             x:Class="SharpCasts.Main.Views.PodcastPage"
+             BackgroundColor="{StaticResource Primary}">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="16,0">
-            <HorizontalStackLayout Padding="0,16">
-                <Frame Padding="0">
-                    <Image Source="{Binding Podcast.ImageUrl}"
-                           HeightRequest="128"
-                           WidthRequest="128"/>
-                </Frame>
+    <RefreshView Command="{Binding RefreshCommand}"
+                 IsRefreshing="{Binding IsBusy}">
 
-                <VerticalStackLayout VerticalOptions="Center"
-                                     Margin="16,0">
-                    
-                    <Label Text="{Binding Podcast.Title}"
-                           FontSize="Large"
-                           Margin="0,4"/>
+        <Grid RowDefinitions="Auto,*">
+            <VerticalStackLayout Padding="16,0">
+                <HorizontalStackLayout Padding="0,16">
+                    <Frame Padding="0">
+                        <Image Source="{Binding Podcast.ImageUrl}"
+                               HeightRequest="128"
+                               WidthRequest="128"/>
 
-                    <Label Text="{Binding Podcast.Author.Name}"/>
+                    </Frame>
 
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
-            
-            <HorizontalStackLayout>
-                <Button Command="{Binding SubscribeCommand}"
-                        Text="Subscribe"
-                        Margin="0,0,8,0"
-                        HorizontalOptions="Start"/>
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         Margin="16,0">
 
-                <Button Command="{Binding WebsiteCommand}"
-                        Text="Website"
-                        TextColor="{StaticResource Primary}"
-                        Margin="0,0,8,0"
-                        BackgroundColor="Transparent"
-                        BorderWidth="2"
-                        BorderColor="{StaticResource Primary}"/>
+                        <Label Text="{Binding Podcast.Title}"
+                               TextColor="White"
+                               FontSize="Large"
+                               Margin="0,4"/>
 
-            </HorizontalStackLayout>
-            
-            <StackLayout Padding="0,12">
-                <Label Text="{Binding Podcast.Description}"/>
-            </StackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+                        <Label Text="{Binding Podcast.Author.Name}"
+                               TextColor="White"/>
+
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <Border Grid.Row="1">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24,24,0,0"/>
+                </Border.StrokeShape>
+
+                <CollectionView ItemsSource="{Binding Episodes}"
+                                SelectionMode="Single"
+                                BackgroundColor="White">
+
+                    <CollectionView.Header>
+                        <VerticalStackLayout Padding="16">
+                            <HorizontalStackLayout>
+                                <Button Command="{Binding SubscribeCommand}"
+                                        Text="Subscribe"
+                                        Margin="0,0,8,0"
+                                        HorizontalOptions="Start"/>
+
+                                <Button Command="{Binding WebsiteCommand}"
+                                        Text="Website"
+                                        TextColor="{StaticResource Primary}"
+                                        Margin="0,0,8,0"
+                                        BackgroundColor="Transparent"
+                                        BorderWidth="2"
+                                        BorderColor="{StaticResource Primary}"/>
+
+                            </HorizontalStackLayout>
+
+                            <StackLayout Padding="0,12">
+                                <Label Text="{Binding Podcast.Description}"/>
+                            </StackLayout>
+                            
+                            <HorizontalStackLayout Margin="0,8,0,-8">
+                                <Label Text="{Binding EpisodeCount}"
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"/>
+
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </CollectionView.Header>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="e:Episode">
+                            <Frame Padding="16"
+                                   Margin="16,8"
+                                   BackgroundColor="{StaticResource Light}">
+
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Date}"/>
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Medium"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </Grid>
+    </RefreshView>
 </ContentPage>

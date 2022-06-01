@@ -12,10 +12,4 @@ public partial class BaseViewModel : ObservableObject
     /// </summary>
     [ObservableProperty]
     private bool isBusy;
-
-    /// <summary>
-    /// The title of the page.
-    /// </summary>
-    [ObservableProperty]
-    private string title;
 }

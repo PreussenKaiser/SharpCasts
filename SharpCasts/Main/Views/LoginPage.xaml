@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.LoginPage"
-             x:DataType="vm:LoginPageViewmodel"
-             Title="{Binding Title}">
+             x:DataType="vm:LoginPageViewmodel">
 
     <VerticalStackLayout>
         <VerticalStackLayout VerticalOptions="End"

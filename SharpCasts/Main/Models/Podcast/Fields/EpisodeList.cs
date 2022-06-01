@@ -11,5 +11,5 @@ public class EpisodeList
     /// Gets or sets the episodes from a podcast.
     /// </summary>
     [JsonPropertyName("data")]
-    public List<Episode> Episodes { get; set; }
+    public List<Episode> List { get; set; }
 }

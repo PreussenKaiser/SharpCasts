@@ -27,15 +27,14 @@ public partial class PodcastPageViewmodel : BaseViewModel
     /// <summary>
     /// The podcast to display.
     /// </summary>
-    [ObservableProperty]
     private Podcast podcast;
 
     /// <summary>
-    /// The list of episodes from the podcast.
+    /// The episodes from the currently displayed podcast.
     /// </summary>
     [ObservableProperty]
     [AlsoNotifyChangeFor(nameof(EpisodeCount))]
-    private IEnumerable<Episode> episodes;
+    private List<Episode> episodes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PodcastPageViewmodel"/> viewmodel.
@@ -48,18 +47,15 @@ public partial class PodcastPageViewmodel : BaseViewModel
         this.podcastService = podcastService;
         this.subscriptionService = subscriptionService;
 
-        // default value
-        this.Podcast = new Podcast()
-        {
-            Id = 0,
-            Title = string.Empty,
-            Description = string.Empty,
-            ImageUrl = string.Empty
-        };
-
+        this.RefreshCommand = new Command(this.UpdateEpisodesAsync);
         this.SubscribeCommand = new Command(this.Subscribe);
         this.WebsiteCommand = new Command(this.Website);
     }
+
+    /// <summary>
+    /// Gets the command to execute when the page is refreshed.
+    /// </summary>
+    public ICommand RefreshCommand { get; }
 
     /// <summary>
     /// Gets the command to execute when the user subscribes to a podcast.
@@ -72,10 +68,23 @@ public partial class PodcastPageViewmodel : BaseViewModel
     public ICommand WebsiteCommand { get; set; }
 
     /// <summary>
-    /// Gets the amount of episodes from the podcast.
+    /// Gets or sets the podcast to display.
     /// </summary>
-    public int EpisodeCount
-        => this.Episodes.Count();
+    public Podcast Podcast
+    {
+        get => this.podcast;
+        set
+        {
+            this.SetProperty(ref this.podcast, value);
+            this.UpdateEpisodesAsync();
+        }
+    }
+
+    /// <summary>
+    /// Gets the podcast's amount of episodes.
+    /// </summary>
+    public string EpisodeCount
+        => $"{this.Episodes.Count} Episodes";
 
     /// <summary>
     /// Subscribes a user to a podcast.
@@ -91,5 +100,21 @@ public partial class PodcastPageViewmodel : BaseViewModel
     /// </summary>
     private void Website()
     {
+    }
+
+    /// <summary>
+    /// Updates the podcast's list of episodes.
+    /// </summary>
+    private async void UpdateEpisodesAsync()
+    {
+        if (this.Podcast is null)
+            return;
+
+        this.IsBusy = true;
+
+        this.Episodes = await this.podcastService
+                                  .GetEpisodes(this.Podcast.Id);
+
+        this.IsBusy = false;
     }
 }

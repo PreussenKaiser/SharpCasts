@@ -12,18 +12,18 @@ public class Subscription
     /// Gets or sets the subscribed podcast's unique identifier.
     /// </summary>
     [Key]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     /// <summary>
     /// Gets or sets the subscribed podcast.
     /// </summary>
     [Required]
-    public int PodcastId { get; set; }
+    public int PodcastId { get; init; }
 
     /// <summary>
     /// Gets or sets the user who subscribed to the podcast.
     /// </summary>
     [ForeignKey(nameof(User))]
     [Required]
-    public int UserId { get; set; }
+    public int UserId { get; init; }
 }

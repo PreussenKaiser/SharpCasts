@@ -11,5 +11,5 @@ public class PodcastResponse
     /// Gets or sets the data from the response.
     /// </summary>
     [JsonPropertyName("podcasts")]
-    public PodcastData Data { get; set; }
+    public PodcastData Data { get; init; }
 }

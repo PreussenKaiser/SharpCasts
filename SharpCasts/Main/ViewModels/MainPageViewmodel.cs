@@ -33,8 +33,7 @@ public partial class MainPageViewmodel : BaseViewModel
         this.subscribedService = subscribedService;
         this.podcastService = podcastService;
 
-        this.Title = "Home";
-        this.RefreshCommand = new Command(this.OnRefresh);
+        this.RefreshCommand = new Command(this.Refresh);
     }
 
     /// <summary>
@@ -45,7 +44,7 @@ public partial class MainPageViewmodel : BaseViewModel
     /// <summary>
     /// Refreshes the home page.
     /// </summary>
-    private void OnRefresh()
+    private void Refresh()
     {
         this.IsBusy = true;
         this.IsBusy = false;

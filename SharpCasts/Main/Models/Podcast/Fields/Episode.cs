@@ -11,23 +11,23 @@ public class Episode
     /// Gets or sets the episodes title.
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string Title { get; init; }
 
     /// <summary>
     /// Gets or sets the episodes description.
     /// </summary>
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    public string Description { get; init; }
 
     /// <summary>
     /// Gets or sets when the episode was aired.
     /// </summary>
     [JsonPropertyName("airDate")]
-    public DateTime Date { get; set; }
+    public string Date { get; init; }
 
     /// <summary>
     /// Gets or sets the url leading to the episodes audio.
     /// </summary>
     [JsonPropertyName("audioUrl")]
-    public string AudioUrl { get; set; }
+    public string AudioUrl { get; init; }
 }
