@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.DiscoverPage"
              x:DataType="vm:DiscoverPageViewmodel"
-             BackgroundColor="{StaticResource Primary}">
+             Style="{DynamicResource Page}">
 
     <Shell.TitleView>
         <Label Text="SharpCasts"
@@ -22,27 +22,28 @@
                  CommandParameter="{Binding Source={x:Reference Search}, Path=Text}"
                  IsRefreshing="{Binding IsBusy}">
 
-        <Grid RowDefinitions="Auto,*">
+        <Grid Style="{StaticResource MainLayout}">
             <StackLayout Padding="24">
 
-                <SearchBar x:Name="Search"
-                           Placeholder="Search for podcasts..."
-                           HorizontalOptions="Center"
-                           SearchCommand="{Binding SearchCommand}"
-                           SearchCommandParameter="{Binding Source={x:Reference Search}, Path=Text}"/>
+                <Frame Style="{DynamicResource SearchBarWrapper}">
+                    
+                    <SearchBar x:Name="Search"
+                               Placeholder="Search for podcasts..."
+                               HorizontalOptions="Center"
+                               SearchCommand="{Binding SearchCommand}"
+                               SearchCommandParameter="{Binding Source={x:Reference Search}, Path=Text}"/>
+                </Frame>
 
             </StackLayout>
 
-            <Border Grid.Row="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24,24,0,0"/>
-                </Border.StrokeShape>
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 24,24,0,0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}">
 
                 <CollectionView ItemsSource="{Binding Podcasts}"
                                 SelectedItem="{Binding SelectedPodcast}"
                                 SelectionChangedCommand="{Binding SelectPodcastCommand}"
-                                SelectionMode="Single"
-                                BackgroundColor="White">
+                                SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:Podcast">

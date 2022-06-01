@@ -19,9 +19,4 @@ public partial class PodcastPage : ContentPage
 
 		this.BindingContext = viewmodel;
 	}
-
-    /// <summary>
-    /// Gets or sets the podcast to display.
-    /// </summary>
-    public Podcast DisplayedPodcast { get; set; }
 }

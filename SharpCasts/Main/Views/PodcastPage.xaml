@@ -5,12 +5,12 @@
              xmlns:e="clr-namespace:SharpCasts.Main.Models.Podcast.Fields"
              x:DataType="vm:PodcastPageViewmodel"
              x:Class="SharpCasts.Main.Views.PodcastPage"
-             BackgroundColor="{StaticResource Primary}">
+             Style="{DynamicResource Page}">
 
     <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsBusy}">
 
-        <Grid RowDefinitions="Auto,*">
+        <Grid Style="{StaticResource MainLayout}">
             <VerticalStackLayout Padding="16,0">
                 <HorizontalStackLayout Padding="0,16">
                     <Frame Padding="0">
@@ -35,14 +35,12 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
-            <Border Grid.Row="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24,24,0,0"/>
-                </Border.StrokeShape>
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 24,24,0,0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}">
 
                 <CollectionView ItemsSource="{Binding Episodes}"
-                                SelectionMode="Single"
-                                BackgroundColor="White">
+                                SelectionMode="Single">
 
                     <CollectionView.Header>
                         <VerticalStackLayout Padding="16">
@@ -52,13 +50,10 @@
                                         Margin="0,0,8,0"
                                         HorizontalOptions="Start"/>
 
-                                <Button Command="{Binding WebsiteCommand}"
+                                <Button Style="{StaticResource BtnSecondary}"
+                                        Command="{Binding WebsiteCommand}"
                                         Text="Website"
-                                        TextColor="{StaticResource Primary}"
-                                        Margin="0,0,8,0"
-                                        BackgroundColor="Transparent"
-                                        BorderWidth="2"
-                                        BorderColor="{StaticResource Primary}"/>
+                                        Margin="0,0,8,0"/>
 
                             </HorizontalStackLayout>
 
@@ -79,7 +74,7 @@
                         <DataTemplate x:DataType="e:Episode">
                             <Frame Padding="16"
                                    Margin="16,8"
-                                   BackgroundColor="{StaticResource Light}">
+                                   BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}">
 
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Date}"/>

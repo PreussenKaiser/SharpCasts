@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              x:Class="SharpCasts.Main.Views.MainPage"
              x:DataType="vm:MainPageViewmodel"
-             BackgroundColor="{StaticResource Primary}">
+             Style="{DynamicResource Page}">
 
     <Shell.TitleView>
         <Label Text="SharpCasts"
@@ -20,8 +20,8 @@
     <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsBusy}">
 
-        <Grid RowDefinitions="Auto,*">
-            <StackLayout Padding="32">
+        <Grid Style="{StaticResource MainLayout}">
+            <StackLayout Style="{StaticResource HeaderWrapper}">
                 <Label Text="Here are your podcasts"
                        TextColor="White"
                        FontSize="Title"
@@ -30,13 +30,11 @@
 
             </StackLayout>
 
-            <Border Grid.Row="1">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24,24,0,0"/>
-                </Border.StrokeShape>
-                
-                <VerticalStackLayout BackgroundColor="White"
-                                     Padding="32,16">
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 24,24,0,0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}">
+
+                <VerticalStackLayout Padding="16">
                 
                 </VerticalStackLayout>
             </Border>
