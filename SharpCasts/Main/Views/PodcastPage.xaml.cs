@@ -1,4 +1,3 @@
-using SharpCasts.Main.Models.Podcast;
 using SharpCasts.Main.ViewModels;
 
 namespace SharpCasts.Main.Views;
@@ -10,7 +9,7 @@ namespace SharpCasts.Main.Views;
 public partial class PodcastPage : ContentPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PodcastPage"/> content page.
+    /// Initializes a new instance of the <see cref="PodcastPage"/> class.
     /// </summary>
     /// <param name="viewmodel">The pages viewmodel.</param>
     public PodcastPage(PodcastPageViewmodel viewmodel)

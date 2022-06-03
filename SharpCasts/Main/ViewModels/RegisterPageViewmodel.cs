@@ -32,7 +32,7 @@ public partial class RegisterPageViewmodel : BaseViewModel
     private string errorMsg;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RegisterPageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="RegisterPageViewmodel"/> class.
     /// </summary>
     /// <param name="userService">The service to register users with.</param>
     public RegisterPageViewmodel(IUserService userService)

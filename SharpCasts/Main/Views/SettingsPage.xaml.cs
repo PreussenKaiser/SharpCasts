@@ -7,11 +7,11 @@ namespace SharpCasts.Main.Views;
 /// </summary>
 public partial class SettingsPage : ContentPage
 {
-	/// <summary>
-	/// Initializes a new instance of the <see cref="SettingsPage"/> content page.
-	/// </summary>
-	/// <param name="viewmodel">The pages viewmodel.</param>
-	public SettingsPage(SettingsPageViewmodel viewmodel)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsPage"/> class.
+    /// </summary>
+    /// <param name="viewmodel">The pages viewmodel.</param>
+    public SettingsPage(SettingsPageViewmodel viewmodel)
 	{
 		this.InitializeComponent();
 

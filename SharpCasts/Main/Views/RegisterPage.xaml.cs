@@ -7,11 +7,11 @@ namespace SharpCasts.Main.Views;
 /// </summary>
 public partial class RegisterPage : ContentPage
 {
-	/// <summary>
-	/// Initializes a new instance of the <see cref="RegisterPage"/> content page.
-	/// </summary>
-	/// <param name="viewmodel">The viewmodel for the page.</param>
-	public RegisterPage(RegisterPageViewmodel viewmodel)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RegisterPage"/> class.
+    /// </summary>
+    /// <param name="viewmodel">The viewmodel for the page.</param>
+    public RegisterPage(RegisterPageViewmodel viewmodel)
 	{
 		this.InitializeComponent();
 

@@ -31,7 +31,7 @@ public partial class LoginPageViewmodel : BaseViewModel
     private string errorMsg;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoginPageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="LoginPageViewmodel"/> class.
     /// </summary>
     /// <param name="userService">The service to get user data with.</param>
     public LoginPageViewmodel(IUserService userService)

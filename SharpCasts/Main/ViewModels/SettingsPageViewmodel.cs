@@ -8,7 +8,7 @@ namespace SharpCasts.Main.ViewModels;
 public partial class SettingsPageViewmodel : BaseViewModel
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SettingsPageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="SettingsPageViewmodel"/> class.
     /// </summary>
     public SettingsPageViewmodel()
     {

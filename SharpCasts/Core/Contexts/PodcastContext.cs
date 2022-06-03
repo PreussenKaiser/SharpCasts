@@ -28,6 +28,20 @@ public class PodcastContext : DbContext
         => optionsBuilder.UseSqlServer(BuildConnectionString());
 
     /// <summary>
+    /// Saves changes to the Azure database.
+    /// </summary>
+    /// <returns></returns>
+    public override int SaveChanges()
+        => base.SaveChanges();
+
+    /// <summary>
+    /// Saves changes asynchronously to the Azure database.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<int> SaveChangesAsync()
+        => await base.SaveChangesAsync();
+
+    /// <summary>
     /// Builds the connection string for the Azure SQL Server database.
     /// </summary>
     /// <returns>The connection string for the remote database.</returns>

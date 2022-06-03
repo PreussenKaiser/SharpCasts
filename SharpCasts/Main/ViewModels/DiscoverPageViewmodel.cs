@@ -23,7 +23,7 @@ public partial class DiscoverPageViewmodel : BaseViewModel
     private IEnumerable<Podcast> podcasts;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DiscoverPageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="DiscoverPageViewmodel"/> class.
     /// </summary>
     /// <param name="podcastService">The service to get podcasts with.</param>
     public DiscoverPageViewmodel(IPodcastService podcastService)
@@ -65,7 +65,16 @@ public partial class DiscoverPageViewmodel : BaseViewModel
     {
         this.IsBusy = true;
 
-        this.Podcasts = await this.podcastService.SearchPodcasts(search);
+        try
+        {
+            this.Podcasts = await this.podcastService.SearchPodcasts(search);
+        }
+        catch (Exception)
+        {
+            await Shell.Current.DisplayAlert("Error",
+                                             "There was a problem gettings podcasts",
+                                             "OK");
+        }
 
         this.IsBusy = false;
     }

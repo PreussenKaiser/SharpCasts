@@ -9,15 +9,16 @@ namespace SharpCasts.Main.Services.Subscriptions;
 public class SubscriptionService : ISubscriptionService
 {
     /// <summary>
-    /// The context which gets subscribed podcasts from the database.
+    /// The database to get podcast subscriptions with.
     /// </summary>
     private readonly PodcastContext database;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SubscriptionService"/> service.
+    /// Initializes a new instance of the <see cref="SubscriptionService"/> class.
     /// </summary>
-    public SubscriptionService()
-        => this.database = new PodcastContext();
+    /// <param name="context">The database to get podcast subscriptions from.</param>
+    public SubscriptionService(PodcastContext context)
+        => this.database = context;
 
     /// <summary>
     /// Adds a subscription to the database.

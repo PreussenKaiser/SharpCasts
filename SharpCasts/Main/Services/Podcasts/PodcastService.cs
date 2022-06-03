@@ -18,7 +18,7 @@ public class PodcastService : IPodcastService
     private readonly GraphQLHttpClient client;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PodcastService"/> service.
+    /// Initializes a new instance of the <see cref="PodcastService"/> class.
     /// </summary>
     public PodcastService()
     {

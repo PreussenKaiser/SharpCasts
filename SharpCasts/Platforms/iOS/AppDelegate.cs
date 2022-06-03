@@ -3,7 +3,7 @@
 namespace SharpCasts;
 
 /// <summary>
-/// 
+/// The class that bootstraps the IOS application.
 /// </summary>
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

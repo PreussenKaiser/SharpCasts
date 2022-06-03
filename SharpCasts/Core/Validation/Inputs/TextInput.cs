@@ -16,7 +16,7 @@ public class TextInput : Input
     private readonly int maxLength;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TextInput"/> input.
+    /// Initializes a new instance of the <see cref="TextInput"/> class.
     /// </summary>
     /// <param name="name">The input's label.</param>
     /// <param name="value">The text input's value.</param>

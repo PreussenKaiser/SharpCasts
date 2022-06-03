@@ -9,7 +9,7 @@ namespace SharpCasts.Main.ViewModels;
 public partial class ProfilePageViewmodel : BaseViewModel
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfilePageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="ProfilePageViewmodel"/> class.
     /// </summary>
     public ProfilePageViewmodel()
     {

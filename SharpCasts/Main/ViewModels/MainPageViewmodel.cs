@@ -23,7 +23,7 @@ public partial class MainPageViewmodel : BaseViewModel
     private readonly IPodcastService podcastService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainPageViewmodel"/> viewmodel.
+    /// Initializes a new instance of the <see cref="MainPageViewmodel"/> class.
     /// </summary>
     /// <param name="subscribedService">The service to get subscribed podcasts with.</param>
     /// <param name="podcastService">The service to get podcasts with.</param>

@@ -24,7 +24,7 @@ public class UserInput : Input
     private const string LABEL = "Credentials";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserInput"/> input.
+    /// Initializes a new instance of the <see cref="UserInput"/> class.
     /// </summary>
     /// <param name="user">The user to validate.</param>
     /// <param name="userService">The user service to check the user's existence with.</param>

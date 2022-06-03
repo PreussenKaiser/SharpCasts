@@ -1,8 +1,4 @@
-﻿using SharpCasts.Main.Services.Podcasts;
-using SharpCasts.Main.Services.Subscriptions;
-using SharpCasts.Main.Services.Users;
-using SharpCasts.Main.ViewModels;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Core.Extensions.Builders;
 
 using System.Reflection;
 
@@ -32,13 +28,15 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .LoadViews()
+            .LoadViewmodels()
+            .LoadServices()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular")
 				     .AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-        LoadServices(ref builder);
         LoadPreferences();
 
 		return builder.Build();
@@ -47,7 +45,7 @@ public static class MauiProgram
     /// <summary>
     /// Sets application preferences.
     /// </summary>
-	private static void LoadPreferences()
+    private static void LoadPreferences()
     {
         var config = BuildConfig();
 
@@ -62,34 +60,6 @@ public static class MauiProgram
         Preferences.Set("InitialCatalog", config["InitialCatalog"]);
         Preferences.Set("UserID", config["UserID"]);
         Preferences.Set("Password", config["Password"]);
-    }
-
-    /// <summary>
-    /// Loads application services.
-    /// </summary>
-    /// <param name="builder">The app builder to load services to.</param>
-    private static void LoadServices(ref MauiAppBuilder builder)
-    {
-        // Register views.
-        builder.Services.AddTransient<MainPage>()
-                        .AddTransient<DiscoverPage>()
-                        .AddTransient<PodcastPage>()
-                        .AddTransient<LoginPage>()
-                        .AddTransient<RegisterPage>()
-                        .AddTransient<ProfilePage>();
-
-        // Register viewmodels.
-        builder.Services.AddSingleton<MainPageViewmodel>()
-                        .AddSingleton<DiscoverPageViewmodel>()
-                        .AddTransient<PodcastPageViewmodel>()
-                        .AddSingleton<LoginPageViewmodel>()
-                        .AddSingleton<RegisterPageViewmodel>()
-                        .AddSingleton<ProfilePageViewmodel>();
-
-        // Register services.
-        builder.Services.AddSingleton<IPodcastService, PodcastService>()
-                        .AddSingleton<IUserService, UserService>()
-                        .AddSingleton<ISubscriptionService, SubscriptionService>();
     }
 
     /// <summary>

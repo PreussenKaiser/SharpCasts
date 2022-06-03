@@ -9,15 +9,16 @@ namespace SharpCasts.Main.Services.Users;
 public class UserService : IUserService
 {
     /// <summary>
-    /// The context to connect to the database with.
+    /// The database to get users with.
     /// </summary>
     private readonly PodcastContext database;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserService"/> service.
+    /// Initializes a new instance of the <see cref="UserService"/> class.
     /// </summary>
-    public UserService()
-        => this.database = new PodcastContext();
+    /// <param name="context">The database to get users with.</param>
+    public UserService(PodcastContext context)
+        => this.database = context;
 
     /// <summary>
     /// Adds a user to the database.

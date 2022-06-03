@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using SharpCasts.Main.Services.Players;
+using System.Text.Json.Serialization;
+using System.Windows.Input;
 
 namespace SharpCasts.Main.Models.Podcast.Fields;
 

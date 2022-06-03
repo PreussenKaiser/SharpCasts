@@ -7,11 +7,11 @@ namespace SharpCasts.Main.Views;
 /// </summary>
 public partial class MainPage : ContentPage
 {
-	/// <summary>
-	/// Initializes a new instance of the <see cref="MainPage"/> content page.
-	/// </summary>
-	/// <param name="viewmodel">The viewmodel for the main page.</param>
-	public MainPage(MainPageViewmodel viewmodel)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainPage"/> class.
+    /// </summary>
+    /// <param name="viewmodel">The viewmodel for the main page.</param>
+    public MainPage(MainPageViewmodel viewmodel)
     {
 		this.InitializeComponent();
 
