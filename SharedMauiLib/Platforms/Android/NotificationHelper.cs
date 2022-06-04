@@ -36,10 +36,11 @@ public static class NotificationHelper
     /// <returns></returns>
     internal static Notification.Action GenerateActionCompat(Context context, int icon, string title, string intentAction)
     {
-        Intent intent = new Intent(context, typeof(MediaPlayerService));
+        Intent intent = new(context, typeof(MediaPlayerService));
         intent.SetAction(intentAction);
 
         PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent;
+
         if (intentAction.Equals(MediaPlayerService.ActionStop))
             flags = PendingIntentFlags.CancelCurrent;
 
@@ -47,7 +48,8 @@ public static class NotificationHelper
 
         PendingIntent pendingIntent = PendingIntent.GetService(context, 1, intent, flags);
 
-        return new Notification.Action.Builder(icon, title, pendingIntent).Build();
+        return new Notification.Action.Builder(icon, title, pendingIntent)
+                    .Build();
     }
 
     /// <summary>
@@ -66,13 +68,11 @@ public static class NotificationHelper
     /// <param name="context"></param>
     public static void CreateNotificationChannel(Context context)
     {
+        // Notification channels are new in API 26 (and not a part of the
+        // support library). There is no need to create a notification
+        // channel on older versions of Android.
         if (Build.VERSION.SdkInt < BuildVersionCodes.O)
-        {
-            // Notification channels are new in API 26 (and not a part of the
-            // support library). There is no need to create a notification
-            // channel on older versions of Android.
             return;
-        }
 
         var name = "Local Notifications";
         var description = "The count from MainActivity.";
@@ -116,7 +116,7 @@ public static class NotificationHelper
             .SetContentTitle(currentTrack.GetString(MediaMetadata.MetadataKeyTitle))
             .SetContentText(currentTrack.GetString(MediaMetadata.MetadataKeyArtist))
             .SetSubText(currentTrack.GetString(MediaMetadata.MetadataKeyAlbum))
-            //.SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha) //TODO player_play
+            .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha) //TODO player_play
             .SetLargeIcon(largeIcon as Bitmap)
             .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
@@ -143,8 +143,12 @@ public static class NotificationHelper
         bool isPlaying)
     {
         if (isPlaying)
+        {
             builder.AddAction(GenerateActionCompat(context, Drawable.IcMediaPause, "Pause", MediaPlayerService.ActionPause));
+        }
         else
+        {
             builder.AddAction(GenerateActionCompat(context, Drawable.IcMediaPlay, "Play", MediaPlayerService.ActionPlay));
+        }
     }
 }

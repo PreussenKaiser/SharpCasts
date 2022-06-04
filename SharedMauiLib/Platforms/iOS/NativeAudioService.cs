@@ -36,27 +36,27 @@ public class NativeAudioService : INativeAudioService
     public double CurrentPosition => avPlayer?.CurrentTime.Seconds ?? 0;
 
     /// <summary>
-    /// 
+    /// Initializes the audio service.
     /// </summary>
-    /// <param name="audioURI"></param>
-    /// <returns></returns>
+    /// <param name="audioURI">The url to play audio from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task InitializeAsync(string audioURI)
     {
         this.uri = audioURI;
-        NSUrl fileURL = new NSUrl(uri.ToString());
+        NSUrl fileURL = new(this.uri.ToString());
 
-        if (avPlayer != null)
+        if (this.avPlayer is not null)
         {
             await this.PauseAsync();
         }
 
-        avPlayer = new AVPlayer(fileURL);
+        this.avPlayer = new AVPlayer(fileURL);
     }
 
     /// <summary>
-    /// 
+    /// Pauses the audio service.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task PauseAsync()
     {
         this.avPlayer?.Pause();
@@ -65,10 +65,10 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Plays the audio asynchronously.
     /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
+    /// <param name="position">Where to start the track from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task PlayAsync(double position = 0)
     {
         await this.avPlayer.SeekAsync(new CoreMedia.CMTime((long)position, 1));
@@ -79,20 +79,18 @@ public class NativeAudioService : INativeAudioService
     /// 
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetCurrentTime(double value)
-    {
-        return this.avPlayer.SeekAsync(new CoreMedia.CMTime((long)value, 1));
-    }
+        => this.avPlayer.SeekAsync(new CoreMedia.CMTime((long)value, 1));
 
     /// <summary>
-    /// 
+    /// Mutes the track.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetMuted(bool value)
     {
-        if (this.avPlayer != null)
+        if (this.avPlayer is not null)
         {
             this.avPlayer.Muted = value;
         }
@@ -101,13 +99,13 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Sets the track's volume.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
+    /// <param name="value">The volume to set the audio to.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetVolume(int value)
     {
-        if (this.avPlayer != null)
+        if (this.avPlayer is not null)
         {
             this.avPlayer.Volume = value;
         }
@@ -116,12 +114,13 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Disposes the native audio service asynchronously.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public ValueTask DisposeAsync()
     {
         this.avPlayer?.Dispose();
+
         return ValueTask.CompletedTask;
     }
 }

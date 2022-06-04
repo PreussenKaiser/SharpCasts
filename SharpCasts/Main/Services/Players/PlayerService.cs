@@ -1,5 +1,6 @@
-﻿using SharedMauiLib;
-using SharpCasts.Main.Models.Podcast.Fields;
+﻿using SharpCasts.Main.Models;
+
+using SharedMauiLib;
 
 namespace SharpCasts.Main.Services.Players;
 
@@ -31,11 +32,11 @@ public class PlayerService : IPlayerService
     public bool IsPlaying { get; set; }
 
     /// <summary>
-    /// 
+    /// Plays a podcast episode asynchronously.
     /// </summary>
-    /// <param name="episode"></param>
-    /// <param name="position"></param>
-    /// <returns></returns>
+    /// <param name="episode">The episode to play.</param>
+    /// <param name="position">Where to start playing from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task PlayAsync(Episode episode, double position = 0)
     {
         if (episode is null)
@@ -44,5 +45,8 @@ public class PlayerService : IPlayerService
         this.CurrentEpisode = episode;
 
         await this.audioService.InitializeAsync(this.CurrentEpisode.AudioUrl);
+        await this.audioService.PlayAsync(position);
+
+        this.IsPlaying = true;
     }
 }

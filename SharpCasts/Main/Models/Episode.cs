@@ -1,8 +1,6 @@
-﻿using SharpCasts.Main.Services.Players;
-using System.Text.Json.Serialization;
-using System.Windows.Input;
+﻿using System.Text.Json.Serialization;
 
-namespace SharpCasts.Main.Models.Podcast.Fields;
+namespace SharpCasts.Main.Models;
 
 /// <summary>
 /// The class that represents an episode in a podcast.

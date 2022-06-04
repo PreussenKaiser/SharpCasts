@@ -21,30 +21,31 @@ public class NativeAudioService : INativeAudioService
     /// <summary>
     /// 
     /// </summary>
-    private MediaPlayer MediaPlayer => this.instance != null &&
-        this.instance.Binder.GetMediaPlayerService() != null ?
-        this.instance.Binder.GetMediaPlayerService().mediaPlayer : null;
+    private MediaPlayer MediaPlayer
+        => this.instance is not null && this.instance.Binder.GetMediaPlayerService() is not null
+            ? this.instance.Binder.GetMediaPlayerService().mediaPlayer
+            : null;
 
     /// <summary>
-    /// 
+    /// Gets whether the audio service is playing or not.
     /// </summary>
     public bool IsPlaying
         => this.MediaPlayer?.IsPlaying ?? false;
 
     /// <summary>
-    /// 
+    /// Gets the current position on the track.
     /// </summary>
     public double CurrentPosition
         => this.MediaPlayer?.CurrentPosition / 1000 ?? 0;
 
     /// <summary>
-    /// 
+    /// Initializes the native audio serivice asynchronously.
     /// </summary>
-    /// <param name="audioURI"></param>
-    /// <returns></returns>
+    /// <param name="audioURI">The audio to play.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task InitializeAsync(string audioURI)
     {
-        if (this.instance == null)
+        if (this.instance is null)
         {
             ICurrentActivity activity = CrossCurrentActivity.Current;
             this.instance = activity.Activity as IAudioActivity;
@@ -67,6 +68,7 @@ public class NativeAudioService : INativeAudioService
                     await this.PauseAsync();
                 }
             });
+
             this.IsPlayingChanged?.Invoke(this, e);
         };
 
@@ -76,9 +78,9 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Pauses the media.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task PauseAsync()
     {
         if (this.IsPlaying)
@@ -90,10 +92,10 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Plays the track.
     /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
+    /// <param name="position">Where in the track to play from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task PlayAsync(double position = 0)
     {
         await this.instance.Binder
@@ -106,10 +108,10 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Mutes the media.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetMuted(bool value)
     {
         this.instance?.Binder

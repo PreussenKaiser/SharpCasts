@@ -1,9 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SharpCasts.Core.Validation;
+﻿using SharpCasts.Core.Validation;
 using SharpCasts.Core.Validation.Inputs;
 using SharpCasts.Main.Models;
 using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.Views;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using System.Windows.Input;
 

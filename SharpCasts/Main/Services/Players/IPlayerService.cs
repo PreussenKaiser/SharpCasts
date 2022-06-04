@@ -1,4 +1,4 @@
-﻿using SharpCasts.Main.Models.Podcast.Fields;
+﻿using SharpCasts.Main.Models;
 
 namespace SharpCasts.Main.Services.Players;
 
@@ -8,10 +8,10 @@ namespace SharpCasts.Main.Services.Players;
 public interface IPlayerService
 {
     /// <summary>
-    /// 
+    /// Plays audio asynchronously.
     /// </summary>
-    /// <param name="episode"></param>
-    /// <param name="position"></param>
-    /// <returns></returns>
+    /// <param name="episode">The episode to play.</param>
+    /// <param name="position">Where to start playing from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task PlayAsync(Episode episode, double position = 0);
 }

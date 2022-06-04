@@ -11,27 +11,25 @@ namespace SharedMauiLib.Platforms.Android;
 [IntentFilter(new[] { Intent.ActionMediaButton })]
 public class RemoteControlBroadcastReceiver : BroadcastReceiver
 {
-
     /// <summary>
-    /// Gets the class name for the component
+    /// Gets the class name for the component.
     /// </summary>
-    /// <value>The name of the component.</value>
-    public string ComponentName { get { return Class.Name; } }
+    public string ComponentName => this.Class.Name;
 
     /// <Docs>The Context in which the receiver is running.</Docs>
     /// <summary>
-    /// When we receive the action media button intent
+    /// When we receive the action media button intent, 
     /// parse the key event and tell our service what to do.
     /// </summary>
-    /// <param name="context">Context.</param>
-    /// <param name="intent">Intent.</param>
+    /// <param name="context"></param>
+    /// <param name="intent"></param>
     public override void OnReceive(Context context, Intent intent)
     {
         if (intent.Action != Intent.ActionMediaButton)
             return;
 
-        //The event will fire twice, up and down.
-        // we only want to handle the down event though.
+        // The event will fire twice, up and down.
+        // We only want to handle the down event though.
         var key = (KeyEvent)intent.GetParcelableExtra(Intent.ExtraKeyEvent);
         if (key.Action != KeyEventActions.Down)
             return;
@@ -43,22 +41,34 @@ public class RemoteControlBroadcastReceiver : BroadcastReceiver
             case Keycode.Headsethook:
             case Keycode.MediaPlayPause:
                 action = MediaPlayerService.ActionTogglePlayback;
+
                 break;
+
             case Keycode.MediaPlay:
                 action = MediaPlayerService.ActionPlay;
+
                 break;
+
             case Keycode.MediaPause:
                 action = MediaPlayerService.ActionPause;
+
                 break;
+
             case Keycode.MediaStop:
                 action = MediaPlayerService.ActionStop;
+
                 break;
+
             case Keycode.MediaNext:
                 action = MediaPlayerService.ActionNext;
+
                 break;
+
             case Keycode.MediaPrevious:
                 action = MediaPlayerService.ActionPrevious;
+
                 break;
+
             default:
                 return;
         }

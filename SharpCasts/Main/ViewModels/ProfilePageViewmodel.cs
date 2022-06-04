@@ -1,4 +1,5 @@
 ﻿using SharpCasts.Main.Views;
+
 using System.Windows.Input;
 
 namespace SharpCasts.Main.ViewModels;

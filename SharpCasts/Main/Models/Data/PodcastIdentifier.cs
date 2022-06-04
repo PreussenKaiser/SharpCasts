@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SharpCasts.Main.Models.Podcast;
+namespace SharpCasts.Main.Models.Data;
 
 /// <summary>
 /// The class that represents a unique podcast identifier.

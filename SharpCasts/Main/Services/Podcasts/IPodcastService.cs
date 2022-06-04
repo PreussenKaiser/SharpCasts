@@ -1,5 +1,4 @@
-﻿using SharpCasts.Main.Models.Podcast;
-using SharpCasts.Main.Models.Podcast.Fields;
+﻿using SharpCasts.Main.Models;
 
 namespace SharpCasts.Main.Services.Podcasts;
 

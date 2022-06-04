@@ -3,79 +3,131 @@ using Windows.Media.Playback;
 
 namespace SharedMauiLib.Platforms.Windows;
 
+/// <summary>
+/// 
+/// </summary>
 public class NativeAudioService : INativeAudioService
 {
-    string _uri;
-    MediaPlayer mediaPlayer;
-
-    public bool IsPlaying => mediaPlayer != null
-        && mediaPlayer.CurrentState == MediaPlayerState.Playing;
-
-    public double CurrentPosition => mediaPlayer?.Position.TotalSeconds ?? 0;
+    /// <summary>
+    /// 
+    /// </summary>
     public event EventHandler<bool> IsPlayingChanged;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    private MediaPlayer mediaPlayer;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private string uri;
+
+    /// <summary>
+    /// Gets whether the audio player is playing or not.
+    /// </summary>
+    public bool IsPlaying
+        => this.mediaPlayer is not null
+            && this.mediaPlayer.CurrentState == MediaPlayerState.Playing;
+
+    /// <summary>
+    /// Gets the current position of the track.
+    /// </summary>
+    public double CurrentPosition
+        => this.mediaPlayer?.Position.TotalSeconds ?? 0;
+
+    /// <summary>
+    /// Initializes the Windows audio service asynchronously.
+    /// </summary>
+    /// <param name="audioURI">The url of the audio to play.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task InitializeAsync(string audioURI)
     {
-        _uri = audioURI;
+        this.uri = audioURI;
 
-        if (mediaPlayer == null)
+        if (this.mediaPlayer is null)
         {
-            mediaPlayer = new MediaPlayer
+            this.mediaPlayer = new MediaPlayer
             {
-                Source = MediaSource.CreateFromUri(new Uri(_uri)),
+                Source = MediaSource.CreateFromUri(new Uri(uri)),
                 AudioCategory = MediaPlayerAudioCategory.Media
             };
         }
-        if (mediaPlayer != null)
-        {
-            await PauseAsync();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(_uri));
-        }
 
+        if (this.mediaPlayer is not null)
+        {
+            await this.PauseAsync();
+            this.mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(uri));
+        }
     }
 
+    /// <summary>
+    /// Pauses the currently playing audio.
+    /// </summary>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task PauseAsync()
     {
-        mediaPlayer?.Pause();
+        this.mediaPlayer?.Pause();
+
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Plays audio from the media player asynchronously.
+    /// </summary>
+    /// <param name="position">Where to start playing the track from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task PlayAsync(double position = 0)
     {
-        if (mediaPlayer != null)
+        if (this.mediaPlayer is not null)
         {
-            mediaPlayer.Position = TimeSpan.FromSeconds(position);
-            mediaPlayer.Play();
+            this.mediaPlayer.Position = TimeSpan.FromSeconds(position);
+            this.mediaPlayer.Play();
         }
 
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
     public Task SetCurrentTime(double value)
     {
-        if (mediaPlayer != null)
+        if (this.mediaPlayer is not null)
         {
-            mediaPlayer.Position = TimeSpan.FromSeconds(value);
+            this.mediaPlayer.Position = TimeSpan.FromSeconds(value);
         }
 
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Mutes currently playing audio.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetMuted(bool value)
     {
-        if (mediaPlayer != null)
+        if (this.mediaPlayer is not null)
         {
-            mediaPlayer.IsMuted = value;
+            this.mediaPlayer.IsMuted = value;
         }
 
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Sets the volume of the currently playing audio.
+    /// </summary>
+    /// <param name="value">The volume to set.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetVolume(int value)
     {
-        if (mediaPlayer != null)
+        if (this.mediaPlayer is not null)
         {
-            mediaPlayer.Volume = value != 0
+            this.mediaPlayer.Volume = value != 0
                 ? value / 100d
                 : 0;
         }
@@ -83,9 +135,14 @@ public class NativeAudioService : INativeAudioService
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Disposes the Windows audio service.
+    /// </summary>
+    /// <returns>Whether the task was completed or not.</returns>
     public ValueTask DisposeAsync()
     {
-        mediaPlayer?.Dispose();
+        this.mediaPlayer?.Dispose();
+
         return ValueTask.CompletedTask;
     }
 }

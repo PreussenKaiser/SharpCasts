@@ -1,10 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SharpCasts.Main.Models.Podcast;
-using SharpCasts.Main.Models.Podcast.Fields;
+﻿using SharpCasts.Main.Models;
 using SharpCasts.Main.Services.Players;
 using SharpCasts.Main.Services.Podcasts;
 using SharpCasts.Main.Services.Subscriptions;
 using SharpCasts.Main.Views;
+
+using CommunityToolkit.Mvvm.ComponentModel;
+
 using System.Windows.Input;
 
 namespace SharpCasts.Main.ViewModels;

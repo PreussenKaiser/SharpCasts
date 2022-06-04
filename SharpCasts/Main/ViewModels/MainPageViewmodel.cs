@@ -1,5 +1,4 @@
-﻿using SharpCasts.Main.Models.Podcast;
-using SharpCasts.Main.Services.Podcasts;
+﻿using SharpCasts.Main.Services.Podcasts;
 using SharpCasts.Main.Services.Subscriptions;
 using SharpCasts.Main.Views;
 

@@ -54,12 +54,16 @@ public static class MauiAppBuilderExtensions
     /// <returns>The builder with initialized services.</returns>
     public static MauiAppBuilder LoadServices(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<IPodcastService, PodcastService>()
-                        .AddSingleton<IUserService, UserService>()
+        builder.Services.AddSingleton<IUserService, UserService>()
                         .AddSingleton<ISubscriptionService, SubscriptionService>()
                         .AddSingleton<IPlayerService, PlayerService>()
                         .AddSingleton<SharedMauiLib.INativeAudioService, SharedMauiLib.Platforms.Android.NativeAudioService>()
-                        .AddDbContext<PodcastContext>();
+                        .AddDbContext<PodcastContext>()
+#if DEBUG
+                        .AddSingleton<IPodcastService, MockPodcastService>();
+#else
+                        .AddSingleton<IPodcastService, PodcastService>();
+#endif
 
         return builder;
     }

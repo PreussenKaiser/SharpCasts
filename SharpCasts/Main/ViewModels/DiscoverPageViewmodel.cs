@@ -1,8 +1,10 @@
 ﻿using SharpCasts.Main.Views;
 using SharpCasts.Main.Services.Podcasts;
-using System.Windows.Input;
-using SharpCasts.Main.Models.Podcast;
+using SharpCasts.Main.Models;
+
 using CommunityToolkit.Mvvm.ComponentModel;
+
+using System.Windows.Input;
 
 namespace SharpCasts.Main.ViewModels;
 

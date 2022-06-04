@@ -1,7 +1,9 @@
-﻿using GraphQL.Client.Http;
+﻿using SharpCasts.Main.Models;
+using SharpCasts.Main.Models.Data;
+using SharpCasts.Main.Models.Responses;
+
+using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
-using SharpCasts.Main.Models.Podcast;
-using SharpCasts.Main.Models.Podcast.Fields;
 
 namespace SharpCasts.Main.Services.Podcasts;
 

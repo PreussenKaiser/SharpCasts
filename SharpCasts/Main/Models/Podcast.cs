@@ -1,7 +1,6 @@
-﻿using SharpCasts.Main.Models.Podcast.Fields;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace SharpCasts.Main.Models.Podcast;
+namespace SharpCasts.Main.Models;
 
 /// <summary>
 /// The model that represents a podcast.
@@ -44,4 +43,28 @@ public class Podcast
     /// </summary>
     [JsonPropertyName("episodes")]
     public EpisodeList Episodes { get; set; } = new EpisodeList();
+}
+
+/// <summary>
+/// The class that represents the 'author' property in a podcast.
+/// </summary>
+public class EmailContact
+{
+    /// <summary>
+    /// Gets or sets the name of the author.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string Name { get; init; }
+}
+
+/// <summary>
+/// The class that represents a list of episodes from a podcast.
+/// </summary>
+public class EpisodeList
+{
+    /// <summary>
+    /// Gets or sets the episodes from a podcast.
+    /// </summary>
+    [JsonPropertyName("data")]
+    public List<Episode> List { get; set; }
 }
