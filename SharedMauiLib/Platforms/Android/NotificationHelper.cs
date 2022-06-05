@@ -12,7 +12,7 @@ using AndroidMedia = Android.Media;
 namespace SharedMauiLib.Platforms.Android;
 
 /// <summary>
-/// 
+/// The class which contains Android notification helper methods.
 /// </summary>
 public static class NotificationHelper
 {
@@ -53,9 +53,9 @@ public static class NotificationHelper
     }
 
     /// <summary>
-    /// 
+    /// Stops the current notification.
     /// </summary>
-    /// <param name="context"></param>
+    /// <param name="context">The current application context.</param>
     internal static void StopNotification(Context context)
     {
         NotificationManagerCompat nm = NotificationManagerCompat.From(context);
@@ -86,13 +86,13 @@ public static class NotificationHelper
     }
 
     /// <summary>
-    /// 
+    /// Starts the media controls notification.
     /// </summary>
-    /// <param name="context"></param>
-    /// <param name="mediaMetadata"></param>
+    /// <param name="context">The current application context.</param>
+    /// <param name="mediaMetadata">The metadata of the audio to play.</param>
     /// <param name="mediaSession"></param>
-    /// <param name="largeIcon"></param>
-    /// <param name="isPlaying"></param>
+    /// <param name="largeIcon">The cover image of the media.</param>
+    /// <param name="isPlaying">Whether the media is playing or not.</param>
     internal static void StartNotification(
         Context context,
         MediaMetadata mediaMetadata,
@@ -107,7 +107,6 @@ public static class NotificationHelper
             PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
 
         MediaMetadata currentTrack = mediaMetadata;
-
         MediaStyle style = new();
         style.SetMediaSession(mediaSession.SessionToken);
 

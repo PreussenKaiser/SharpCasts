@@ -11,7 +11,7 @@ public interface IPlayerService
     /// Plays audio asynchronously.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
-    /// <param name="position">Where to start playing from.</param>
+    /// <param name="podcast">The podcast whish is hosting the episode.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public Task PlayAsync(Episode episode, double position = 0);
+    public Task PlayAsync(Episode episode, Podcast podcast);
 }

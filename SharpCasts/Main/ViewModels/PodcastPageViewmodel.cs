@@ -59,7 +59,7 @@ public partial class PodcastPageViewmodel : BaseViewModel
         this.RefreshCommand = new Command(this.UpdateEpisodesAsync);
         this.SubscribeCommand = new Command(this.Subscribe);
         this.WebsiteCommand = new Command(this.Website);
-        this.PlayCommand = new Command<Episode>(this.PlayCommandExecuteAsync);
+        this.PlayCommand = new Command<Episode>(this.PlayCommandExecute);
     }
 
     /// <summary>
@@ -138,8 +138,6 @@ public partial class PodcastPageViewmodel : BaseViewModel
     /// Called when the user opts to play an episode.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
-    private async void PlayCommandExecuteAsync(Episode episode)
-    {
-        await this.playerService.PlayAsync(episode);
-    }
+    private void PlayCommandExecute(Episode episode)
+        => this.playerService.PlayAsync(episode, this.Podcast);
 }

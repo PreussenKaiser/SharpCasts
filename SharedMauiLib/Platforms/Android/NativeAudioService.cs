@@ -4,22 +4,22 @@ using SharedMauiLib.Platforms.Android.CurrentActivity;
 namespace SharedMauiLib.Platforms.Android;
 
 /// <summary>
-/// 
+/// The class which represents Android, audio service.
 /// </summary>
 public class NativeAudioService : INativeAudioService
 {
     /// <summary>
-    /// 
+    /// Executes when the current trak is changed.
     /// </summary>
     public event EventHandler<bool> IsPlayingChanged;
 
     /// <summary>
-    /// 
+    /// The current instance of the audio activity.
     /// </summary>
     private IAudioActivity instance;
 
     /// <summary>
-    /// 
+    /// Gets the <see cref="MediaPlayer">Android media player</see>.
     /// </summary>
     private MediaPlayer MediaPlayer
         => this.instance is not null && this.instance.Binder.GetMediaPlayerService() is not null
@@ -33,7 +33,7 @@ public class NativeAudioService : INativeAudioService
         => this.MediaPlayer?.IsPlaying ?? false;
 
     /// <summary>
-    /// Gets the current position on the track.
+    /// Gets the current position of the track.
     /// </summary>
     public double CurrentPosition
         => this.MediaPlayer?.CurrentPosition / 1000 ?? 0;
@@ -122,10 +122,10 @@ public class NativeAudioService : INativeAudioService
     }
 
     /// <summary>
-    /// 
+    /// Sets the track's volumen.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
+    /// <param name="value">The volme to set to.</param>
+    /// <returns>Whether the task was completed or not.</returns>
     public Task SetVolume(int value)
     {
         this.instance?.Binder
@@ -146,9 +146,9 @@ public class NativeAudioService : INativeAudioService
                         .Seek((int)position * 1000);
 
     /// <summary>
-    /// 
+    /// Disposes the <see cref="NativeAudioService"/> class.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Whether the task was completed or not.</returns>
     public ValueTask DisposeAsync()
     {
         this.instance.Binder?.Dispose();

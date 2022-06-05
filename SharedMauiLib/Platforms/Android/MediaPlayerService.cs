@@ -443,11 +443,12 @@ public class MediaPlayerService : Service,
     }
 
     /// <summary>
-    /// Initializes the player.
+    /// Plays or continues playing media.
     /// </summary>
+    /// <returns>Whether the task was completed or not.</returns>
     public async Task Play()
     {
-        if (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused)
+        if (this.mediaPlayer is not null && this.MediaPlayerState == PlaybackStateCode.Paused)
         {
             // We are simply paused so just start again.
             this.mediaPlayer.Start();

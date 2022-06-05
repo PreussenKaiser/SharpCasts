@@ -57,9 +57,9 @@ public static class MauiProgram
 
         // Database settings.
         Preferences.Set("Source", config["Database:Source"]);
-        Preferences.Set("InitialCatalog", config["InitialCatalog"]);
-        Preferences.Set("UserID", config["UserID"]);
-        Preferences.Set("Password", config["Password"]);
+        Preferences.Set("InitialCatalog", config["Database:InitialCatalog"]);
+        Preferences.Set("UserID", config["Database:UserID"]);
+        Preferences.Set("Password", config["Database:Password"]);
     }
 
     /// <summary>

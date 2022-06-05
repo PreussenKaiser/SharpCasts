@@ -108,7 +108,7 @@ public class PodcastService : IPodcastService
     /// <summary>
     /// Gets a list of episodes from a podcast.
     /// </summary>
-    /// <param name="podcastId">The podcast to get episodes from.</param>
+    /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
     /// <returns>Episodes from that podcast.</returns>
     public async Task<List<Episode>> GetEpisodes(int podcastId)
     {

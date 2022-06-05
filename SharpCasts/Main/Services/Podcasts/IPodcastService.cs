@@ -24,7 +24,7 @@ public interface IPodcastService
     /// <summary>
     /// Gets a list of episodes from a podcast.
     /// </summary>
-    /// <param name="podcastId">The unique identifier of the podcast to get episodes from.</param>
+    /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
     /// <returns>A list of episodes from that podcast.</returns>
     public Task<List<Episode>> GetEpisodes(int podcastId);
 }

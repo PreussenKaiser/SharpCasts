@@ -6,6 +6,9 @@ using SharpCasts.Main.Services.Users;
 using SharpCasts.Main.ViewModels;
 using SharpCasts.Main.Views;
 
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+
 namespace SharpCasts.Core.Extensions.Builders;
 
 /// <summary>
@@ -58,7 +61,7 @@ public static class MauiAppBuilderExtensions
                         .AddSingleton<ISubscriptionService, SubscriptionService>()
                         .AddSingleton<IPlayerService, PlayerService>()
                         .AddSingleton<SharedMauiLib.INativeAudioService, SharedMauiLib.Platforms.Android.NativeAudioService>()
-                        .AddDbContext<PodcastContext>()
+                        .AddDbContext<PodcastContext>(options => options.UseSqlServer(BuildConnectionString()))
 #if DEBUG
                         .AddSingleton<IPodcastService, MockPodcastService>();
 #else
@@ -66,5 +69,32 @@ public static class MauiAppBuilderExtensions
 #endif
 
         return builder;
+    }
+
+    /// <summary>
+    /// Builds the connection string for the database context.
+    /// </summary>
+    /// <returns>The connection string to the remote Azure MSSQL database.</returns>
+    private static string BuildConnectionString()
+    {
+        string source = Preferences.Get("Source", "");
+        string initialCatalog = Preferences.Get("InitialCatalog", "");
+        string userId = Preferences.Get("UserID", "");
+        string password = Preferences.Get("Password", "");
+
+        SqlConnectionStringBuilder connectionString = new()
+        {
+            DataSource = source,
+            InitialCatalog = initialCatalog,
+            PersistSecurityInfo = false,
+            UserID = userId,
+            Password = password,
+            MultipleActiveResultSets = false,
+            Encrypt = true,
+            TrustServerCertificate = false,
+            ConnectTimeout = 30
+        };
+
+        return connectionString.ToString();
     }
 }

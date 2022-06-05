@@ -42,7 +42,7 @@ public class MockPodcastService : IPodcastService
     /// <summary>
     /// Gets episodes from a podcast in the mock data store.
     /// </summary>
-    /// <param name="podcastId">The unique identifier of the podcast to get episodes from.</param>
+    /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
     /// <returns>A list of episodes from that podcast.</returns>
     public async Task<List<Episode>> GetEpisodes(int podcastId)
     {
