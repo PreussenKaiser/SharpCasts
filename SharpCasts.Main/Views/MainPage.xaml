@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
+             xmlns:m="clr-namespace:SharpCasts.Core.Models;assembly=SharpCasts.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SharpCasts.Main.Views.MainPage"
+             x:DataType="vm:MainPageViewModel"
+             Style="{DynamicResource Page}">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding RefreshCommand}"/>
+        
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView>
+        <Label Text="SharpCasts"
+               TextColor="White"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"/>
+
+    </Shell.TitleView>
+
+    <RefreshView Command="{Binding RefreshCommand}"
+                 IsRefreshing="{Binding IsBusy}">
+
+        <Grid Style="{StaticResource MainLayout}">
+            <StackLayout Style="{StaticResource HeaderWrapper}">
+                <Label Style="{StaticResource Header}"
+                       Text="Subscriptions"/>
+
+            </StackLayout>
+
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 24,24,0,0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                    Padding="16">
+
+                <CollectionView ItemsSource="{Binding SubscribedPodcasts}"
+                                SelectedItem="{Binding SelectedSubscription}"
+                                SelectionChangedCommand="{Binding SelectSubscriptionCommand}"
+                                ItemsLayout="VerticalGrid, 4"
+                                SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Podcast">
+                            <Frame Padding="0"
+                                   WidthRequest="92"
+                                   HeightRequest="92">
+
+                                <Image Source="{Binding ImageUrl}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </Grid>
+    </RefreshView>
+</ContentPage>

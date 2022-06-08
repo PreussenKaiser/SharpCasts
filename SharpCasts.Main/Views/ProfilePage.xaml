@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
+             xmlns:m="clr-namespace:SharpCasts.Core.Models;assembly=SharpCasts.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SharpCasts.Main.Views.ProfilePage"
+             x:DataType="vm:ProfilePageViewModel"
+             Style="{DynamicResource Page}">
+
+    <Shell.TitleView>
+        <Label Text="SharpCasts"
+               TextColor="White"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"/>
+
+    </Shell.TitleView>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding AppearingCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings"
+                     Order="Secondary"/>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid Style="{StaticResource MainLayout}">
+        <HorizontalStackLayout Style="{StaticResource HeaderWrapper}"
+                               Padding="32,16">
+            
+            <Frame Padding="0"
+                   CornerRadius="50">
+
+                <Image Source=""
+                       WidthRequest="92"
+                       HeightRequest="92"/>
+            </Frame>
+
+            <StackLayout VerticalOptions="Center">
+                <VerticalStackLayout IsVisible="{Binding IsNotLoggedIn}"
+                                     Padding="16,0">
+                
+                    <Label Text="Looks like you're not logged in"
+                           TextColor="White"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout>
+                        <Button Command="{Binding LoginCommand}"
+                                Text="Login"/>
+                    
+                        <Button Command="{Binding RegisterCommand}"
+                                Text="Register"/>
+                        
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding IsLoggedIn}"
+                                     Padding="32,0">
+                    
+                    <Label Text="{Binding CurrentUser.Name}"
+                           TextColor="White"
+                           FontSize="Title"
+                           FontAttributes="Bold"/>
+                    
+                </VerticalStackLayout>
+            </StackLayout>
+        </HorizontalStackLayout>
+
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 24,24,0,0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                Padding="16">
+
+            <CollectionView x:Name="Menu"
+                            ItemsSource="{Binding ProfileMenuItems}"
+                            SelectedItem="{Binding SelectedMenuItem}"
+                            SelectionChangedCommand="{Binding MenuItemSelectedCommand}"
+                            SelectionMode="Single">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:Name="Item" x:DataType="m:MenuItem">
+                        <Frame Padding="16"
+                               Margin="16,8"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}">
+
+                            <VerticalStackLayout>
+                                <Image Source="{Binding Icon}"/>
+                                <Label Text="{Binding Name}"
+                                       FontSize="Medium"/>
+                                
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</ContentPage>
