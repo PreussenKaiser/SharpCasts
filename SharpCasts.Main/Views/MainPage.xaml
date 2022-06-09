@@ -49,12 +49,13 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:Podcast">
-                            <Frame Padding="0"
-                                   WidthRequest="92"
-                                   HeightRequest="92">
+                            <Border BackgroundColor="Transparent"
+                                    StrokeShape="RoundRectangle 16"
+                                    StrokeThickness="0"
+                                    Margin="8">
 
                                 <Image Source="{Binding ImageUrl}"/>
-                            </Frame>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

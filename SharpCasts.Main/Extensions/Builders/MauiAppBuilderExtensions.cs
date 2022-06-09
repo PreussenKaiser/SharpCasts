@@ -28,7 +28,8 @@ public static class MauiAppBuilderExtensions
                         .AddTransient<PodcastPage>()
                         .AddTransient<LoginPage>()
                         .AddTransient<RegisterPage>()
-                        .AddTransient<ProfilePage>();
+                        .AddTransient<ProfilePage>()
+                        .AddTransient<SettingsPage>();
 
         return builder;
     }
@@ -45,7 +46,8 @@ public static class MauiAppBuilderExtensions
                         .AddTransient<PodcastPageViewModel>()
                         .AddSingleton<LoginPageViewModel>()
                         .AddSingleton<RegisterPageViewModel>()
-                        .AddSingleton<ProfilePageViewModel>();
+                        .AddSingleton<ProfilePageViewModel>()
+                        .AddSingleton<SettingsPageViewModel>();
 
         return builder;
     }

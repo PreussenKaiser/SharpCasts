@@ -45,18 +45,12 @@ public partial class LoginPageViewModel : BaseViewModel
         this.ErrorMsg = string.Empty;
 
         this.LoginCommand = new Command(this.LoginAsync);
-        this.RegisterCommand = new Command(this.RegisterAsync);
     }
 
     /// <summary>
     /// Gets the command to execute when the user submits the form.
     /// </summary>
     public ICommand LoginCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user opts to register.
-    /// </summary>
-    public ICommand RegisterCommand { get; }
 
     /// <summary>
     /// Gets or sets the entered username.
@@ -91,12 +85,6 @@ public partial class LoginPageViewModel : BaseViewModel
         // Navigate to profile.
         await Shell.Current.GoToAsync("..");
     }
-
-    /// <summary>
-    /// Sends the user to the register page.
-    /// </summary>
-    private async void RegisterAsync()
-        => await Shell.Current.GoToAsync(nameof(RegisterPage));
 
     /// <summary>
     /// Validates inputs in the login form.

@@ -16,6 +16,7 @@
     <Style x:Key="ContentLayout" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 24,24,0,0"/>
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"/>
+        <Setter Property="Padding" Value="16"/>
     </Style>
 
     <Style x:Key="HeaderWrapper" TargetType="StackLayout">
@@ -29,7 +30,7 @@
         <Setter Property="SemanticProperties.HeadingLevel" Value="Level1"/>
         <Setter Property="HorizontalOptions" Value="Center"/>
     </Style>
-
+    
     <Style x:Key="InputWrapper" TargetType="Border">
         <Setter Property="Stroke" Value="{StaticResource Primary}"/>
         <Setter Property="StrokeThickness" Value="3"/>
@@ -44,6 +45,7 @@
 
     <Style x:Key="SearchBarWrapper" TargetType="Frame">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"/>
+        <Setter Property="BorderColor" Value="Transparent"/>
         <Setter Property="CornerRadius" Value="24"/>
     </Style>
 

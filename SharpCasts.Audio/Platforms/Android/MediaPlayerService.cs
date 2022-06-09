@@ -154,14 +154,6 @@ public class MediaPlayerService : Service,
     private IBinder binder;
 
     /// <summary>
-    /// 
-    /// </summary>
-    public PlaybackStateCode MediaPlayerState
-        => this.mediaController.PlaybackState is not null
-            ? this.mediaController.PlaybackState.State
-            : PlaybackStateCode.None;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="MediaPlayerService"/> class.
     /// </summary>
     public MediaPlayerService()
@@ -183,6 +175,71 @@ public class MediaPlayerService : Service,
             if (this.MediaPlayerState is PlaybackStateCode.Playing)
                 this.PlayingHandler.PostDelayed(PlayingHandlerRunnable, 0);
         };
+    }
+
+    /// <summary>
+    /// Gets the media player's current state.
+    /// </summary>
+    public PlaybackStateCode MediaPlayerState
+        => this.mediaController.PlaybackState is not null
+            ? this.mediaController.PlaybackState.State
+            : PlaybackStateCode.None;
+
+    /// <summary>
+    /// Gets the media's duration.
+    /// </summary>
+    public int Duration
+    {
+        get
+        {
+            if (this.mediaPlayer is null
+                || this.MediaPlayerState != PlaybackStateCode.Playing
+                && this.MediaPlayerState != PlaybackStateCode.Paused)
+            {
+                return 0;
+            }
+
+            return this.mediaPlayer.Duration;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int Buffered
+    {
+        get
+        {
+            return this.mediaPlayer is null
+                ? 0
+                : this.buffered;
+        }
+        private set
+        {
+            this.buffered = value;
+            this.OnBuffering(EventArgs.Empty);
+        }
+    }
+
+    /// <summary>
+    /// Gets the current track's cover image.
+    /// </summary>
+    public object Cover
+    {
+        get
+        {
+            if (this.cover is null)
+                this.cover = BitmapFactory.DecodeResource(
+                    this.Resources,
+                    Resource.Drawable.abc_ab_share_pack_mtrl_alpha);
+
+            return this.cover;
+        }
+        private set
+        {
+            this.cover = value as Bitmap;
+            this.OnCoverReloaded(EventArgs.Empty);
+        }
     }
 
     /// <summary>
@@ -318,7 +375,7 @@ public class MediaPlayerService : Service,
     {
         int duration = 0;
 
-        if (this.MediaPlayerState is PlaybackStateCode.Playing 
+        if (this.MediaPlayerState == PlaybackStateCode.Playing 
             || this.MediaPlayerState == PlaybackStateCode.Paused)
         {
             duration = mp.Duration;
@@ -326,7 +383,7 @@ public class MediaPlayerService : Service,
 
         int newBufferedTime = duration * percent / 100;
 
-        if (newBufferedTime != Buffered)
+        if (newBufferedTime != this.Buffered)
         {
             this.Buffered = newBufferedTime;
         }
@@ -335,18 +392,18 @@ public class MediaPlayerService : Service,
     /// <summary>
     /// Plays the next track when the current one is finished.
     /// </summary>
-    /// <param name="mp"></param>
-    public async void OnCompletion(MediaPlayer mp)
+    /// <param name="mediaPlayer">The media player to play the next track with.</param>
+    public async void OnCompletion(MediaPlayer mediaPlayer)
         => await this.PlayNext();
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="mp"></param>
+    /// <param name="mediaPlayer"></param>
     /// <param name="what"></param>
     /// <param name="extra"></param>
     /// <returns></returns>
-    public bool OnError(MediaPlayer mp, MediaError what, int extra)
+    public bool OnError(MediaPlayer mediaPlayer, MediaError what, int extra)
     {
         this.UpdatePlaybackState(PlaybackStateCode.Error);
 
@@ -356,10 +413,10 @@ public class MediaPlayerService : Service,
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="mp"></param>
-    public void OnPrepared(MediaPlayer mp)
+    /// <param name="mediaPlayer"></param>
+    public void OnPrepared(MediaPlayer mediaPlayer)
     {
-        mp.Start();
+        mediaPlayer.Start();
         this.UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
@@ -380,65 +437,6 @@ public class MediaPlayerService : Service,
             {
                 return this.mediaPlayer.CurrentPosition;
             }
-        }
-    }
-
-    /// <summary>
-    /// Gets the media's duration.
-    /// </summary>
-    public int Duration
-    {
-        get
-        {
-            if (this.mediaPlayer is null
-                || this.MediaPlayerState != PlaybackStateCode.Playing
-                && this.MediaPlayerState != PlaybackStateCode.Paused)
-            {
-                return 0;
-            }
-            else
-            {
-                return this.mediaPlayer.Duration;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public int Buffered
-    {
-        get
-        {
-            return this.mediaPlayer is null
-                ? 0
-                : this.buffered;
-        }
-        private set
-        {
-            this.buffered = value;
-            this.OnBuffering(EventArgs.Empty);
-        }
-    }
-
-    /// <summary>
-    /// Gets the current track's cover image.
-    /// </summary>
-    public object Cover
-    {
-        get
-        {
-            if (this.cover is null)
-                this.cover = BitmapFactory.DecodeResource(
-                    this.Resources,
-                    Resource.Drawable.abc_ab_share_pack_mtrl_alpha);
-
-            return this.cover;
-        }
-        private set
-        {
-            this.cover = value as Bitmap;
-            this.OnCoverReloaded(EventArgs.Empty);
         }
     }
 
@@ -491,8 +489,8 @@ public class MediaPlayerService : Service,
             {
                 MediaMetadataRetriever metaRetriever = new();
 
-                await this.mediaPlayer.SetDataSourceAsync(ApplicationContext, AndroidNet.Uri.Parse(AudioUrl));
-                await metaRetriever.SetDataSourceAsync(AudioUrl, new Dictionary<string, string>());
+                await this.mediaPlayer.SetDataSourceAsync(this.ApplicationContext, AndroidNet.Uri.Parse(AudioUrl));
+                await metaRetriever.SetDataSourceAsync(this.AudioUrl, new Dictionary<string, string>());
 
                 var focusResult = this.audioManager
                         .RequestAudioFocus(new AudioFocusRequestClass

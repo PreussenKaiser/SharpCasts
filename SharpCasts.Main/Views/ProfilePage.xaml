@@ -51,14 +51,24 @@
                            TextColor="White"
                            FontSize="16"/>
 
-                    <HorizontalStackLayout>
-                        <Button Command="{Binding LoginCommand}"
-                                Text="Login"/>
-                    
-                        <Button Command="{Binding RegisterCommand}"
-                                Text="Register"/>
-                        
-                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="8"
+                          Padding="0,8">
+
+                        <Button Grid.Column="0"
+                                Command="{Binding LoginCommand}"
+                                Text="Login"
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                BorderWidth="3"/>
+
+                        <Button Grid.Column="1"
+                                Command="{Binding RegisterCommand}"
+                                Text="Register"
+                                TextColor="White"
+                                BackgroundColor="Transparent"/>
+                    </Grid>
                 </VerticalStackLayout>
                 <VerticalStackLayout IsVisible="{Binding IsLoggedIn}"
                                      Padding="32,0">
@@ -67,6 +77,20 @@
                            TextColor="White"
                            FontSize="Title"
                            FontAttributes="Bold"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="8"
+                          Padding="0,8">
+
+                        <Button Grid.Column="0"
+                                Command="{Binding LogoutCommand}"
+                                Text="Logout"
+                                TextColor="White"
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                BorderWidth="3"/>
+                        
+                    </Grid>
                     
                 </VerticalStackLayout>
             </StackLayout>
@@ -84,18 +108,21 @@
                             SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:Name="Item" x:DataType="m:MenuItem">
-                        <Frame Padding="16"
-                               Margin="16,8"
-                               BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}">
+                    <DataTemplate x:DataType="m:MenuItem">
+                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}"
+                                StrokeShape="RoundRectangle 16"
+                                StrokeThickness="0"
+                                Padding="16"
+                                Margin="0,8">
+
 
                             <VerticalStackLayout>
                                 <Image Source="{Binding Icon}"/>
                                 <Label Text="{Binding Name}"
                                        FontSize="Medium"/>
-                                
+
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

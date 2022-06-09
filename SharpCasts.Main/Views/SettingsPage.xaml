@@ -13,7 +13,14 @@
                    FontSize="Large"
                    SemanticProperties.HeadingLevel="Level1"
                    HorizontalOptions="Center"/>
-            
+
         </StackLayout>
+
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 24,24,0,0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                Padding="16">
+            
+        </Border>
     </Grid>
 </ContentPage>

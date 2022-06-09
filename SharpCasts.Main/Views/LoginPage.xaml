@@ -53,20 +53,10 @@
                     </Border>
                 </VerticalStackLayout>
 
-                <Grid Margin="0,16" 
-                      ColumnDefinitions="*, *"
-                      ColumnSpacing="12">
+                <Button Command="{Binding LoginCommand}"
+                        Text="Login"
+                        Margin="0,16"/>
 
-                    <Button Grid.Column="0"
-                            Style="{StaticResource BtnSecondary}"
-                            Command="{Binding RegisterCommand}"
-                            Text="Or Register"/>
-
-                    <Button Grid.Column="1"
-                            Command="{Binding LoginCommand}"
-                            Text="Login"/>
-
-                </Grid>
             </VerticalStackLayout>
         </Border>
     </Grid>

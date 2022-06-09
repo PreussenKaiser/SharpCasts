@@ -58,7 +58,6 @@ public partial class PodcastPageViewModel : BaseViewModel
 
         this.RefreshCommand = new Command(this.UpdateEpisodesAsync);
         this.SubscribeCommand = new Command(this.Subscribe);
-        this.WebsiteCommand = new Command(this.Website);
         this.PlayCommand = new Command<Episode>(this.PlayCommandExecute);
     }
 
@@ -71,11 +70,6 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// Gets the command to execute when the user subscribes to a podcast.
     /// </summary>
     public ICommand SubscribeCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the link to the podcast's website it clicked.
-    /// </summary>
-    public ICommand WebsiteCommand { get; }
 
     /// <summary>
     /// The command to execute when the user plays an episode.
@@ -140,14 +134,6 @@ public partial class PodcastPageViewModel : BaseViewModel
         };
 
         await this.subscriptionService.AddSubscriptionAsync(subscription);
-    }
-
-    /// <summary>
-    /// Goes to the podcast's website.
-    /// Called when a link to the podcast's website is clicked.
-    /// </summary>
-    private void Website()
-    {
     }
 
     /// <summary>

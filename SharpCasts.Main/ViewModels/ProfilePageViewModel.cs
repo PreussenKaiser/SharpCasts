@@ -36,12 +36,6 @@ public partial class ProfilePageViewModel : BaseViewModel
             new()
             {
                 Icon = string.Empty,
-                Name = "Subscriptions",
-                Route = string.Empty
-            },
-            new()
-            {
-                Icon = string.Empty,
                 Name = "Downloads",
                 Route = string.Empty
             },
@@ -56,6 +50,7 @@ public partial class ProfilePageViewModel : BaseViewModel
         this.AppearingCommand = new Command(this.Appearing);
         this.LoginCommand = new Command(this.LoginAsync);
         this.RegisterCommand = new Command(this.RegisterAsync);
+        this.LogoutCommand = new Command(this.Logout);
         this.MenuItemSelectedCommand = new Command(this.MenuItemSelectedAsync);
     }
 
@@ -73,6 +68,11 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// Gets the command to execute when the user wants to register.
     /// </summary>
     public ICommand RegisterCommand { get; }
+
+    /// <summary>
+    /// Gets the command to execute when the user logs off.
+    /// </summary>
+    public ICommand LogoutCommand { get; }
 
     /// <summary>
     /// Gets the command to execute when a menu item is selected.
@@ -123,6 +123,16 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// </summary>
     private async void RegisterAsync()
         => await Shell.Current.GoToAsync(nameof(RegisterPage));
+
+    /// <summary>
+    /// Logs the user out of the current session.
+    /// Called when <see cref="LogoutCommand"/> is executed.
+    /// </summary>
+    private void Logout()
+    {
+        Session.CurrentUser = null;
+        this.CurrentUser = null;
+    }
 
     /// <summary>
     /// Executes a menu item's action.
