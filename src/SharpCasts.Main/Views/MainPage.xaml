@@ -11,7 +11,7 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
-            Command="{Binding RefreshCommand}"/>
+            Command="{Binding RefreshAsyncCommand}"/>
         
     </ContentPage.Behaviors>
 
@@ -26,7 +26,7 @@
 
     </Shell.TitleView>
 
-    <RefreshView Command="{Binding RefreshCommand}"
+    <RefreshView Command="{Binding RefreshAsyncCommand}"
                  IsRefreshing="{Binding IsBusy}">
 
         <Grid Style="{StaticResource MainLayout}">
@@ -43,7 +43,7 @@
 
                 <CollectionView ItemsSource="{Binding SubscribedPodcasts}"
                                 SelectedItem="{Binding SelectedSubscription}"
-                                SelectionChangedCommand="{Binding SelectSubscriptionCommand}"
+                                SelectionChangedCommand="{Binding SelectSubscriptionAsyncCommand}"
                                 ItemsLayout="VerticalGrid, 4"
                                 SelectionMode="Single">
 

@@ -56,7 +56,7 @@
                           Padding="0,8">
 
                         <Button Grid.Column="0"
-                                Command="{Binding LoginCommand}"
+                                Command="{Binding LoginAsyncCommand}"
                                 Text="Login"
                                 TextColor="White"
                                 BackgroundColor="Transparent"
@@ -64,7 +64,7 @@
                                 BorderWidth="3"/>
 
                         <Button Grid.Column="1"
-                                Command="{Binding RegisterCommand}"
+                                Command="{Binding RegisterAsyncCommand}"
                                 Text="Register"
                                 TextColor="White"
                                 BackgroundColor="Transparent"/>
@@ -104,7 +104,7 @@
             <CollectionView x:Name="Menu"
                             ItemsSource="{Binding ProfileMenuItems}"
                             SelectedItem="{Binding SelectedMenuItem}"
-                            SelectionChangedCommand="{Binding MenuItemSelectedCommand}"
+                            SelectionChangedCommand="{Binding SelectMenuItemAsyncCommand}"
                             SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>

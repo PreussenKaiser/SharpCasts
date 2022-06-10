@@ -5,8 +5,7 @@ using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -55,26 +54,7 @@ public partial class PodcastPageViewModel : BaseViewModel
         this.podcastService = podcastService;
         this.subscriptionService = subscriptionService;
         this.playerService = playerService;
-
-        this.RefreshCommand = new Command(this.UpdateEpisodesAsync);
-        this.SubscribeCommand = new Command(this.Subscribe);
-        this.PlayCommand = new Command<Episode>(this.PlayCommandExecute);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the page is refreshed.
-    /// </summary>
-    public ICommand RefreshCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user subscribes to a podcast.
-    /// </summary>
-    public ICommand SubscribeCommand { get; }
-
-    /// <summary>
-    /// The command to execute when the user plays an episode.
-    /// </summary>
-    public ICommand PlayCommand { get; }
 
     /// <summary>
     /// Gets or sets the podcast to display.
@@ -85,7 +65,7 @@ public partial class PodcastPageViewModel : BaseViewModel
         set
         {
             this.SetProperty(ref this.podcast, value);
-            this.UpdateEpisodesAsync();
+            this.RefreshAsync();
         }
     }
 
@@ -98,7 +78,8 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// <summary>
     /// Updates the podcast's list of episodes.
     /// </summary>
-    private async void UpdateEpisodesAsync()
+    [ICommand]
+    private async void RefreshAsync()
     {
         if (this.Podcast is null)
             return;
@@ -115,7 +96,8 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// Subscribes a user to a podcast.
     /// Called when the user opts to subscribe to a podcast.
     /// </summary>
-    private async void Subscribe()
+    [ICommand]
+    private async void SubscribeAsync()
     {
         if (Session.CurrentUser is null)
         {
@@ -141,6 +123,6 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// Called when the user opts to play an episode.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
-    private void PlayCommandExecute(Episode episode)
-        => this.playerService.PlayAsync(episode, this.Podcast);
+    private async void PlayAsync(Episode episode)
+        => await this.playerService.PlayAsync(episode, this.Podcast);
 }

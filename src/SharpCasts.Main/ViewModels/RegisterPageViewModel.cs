@@ -7,8 +7,7 @@ using SharpCasts.Core.Validation;
 using SharpCasts.Core.Validation.Inputs;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -43,13 +42,7 @@ public partial class RegisterPageViewModel : BaseViewModel
         this.validator = new Validator();
 
         this.ErrorMsg = string.Empty;
-        this.RegisterCommand = new Command(this.RegisterAsync);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the user submits the form.
-    /// </summary>
-    public ICommand RegisterCommand { get; }
 
     /// <summary>
     /// Gets or sets the user's username.
@@ -70,6 +63,7 @@ public partial class RegisterPageViewModel : BaseViewModel
     /// Determine if the user can register.
     /// If so, a new account is created.
     /// </summary>
+    [ICommand]
     private async void RegisterAsync()
     {
         this.ValidateInputs();

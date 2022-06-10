@@ -5,8 +5,7 @@ using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -43,20 +42,7 @@ public partial class MainPageViewModel : BaseViewModel
         this.podcastService = podcastService;
 
         this.SubscribedPodcasts = new List<Podcast>();
-
-        this.RefreshCommand = new Command(this.RefreshAsync);
-        this.SelectSubscriptionCommand = new Command(this.SelectSubscriptionAsync);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the page refreshes.
-    /// </summary>
-    public ICommand RefreshCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user selected a subscription.
-    /// </summary>
-    public ICommand SelectSubscriptionCommand { get; }
 
     /// <summary>
     /// Gets or sets the selected subscription.
@@ -67,6 +53,7 @@ public partial class MainPageViewModel : BaseViewModel
     /// <summary>
     /// Refreshes the home page.
     /// </summary>
+    [ICommand]
     private async void RefreshAsync()
     {
         this.IsBusy = true;
@@ -79,6 +66,7 @@ public partial class MainPageViewModel : BaseViewModel
     /// <summary>
     /// Navigates to the selected podcast's page.
     /// </summary>
+    [ICommand]
     private async void SelectSubscriptionAsync()
     {
         if (this.SelectedSubscription is null)

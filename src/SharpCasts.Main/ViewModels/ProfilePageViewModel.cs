@@ -5,8 +5,7 @@ using SharpCasts.Core.Models;
 using MenuItem = SharpCasts.Core.Models.MenuItem;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -46,38 +45,7 @@ public partial class ProfilePageViewModel : BaseViewModel
                 Route = nameof(SettingsPage)
             }
         };
-
-        this.AppearingCommand = new Command(this.Appearing);
-        this.LoginCommand = new Command(this.LoginAsync);
-        this.RegisterCommand = new Command(this.RegisterAsync);
-        this.LogoutCommand = new Command(this.Logout);
-        this.MenuItemSelectedCommand = new Command(this.MenuItemSelectedAsync);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the page appears.
-    /// </summary>
-    public ICommand AppearingCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user wants to log in.
-    /// </summary>
-    public ICommand LoginCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user wants to register.
-    /// </summary>
-    public ICommand RegisterCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when the user logs off.
-    /// </summary>
-    public ICommand LogoutCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when a menu item is selected.
-    /// </summary>
-    public ICommand MenuItemSelectedCommand { get; }
 
     /// <summary>
     /// Gets the menu items for the profile navigation menu.
@@ -104,30 +72,28 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// <summary>
     /// Checks if a user has signed in.
     /// </summary>
-    /// <remarks>
-    /// Called when <see cref="AppearingCommand"/> is executed.
-    /// </remarks>
+    [ICommand]
     private void Appearing()
         => this.CurrentUser ??= Session.CurrentUser;
 
     /// <summary>
     /// Sends the user to the login page.
-    /// Called when <see cref="LoginCommand"/> is executed.
     /// </summary>
+    [ICommand]
     private async void LoginAsync()
         => await Shell.Current.GoToAsync(nameof(LoginPage));
 
     /// <summary>
     /// Sends the user to the register page.
-    /// Called when <see cref="RegisterCommand"/> is executed.
     /// </summary>
+    [ICommand]
     private async void RegisterAsync()
         => await Shell.Current.GoToAsync(nameof(RegisterPage));
 
     /// <summary>
     /// Logs the user out of the current session.
-    /// Called when <see cref="LogoutCommand"/> is executed.
     /// </summary>
+    [ICommand]
     private void Logout()
     {
         Session.CurrentUser = null;
@@ -137,10 +103,8 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// <summary>
     /// Executes a menu item's action.
     /// </summary>
-    /// <remarks>
-    /// Called when <see cref="MenuItemSelectedCommand"/> is executed.
-    /// </remarks>
-    private async void MenuItemSelectedAsync()
+    [ICommand]
+    private async void SelectMenuItemAsync()
     {
         if (this.SelectedMenuItem is null)
             return;

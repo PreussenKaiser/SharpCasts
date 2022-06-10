@@ -69,13 +69,13 @@ public class PlayerService : IPlayerService
     /// <param name="isPlaying">Whether the episode is playing or not.</param>
     /// <param name="position">Where to start playing from.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public async Task PlayAsync(Episode episode, Podcast podcast, bool isPlaying, double position = 0)
+    public async Task PlayAsync(Episode episode, Podcast podcast,
+                                bool isPlaying, double position = 0)
     {
         if (episode is null)
             return;
 
-        bool isOtherEpisode = this.CurrentEpisode?.Title != episode.Title;
-
+        bool isOtherEpisode = this.CurrentEpisode?.Id != episode.Id;
         this.CurrentPodcast = podcast;
 
         if (isOtherEpisode)

@@ -112,8 +112,6 @@
 	  <EditorConfigFiles Remove="C:\Users\kluka\Projects\c#\SharpCasts\SharpCasts\.editorconfig" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Include="C:\Users\kluka\Projects\c#\SharpCasts\SharpCasts\.editorconfig" />
-	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadGenericExceptionInfoBarSharpCastsMainHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

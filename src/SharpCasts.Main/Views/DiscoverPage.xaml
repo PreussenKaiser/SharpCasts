@@ -18,7 +18,7 @@
 
     </Shell.TitleView>
 
-    <RefreshView Command="{Binding RefreshCommand}"
+    <RefreshView Command="{Binding SearchAsyncCommand}"
                  CommandParameter="{Binding Source={x:Reference Search}, Path=Text}"
                  IsRefreshing="{Binding IsBusy}">
 
@@ -28,7 +28,7 @@
                     <SearchBar x:Name="Search"
                                Placeholder="Search for podcasts..."
                                HorizontalOptions="Center"
-                               SearchCommand="{Binding SearchCommand}"
+                               SearchCommand="{Binding SearchAsyncCommand}"
                                SearchCommandParameter="{Binding Source={x:Reference Search}, Path=Text}"/>
                 </Frame>
             </StackLayout>
@@ -39,7 +39,7 @@
 
                 <CollectionView ItemsSource="{Binding Podcasts}"
                                 SelectedItem="{Binding SelectedPodcast}"
-                                SelectionChangedCommand="{Binding SelectPodcastCommand}"
+                                SelectionChangedCommand="{Binding SelectPodcastAsyncCommand}"
                                 SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>

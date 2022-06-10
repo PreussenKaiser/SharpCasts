@@ -7,8 +7,7 @@ using SharpCasts.Core.Validation;
 using SharpCasts.Core.Validation.Inputs;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -43,14 +42,7 @@ public partial class LoginPageViewModel : BaseViewModel
         this.validator = new Validator();
 
         this.ErrorMsg = string.Empty;
-
-        this.LoginCommand = new Command(this.LoginAsync);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the user submits the form.
-    /// </summary>
-    public ICommand LoginCommand { get; }
 
     /// <summary>
     /// Gets or sets the entered username.
@@ -65,6 +57,7 @@ public partial class LoginPageViewModel : BaseViewModel
     /// <summary>
     /// Verifies if the user entered the correct credentials and logs them in.
     /// </summary>
+    [ICommand]
     private async void LoginAsync()
     {
         User loggingInUser = new()

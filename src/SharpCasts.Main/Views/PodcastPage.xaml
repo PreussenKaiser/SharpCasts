@@ -7,7 +7,7 @@
              x:Class="SharpCasts.Main.Views.PodcastPage"
              Style="{DynamicResource Page}">
 
-    <RefreshView Command="{Binding RefreshCommand}"
+    <RefreshView Command="{Binding RefreshAsyncCommand}"
                  IsRefreshing="{Binding IsBusy}">
 
         <Grid Style="{StaticResource MainLayout}">
@@ -44,7 +44,7 @@
 
                     <CollectionView.Header>
                         <VerticalStackLayout Padding="16">
-                            <Button Command="{Binding SubscribeCommand}"
+                            <Button Command="{Binding SubscribeAsyncCommand}"
                                     Text="Subscribe"
                                     HorizontalOptions="Start"/>
 
@@ -74,7 +74,7 @@
                                 <Grid ColumnDefinitions="Auto,*"
                                       ColumnSpacing="12">
                                     
-                                    <Button Command="{Binding Source={x:Reference Episode}, Path=Parent.BindingContext.PlayCommand}"
+                                    <Button Command="{Binding Source={x:Reference Episode}, Path=Parent.BindingContext.PlayAsyncCommand}"
                                             CommandParameter="{Binding .}"
                                             Style="{DynamicResource BtnOutline}"
                                             Padding="12,8"

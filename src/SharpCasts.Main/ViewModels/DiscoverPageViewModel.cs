@@ -4,8 +4,7 @@ using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -34,26 +33,7 @@ public partial class DiscoverPageViewModel : BaseViewModel
         this.podcastService = podcastService;
 
         this.Podcasts = new List<Podcast>();
-
-        this.RefreshCommand = new Command<string>(this.SearchAsync);
-        this.SearchCommand = new Command<string>(this.SearchAsync);
-        this.SelectPodcastCommand = new Command(this.PodcastSelectedAsync);
     }
-
-    /// <summary>
-    /// Gets the command to execute when the page is manually refreshed.
-    /// </summary>
-    public ICommand RefreshCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when a value is searched.
-    /// </summary>
-    public ICommand SearchCommand { get; }
-
-    /// <summary>
-    /// Gets the command to execute when a podcast is selected.
-    /// </summary>
-    public ICommand SelectPodcastCommand { get; }
 
     /// <summary>
     /// Gets or sets the currently selected podcast.
@@ -64,6 +44,7 @@ public partial class DiscoverPageViewModel : BaseViewModel
     /// Searches for podcasts.
     /// </summary>
     /// <param name="search">The search term to use.</param>
+    [ICommand]
     private async void SearchAsync(string search)
     {
         this.IsBusy = true;
@@ -85,7 +66,8 @@ public partial class DiscoverPageViewModel : BaseViewModel
     /// <summary>
     /// Navigates to the selected podcast's page.
     /// </summary>
-    private async void PodcastSelectedAsync()
+    [ICommand]
+    private async void SelectPodcastAsync()
     {
         if (this.SelectedPodcast is null)
             return;
