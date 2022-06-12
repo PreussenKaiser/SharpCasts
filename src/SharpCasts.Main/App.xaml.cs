@@ -17,7 +17,7 @@ public partial class App : Application
 		this.MainPage = new MobileShell();
 
         // Routes in tabbed navigation.
-        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+        Routing.RegisterRoute(nameof(SubscriptionsPage), typeof(SubscriptionsPage));
         Routing.RegisterRoute(nameof(DiscoverPage), typeof(DiscoverPage));
         Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
 

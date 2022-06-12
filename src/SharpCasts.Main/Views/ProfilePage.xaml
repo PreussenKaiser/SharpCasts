@@ -116,12 +116,15 @@
                                 Margin="0,8">
 
 
-                            <VerticalStackLayout>
+                            <Grid ColumnDefinitions="Auto,*"
+                                  ColumnSpacing="16">
+                                
                                 <Image Source="{Binding Icon}"/>
-                                <Label Text="{Binding Name}"
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
                                        FontSize="Medium"/>
 
-                            </VerticalStackLayout>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

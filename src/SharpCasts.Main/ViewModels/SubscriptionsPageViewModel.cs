@@ -10,9 +10,9 @@ using CommunityToolkit.Mvvm.Input;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The view model for the <see cref="MainPage"/> content page.
+/// The view model for the <see cref="SubscriptionsPage"/> content page.
 /// </summary>
-public partial class MainPageViewModel : BaseViewModel
+public partial class SubscriptionsPageViewModel : BaseViewModel
 {
     /// <summary>
     /// The service to get subscribed podcasts with.
@@ -31,12 +31,12 @@ public partial class MainPageViewModel : BaseViewModel
     private IEnumerable<Podcast> subscribedPodcasts;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
+    /// Initializes a new instance of the <see cref="SubscriptionsPageViewModel"/> class.
     /// </summary>
     /// <param name="subscriptionService">The service to get subscribed podcasts with.</param>
     /// <param name="podcastService">The service to get podcasts with.</param>
-    public MainPageViewModel(ISubscriptionService subscriptionService,
-                             IPodcastService podcastService)
+    public SubscriptionsPageViewModel(ISubscriptionService subscriptionService,
+                                      IPodcastService podcastService)
     {
         this.subscriptionService = subscriptionService;
         this.podcastService = podcastService;

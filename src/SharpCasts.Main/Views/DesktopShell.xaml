@@ -5,17 +5,23 @@
     xmlns:local="clr-namespace:SharpCasts.Main.Views"
     xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
     x:Class="SharpCasts.Main.Views.DesktopShell"
-    x:DataType="vm:ShellViewmodel"
+    x:DataType="vm:ShellViewModel"
     Title="DesktopShell">
 
     <TabBar>
-        <Tab Title="Home">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        <Tab Title="{Binding Subscriptions.Title}"
+             Icon="{Binding Subscriptions.Icon}">
+
+            <ShellContent ContentTemplate="{DataTemplate local:SubscriptionsPage}"/>
         </Tab>
-        <Tab Title="Discover">
+        <Tab Title="{Binding Discover.Title}"
+             Icon="{Binding Discover.Icon}">
+
             <ShellContent ContentTemplate="{DataTemplate local:DiscoverPage}"/>
         </Tab>
-        <Tab Title="Profile">
+        <Tab Title="{Binding Profile.Title}"
+             Icon="{Binding Profile.Icon}">
+
             <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"/>
         </Tab>
     </TabBar>

@@ -23,7 +23,7 @@ public static class MauiAppBuilderExtensions
     /// <returns>The builder with initializes view.s</returns>
     public static MauiAppBuilder LoadViews(this MauiAppBuilder builder)
     {
-        builder.Services.AddTransient<MainPage>()
+        builder.Services.AddTransient<SubscriptionsPage>()
                         .AddTransient<DiscoverPage>()
                         .AddTransient<PodcastPage>()
                         .AddTransient<LoginPage>()
@@ -41,7 +41,7 @@ public static class MauiAppBuilderExtensions
     /// <returns>The builder with initialized viewmodels.</returns>
     public static MauiAppBuilder LoadViewmodels(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<MainPageViewModel>()
+        builder.Services.AddSingleton<SubscriptionsPageViewModel>()
                         .AddSingleton<DiscoverPageViewModel>()
                         .AddTransient<PodcastPageViewModel>()
                         .AddSingleton<LoginPageViewModel>()

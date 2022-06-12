@@ -4,8 +4,8 @@
              xmlns:vm="clr-namespace:SharpCasts.Main.ViewModels"
              xmlns:m="clr-namespace:SharpCasts.Core.Models;assembly=SharpCasts.Core"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="SharpCasts.Main.Views.MainPage"
-             x:DataType="vm:MainPageViewModel"
+             x:Class="SharpCasts.Main.Views.SubscriptionsPage"
+             x:DataType="vm:SubscriptionsPageViewModel"
              Style="{DynamicResource Page}">
 
     <ContentPage.Behaviors>
@@ -44,7 +44,7 @@
                 <CollectionView ItemsSource="{Binding SubscribedPodcasts}"
                                 SelectedItem="{Binding SelectedSubscription}"
                                 SelectionChangedCommand="{Binding SelectSubscriptionAsyncCommand}"
-                                ItemsLayout="VerticalGrid, 4"
+                                ItemsLayout="VerticalGrid, 3"
                                 SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
@@ -52,7 +52,9 @@
                             <Border BackgroundColor="Transparent"
                                     StrokeShape="RoundRectangle 16"
                                     StrokeThickness="0"
-                                    Margin="8">
+                                    Margin="4"
+                                    WidthRequest="114"
+                                    HeightRequest="114">
 
                                 <Image Source="{Binding ImageUrl}"/>
                             </Border>

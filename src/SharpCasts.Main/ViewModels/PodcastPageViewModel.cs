@@ -123,6 +123,7 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// Called when the user opts to play an episode.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
+    [ICommand]
     private async void PlayAsync(Episode episode)
         => await this.playerService.PlayAsync(episode, this.Podcast);
 }

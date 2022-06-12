@@ -34,10 +34,14 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\appicon.svg"
+				  ForegroundFile="Resources\appiconfg.svg"
+				  Color="#512BD4"/>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\appiconfg.svg"
+						  Color="#512BD4"
+						  BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -52,10 +56,9 @@
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Images\discover.svg" />
-	  <None Remove="Resources\Images\discover_dark.svg" />
-	  <None Remove="Resources\Images\search.svg" />
+	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\settings.svg" />
-	  <None Remove="Resources\Images\settings_dark.svg" />
+	  <None Remove="Resources\Images\subscriptions.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +85,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\SubscriptionsPage.xaml.cs">
+	    <DependentUpon>SubscriptionsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\MobileShell.xaml.cs">
 	    <DependentUpon>MobileShell.xaml</DependentUpon>
 	  </Compile>

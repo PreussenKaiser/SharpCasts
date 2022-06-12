@@ -40,7 +40,7 @@ public partial class ProfilePageViewModel : BaseViewModel
             },
             new()
             {
-                Icon = string.Empty,
+                Icon = "settings.png",
                 Name = "Settings",
                 Route = nameof(SettingsPage)
             }
