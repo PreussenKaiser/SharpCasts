@@ -1,11 +1,11 @@
-﻿using SharpCasts.Main.Configuration;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using MenuItem = SharpCasts.Core.Models.MenuItem;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -74,7 +74,7 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// </summary>
     [ICommand]
     private void Appearing()
-        => this.CurrentUser ??= Session.CurrentUser;
+        => this.CurrentUser ??= Settings.CurrentUser;
 
     /// <summary>
     /// Sends the user to the login page.
@@ -96,7 +96,7 @@ public partial class ProfilePageViewModel : BaseViewModel
     [ICommand]
     private void Logout()
     {
-        Session.CurrentUser = null;
+        Settings.CurrentUser = null;
         this.CurrentUser = null;
     }
 

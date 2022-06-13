@@ -51,7 +51,7 @@ public partial class DiscoverPageViewModel : BaseViewModel
 
         try
         {
-            this.Podcasts = await this.podcastService.SearchPodcasts(search);
+            this.Podcasts = await this.podcastService.SearchPodcastsAsync(search);
         }
         catch (Exception)
         {

@@ -14,18 +14,10 @@ public class MockSubscriptionService : ISubscriptionService
     private readonly List<Subscription> subscriptions;
 
     /// <summary>
-    /// Initializes a new instanceof the <see cref="MockSubscriptionService"/> class.
+    /// Initializes a new instance of the <see cref="MockSubscriptionService"/> class.
     /// </summary>
     public MockSubscriptionService()
-        => this.subscriptions = new List<Subscription>
-        {
-            new()
-            {
-                Id = 1,
-                UserId = 1,
-                PodcastId = 1
-            }
-        };
+        => this.subscriptions = new List<Subscription>();
 
     /// <summary>
     /// Adds a subscription to the data store.
@@ -34,9 +26,10 @@ public class MockSubscriptionService : ISubscriptionService
     /// <returns>Whether the tas was completed or not.</returns>
     public async Task AddSubscriptionAsync(Subscription subscription)
     {
-        subscription = await Task.FromResult(subscription);
-
-        this.subscriptions.Add(subscription);
+        await Task.Run(() =>
+        {
+            this.subscriptions.Add(subscription);
+        });
     }
 
     /// <summary>
@@ -55,5 +48,34 @@ public class MockSubscriptionService : ISubscriptionService
         });
 
         return await Task.FromResult(foundSubs);
+    }
+
+    /// <summary>
+    /// Gets a subscription by a user for a podcast.
+    /// </summary>
+    /// <param name="userId">The user to search for.</param>
+    /// <param name="podcastId">The podcast which they may have subscribed to.</param>
+    /// <returns>The found subscription, null if none were found.</returns>
+    public async Task<Subscription> GetSubscriptionAsync(int userId, int podcastId)
+    {
+        Subscription subscription = null;
+
+        await Task.Run(() =>
+        {
+            subscription = this.subscriptions.Find(s
+                => s.UserId == userId && s.PodcastId == podcastId);
+        });
+
+        return subscription;
+    }
+
+    /// <summary>
+    /// Deletes a subscription from the mock data store.
+    /// </summary>
+    /// <param name="subscription">The subscription to delete.</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public async Task UnsubscribeAsync(Subscription subscription)
+    {
+        await Task.Run(() => this.subscriptions.Remove(subscription));
     }
 }

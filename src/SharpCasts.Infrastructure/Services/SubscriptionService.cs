@@ -33,6 +33,7 @@ public class SubscriptionService : ISubscriptionService
         await this.database.SaveChangesAsync();
     }
 
+
     /// <summary>
     /// 
     /// </summary>
@@ -50,5 +51,29 @@ public class SubscriptionService : ISubscriptionService
         });
 
         return await Task.FromResult(foundSubs);
+    }
+
+    /// <summary>
+    /// Gets a subscription from the database.
+    /// </summary>
+    /// <param name="userId">The user who made the subscription.</param>
+    /// <param name="podcastId">The podcast the user subscribed to.</param>
+    /// <returns>The found subscription, null if none were found.</returns>
+    public async Task<Subscription> GetSubscriptionAsync(int userId, int podcastId)
+    {
+        Subscription subscription = await this.database.Subscriptions.FindAsync(userId, podcastId);
+
+        return subscription;
+    }
+
+    /// <summary>
+    /// Deletes a subscription from the database.
+    /// </summary>
+    /// <param name="subscription">The subscription to delete.</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public async Task UnsubscribeAsync(Subscription subscription)
+    {
+        this.database.Subscriptions.Remove(subscription);
+        await this.database.SaveChangesAsync();
     }
 }

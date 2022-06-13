@@ -1,11 +1,11 @@
-﻿using SharpCasts.Main.Configuration;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -43,6 +43,13 @@ public partial class PodcastPageViewModel : BaseViewModel
     private List<Episode> episodes;
 
     /// <summary>
+    /// Whether the podcast has already been subscribed to or not.
+    /// </summary>
+    [ObservableProperty]
+    [AlsoNotifyChangeFor(nameof(IsNotSubscribed))]
+    private bool isSubscribed;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PodcastPageViewModel"/> class.
     /// </summary>
     /// <param name="podcastService">The service to get podcast episodes with.</param>
@@ -76,6 +83,12 @@ public partial class PodcastPageViewModel : BaseViewModel
         => $"{this.Episodes.Count} Episodes";
 
     /// <summary>
+    /// Gets whether the user hasn't subscribed to the podcast or not.
+    /// </summary>
+    public bool IsNotSubscribed
+        => !this.IsSubscribed;
+
+    /// <summary>
     /// Updates the podcast's list of episodes.
     /// </summary>
     [ICommand]
@@ -86,8 +99,11 @@ public partial class PodcastPageViewModel : BaseViewModel
 
         this.IsBusy = true;
 
-        this.Episodes = await this.podcastService
-                                  .GetEpisodes(this.Podcast.Id);
+        var episodes = this.podcastService.GetEpisodesAsync(this.Podcast.Id);
+        var isSubscribed = this.IfSubscribed();
+
+        this.Episodes = await episodes;
+        this.IsSubscribed = await isSubscribed;
 
         this.IsBusy = false;
     }
@@ -99,9 +115,9 @@ public partial class PodcastPageViewModel : BaseViewModel
     [ICommand]
     private async void SubscribeAsync()
     {
-        if (Session.CurrentUser is null)
+        if (Settings.CurrentUser is null)
         {
-            await Shell.Current.DisplayPromptAsync(
+            await Shell.Current.DisplayAlert(
                 "Could not subscribe",
                 "You need to be logged in to subscribe",
                 "OK");
@@ -111,11 +127,30 @@ public partial class PodcastPageViewModel : BaseViewModel
 
         Subscription subscription = new()
         {
-            UserId = Session.CurrentUser.Id,
+            UserId = Settings.CurrentUser.Id,
             PodcastId = this.Podcast.Id
         };
 
         await this.subscriptionService.AddSubscriptionAsync(subscription);
+        this.IsSubscribed = true;
+    }
+
+    /// <summary>
+    /// Unsubscribes the user from the podcast.
+    /// </summary>
+    [ICommand]
+    private async void UnsubscribeAsync()
+    {
+        if (Settings.CurrentUser is null)
+            return;
+
+        Subscription subscription = await this.subscriptionService.GetSubscriptionAsync(Settings.CurrentUser.Id, this.Podcast.Id);
+
+        if (subscription is null)
+            return;
+
+        await this.subscriptionService.UnsubscribeAsync(subscription);
+        this.IsSubscribed = false;
     }
 
     /// <summary>
@@ -126,4 +161,20 @@ public partial class PodcastPageViewModel : BaseViewModel
     [ICommand]
     private async void PlayAsync(Episode episode)
         => await this.playerService.PlayAsync(episode, this.Podcast);
+
+    /// <summary>
+    /// Determines if the current user has subscribed to this podcast.
+    /// </summary>
+    /// <returns>Whether the task was completed or not.</returns>
+    private async Task<bool> IfSubscribed()
+    {
+        if (Settings.CurrentUser is null || this.Podcast is null)
+            return false;
+
+        Subscription subscription = await this.subscriptionService.GetSubscriptionAsync(
+                                        Settings.CurrentUser.Id,
+                                        this.Podcast.Id);
+
+        return subscription is not null;
+    }
 }

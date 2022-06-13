@@ -1,11 +1,11 @@
-﻿using SharpCasts.Main.Configuration;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -87,10 +87,10 @@ public partial class SubscriptionsPageViewModel : BaseViewModel
     /// <returns>A list of podcasts that the user subscribed to.</returns>
     private async Task<List<Podcast>> GetPodcastsFromSubscriptionsAsync()
     {
-        if (Session.CurrentUser is null)
+        if (Settings.CurrentUser is null)
             return new List<Podcast>();
 
-        int userId = Session.CurrentUser.Id;
+        int userId = Settings.CurrentUser.Id;
         List<Podcast> subscribedPodcasts = new();
         List<Subscription> subscriptions = await this.subscriptionService.GetSubscriptionsForAsync(userId);
 
@@ -98,7 +98,7 @@ public partial class SubscriptionsPageViewModel : BaseViewModel
         {
             if (s.UserId == userId)
             {
-                Podcast podcast = await this.podcastService.GetPodcast(s.PodcastId);
+                Podcast podcast = await this.podcastService.GetPodcastAsync(s.PodcastId);
 
                 subscribedPodcasts.Add(podcast);
             }

@@ -45,9 +45,14 @@
                     <CollectionView.Header>
                         <VerticalStackLayout Padding="16">
                             <Button Command="{Binding SubscribeAsyncCommand}"
+                                    IsVisible="{Binding IsNotSubscribed}"
                                     Text="Subscribe"
                                     HorizontalOptions="Start"/>
-
+                            
+                            <Button Command="{Binding UnsubscribeAsyncCommand}"
+                                    IsVisible="{Binding IsSubscribed}"
+                                    Text="Unsubscribe"
+                                    HorizontalOptions="Start"/>
 
                             <StackLayout Padding="0,12">
                                 <Label Text="{Binding Podcast.Description}"/>

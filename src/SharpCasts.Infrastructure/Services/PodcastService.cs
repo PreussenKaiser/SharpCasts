@@ -41,7 +41,7 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="podcastId">The identifier of the podcast to get.</param>
     /// <returns>The podcast which matched the supplied identifier.</returns>
-    public async Task<Podcast> GetPodcast(int podcastId)
+    public async Task<Podcast> GetPodcastAsync(int podcastId)
     {
         PodcastIdentifier identifier = new()
         {
@@ -78,7 +78,7 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="search">The search term to filter with.</param>
     /// <returns>A list of podcasts that match the query.</returns>
-    public async Task<List<Podcast>> SearchPodcasts(string search)
+    public async Task<List<Podcast>> SearchPodcastsAsync(string search)
     {
         GraphQLHttpRequest request = new()
         {
@@ -111,7 +111,7 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
     /// <returns>Episodes from that podcast.</returns>
-    public async Task<List<Episode>> GetEpisodes(int podcastId)
+    public async Task<List<Episode>> GetEpisodesAsync(int podcastId)
     {
         PodcastIdentifier identifier = new()
         {

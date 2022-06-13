@@ -45,7 +45,7 @@ public class MockPodcastService : IPodcastService
     /// </summary>
     /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
     /// <returns>A list of episodes from that podcast.</returns>
-    public async Task<List<Episode>> GetEpisodes(int podcastId)
+    public async Task<List<Episode>> GetEpisodesAsync(int podcastId)
     {
         Podcast podcast = this.podcasts.First(p => p.Id == podcastId);
         List<Episode> episodes = await Task.FromResult(podcast.Episodes.List);
@@ -58,7 +58,7 @@ public class MockPodcastService : IPodcastService
     /// </summary>
     /// <param name="podcastId"></param>
     /// <returns></returns>
-    public async Task<Podcast> GetPodcast(int podcastId)
+    public async Task<Podcast> GetPodcastAsync(int podcastId)
     {
         Podcast podcast = this.podcasts.First(p => p.Id == podcastId);
         podcast = await Task.FromResult(podcast);
@@ -71,7 +71,7 @@ public class MockPodcastService : IPodcastService
     /// </summary>
     /// <param name="search">The podcasts to search for.</param>
     /// <returns>Podcasts that match the search term.</returns>
-    public async Task<List<Podcast>> SearchPodcasts(string search)
+    public async Task<List<Podcast>> SearchPodcastsAsync(string search)
     {
         List<Podcast> podcasts = await Task.FromResult(this.podcasts.ToList());
 

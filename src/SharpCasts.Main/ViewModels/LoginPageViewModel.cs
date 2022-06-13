@@ -1,5 +1,4 @@
-﻿using SharpCasts.Main.Configuration;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
@@ -8,6 +7,7 @@ using SharpCasts.Core.Validation.Inputs;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -73,7 +73,7 @@ public partial class LoginPageViewModel : BaseViewModel
 
         // Set logged in user.
         User loggedInUser = this.userService.GetUserByCredentials(loggingInUser);
-        Session.CurrentUser = loggedInUser;
+        Settings.CurrentUser = loggedInUser;
 
         // Navigate to profile.
         await Shell.Current.GoToAsync("..");

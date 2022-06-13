@@ -1,5 +1,4 @@
-﻿using SharpCasts.Main.Configuration;
-using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
@@ -8,6 +7,7 @@ using SharpCasts.Core.Validation.Inputs;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -80,7 +80,7 @@ public partial class RegisterPageViewModel : BaseViewModel
         await this.userService.AddUser(registeringUser);
 
         // Logs the user in.
-        Session.CurrentUser = this.userService.GetUserByCredentials(registeringUser);
+        Settings.CurrentUser = this.userService.GetUserByCredentials(registeringUser);
     }
 
     /// <summary>

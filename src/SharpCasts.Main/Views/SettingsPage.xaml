@@ -20,7 +20,25 @@
                 StrokeShape="RoundRectangle 24,24,0,0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
                 Padding="16">
-            
+
+            <VerticalStackLayout>
+                <Grid ColumnDefinitions="2*,8*"
+                      ColumnSpacing="8">
+                    
+                    <!-- Dark mode -->
+                    <Switch IsToggled="{Binding DarkModeEnabled}"/>
+                    <Label Grid.Column="1"
+                           Text="Dark mode"
+                           Margin="0,11,0,0"/>
+                    
+                </Grid>
+
+                <Label Text="{Binding AppVersion}"
+                       VerticalOptions="EndAndExpand"
+                       HorizontalOptions="Center"
+                       Opacity=".5"/>
+
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>
