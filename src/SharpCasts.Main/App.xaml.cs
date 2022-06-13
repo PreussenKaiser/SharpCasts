@@ -1,4 +1,5 @@
-﻿using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Helpers;
+using SharpCasts.Main.Views;
 
 namespace SharpCasts.Main;
 
@@ -15,6 +16,7 @@ public partial class App : Application
 		this.InitializeComponent();
 
 		this.MainPage = new MobileShell();
+        ThemeHelper.SetTheme();
 
         // Routes in tabbed navigation.
         Routing.RegisterRoute(nameof(SubscriptionsPage), typeof(SubscriptionsPage));

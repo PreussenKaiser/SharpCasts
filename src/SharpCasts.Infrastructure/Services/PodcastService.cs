@@ -6,7 +6,7 @@ using SharpCasts.Core.Services;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
 
-namespace SharpCasts.Infrastructure.Services.Podcasts;
+namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
 /// The service which gets podcasts from the Podchaser API.

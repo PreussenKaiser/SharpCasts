@@ -18,11 +18,6 @@ namespace SharpCasts.Main;
 public class MainActivity : MauiAppCompatActivity, IAudioActivity
 {
     /// <summary>
-    /// 
-    /// </summary>
-    private MediaPlayerServiceConnection mediaPlayerServiceConnection;
-
-    /// <summary>
     /// Not implemented.
     /// </summary>
     public event StatusChangedEventHandler StatusChanged;
@@ -41,6 +36,11 @@ public class MainActivity : MauiAppCompatActivity, IAudioActivity
     /// Not implemented.
     /// </summary>
     public event BufferingEventHandler Buffering;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private MediaPlayerServiceConnection mediaPlayerServiceConnection;
 
     /// <summary>
     /// 
@@ -64,7 +64,7 @@ public class MainActivity : MauiAppCompatActivity, IAudioActivity
     }
 
     /// <summary>
-    /// 
+    /// Initializes the appication's media player.
     /// </summary>
     private void InitializeMedia()
     {

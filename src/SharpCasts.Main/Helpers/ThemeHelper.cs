@@ -8,13 +8,10 @@ public class ThemeHelper
     /// <summary>
     /// Sets the theme to the given value.
     /// </summary>
-    /// <param name="theme">The theme to set.</param>
-    /// <remarks>
-    /// Default value is <c>AppTheme.Light</c>
-    /// </remarks>
-    public static void SetTheme(AppTheme theme = AppTheme.Light)
+    public static void SetTheme()
     {
-        switch (theme)
+        // TODO: Remove tight coupling in ThemeHelper.SetTheme
+        switch (Settings.Theme)
         {
             case AppTheme.Light:
                 Application.Current.UserAppTheme = AppTheme.Light;
@@ -23,6 +20,11 @@ public class ThemeHelper
 
             case AppTheme.Dark:
                 Application.Current.UserAppTheme = AppTheme.Dark;
+
+                break;
+
+            case AppTheme.Unspecified:
+                Application.Current.UserAppTheme = AppTheme.Unspecified;
 
                 break;
         }

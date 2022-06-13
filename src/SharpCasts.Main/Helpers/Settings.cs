@@ -10,7 +10,7 @@ public static class Settings
     /// <summary>
     /// The application's default theme.
     /// </summary>
-    private const AppTheme DEFAULT_THEME = AppTheme.Light;
+    private const AppTheme DEFAULT_THEME = AppTheme.Unspecified;
 
     /// <summary>
     /// Gets whether the application is on desktop or not.
@@ -40,7 +40,7 @@ public static class Settings
         set
         {
             Preferences.Set(nameof(Theme), value.ToString());
-            ThemeHelper.SetTheme(value);
+            ThemeHelper.SetTheme();
         }
     }
 }
