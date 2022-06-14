@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class that represents the user's profile page.
+/// Code behind for the ProfilePage view.
 /// </summary>
 public partial class ProfilePage : ContentPage
 {

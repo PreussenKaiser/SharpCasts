@@ -3,7 +3,7 @@
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class which represents the mobile application's shell.
+/// Code behind for the MobileShell view.
 /// </summary>
 public partial class MobileShell : Shell
 {

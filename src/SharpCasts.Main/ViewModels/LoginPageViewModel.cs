@@ -12,7 +12,7 @@ using SharpCasts.Main.Helpers;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The view model for the <see cref="LoginPage"/> content page.
+/// View model for the <see cref="LoginPage"/> content page.
 /// </summary>
 public partial class LoginPageViewModel : BaseViewModel
 {

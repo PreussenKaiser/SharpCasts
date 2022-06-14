@@ -4,7 +4,7 @@ using Android.Runtime;
 namespace SharpCasts.Main;
 
 /// <summary>
-/// The class that represents the main entry-point of the Android application.
+/// Represents the main entry-point of the Android application.
 /// </summary>
 [Application]
 public class MainApplication : MauiApplication

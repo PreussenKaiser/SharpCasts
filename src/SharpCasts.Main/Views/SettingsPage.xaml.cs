@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class that represents the settings page.
+/// Code behind for the SettingsPage view.
 /// </summary>
 public partial class SettingsPage : ContentPage
 {

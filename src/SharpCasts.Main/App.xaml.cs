@@ -4,7 +4,7 @@ using SharpCasts.Main.Views;
 namespace SharpCasts.Main;
 
 /// <summary>
-/// The class that represents the main entry-point for the application.
+/// The main entry-point for the application.
 /// </summary>
 public partial class App : Application
 {

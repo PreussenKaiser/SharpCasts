@@ -8,7 +8,7 @@ using CommunityToolkit.Maui;
 namespace SharpCasts.Main;
 
 /// <summary>
-/// The class that initializes the application.
+/// Initializes the application.
 /// </summary>
 public static class MauiProgram
 {

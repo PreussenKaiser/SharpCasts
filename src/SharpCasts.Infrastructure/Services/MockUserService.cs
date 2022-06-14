@@ -1,10 +1,12 @@
-﻿using SharpCasts.Core.Models;
+﻿using SharpCasts.Infrastructure.Data;
+
+using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The service that mimics the remote Azure MSSQL database.
+/// Mimics user queries from <see cref="PodcastContext"/>.
 /// </summary>
 public class MockUserService : IUserService
 {

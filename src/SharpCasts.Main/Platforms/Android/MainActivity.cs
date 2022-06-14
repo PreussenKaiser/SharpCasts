@@ -9,7 +9,7 @@ using Android.OS;
 namespace SharpCasts.Main;
 
 /// <summary>
-/// The class that runs configuration for the Android application.
+/// Runs configuration for the Android application.
 /// </summary>
 [Activity(
     Theme = "@style/Maui.SplashTheme",

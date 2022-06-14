@@ -3,7 +3,7 @@
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class which represents the subscriptions page.
+/// Code behind for the SubscriptionsPage view.
 /// </summary>
 public partial class SubscriptionsPage : ContentPage
 {

@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class that represents the login page.
+/// Code behind for the LoginPage view.
 /// </summary>
 public partial class LoginPage : ContentPage
 {

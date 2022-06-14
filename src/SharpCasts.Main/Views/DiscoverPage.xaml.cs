@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class which represents the discover page.
+/// Code behind for the DiscoverPage view.
 /// </summary>
 public partial class DiscoverPage : ContentPage
 {

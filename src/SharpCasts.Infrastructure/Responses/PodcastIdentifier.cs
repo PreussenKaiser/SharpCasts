@@ -3,18 +3,18 @@
 namespace SharpCasts.Infrastructure.Responses;
 
 /// <summary>
-/// The class that represents a unique podcast identifier.
+/// Represents a unique podcast identifier in the <see href="https://api-docs.podchaser.com/">Podchaser API</see>.
 /// </summary>
 public class PodcastIdentifier
 {
     /// <summary>
-    /// Gets or sets the numeric identifier.
+    /// Gets or initializes the numeric identifier.
     /// </summary>
     [JsonPropertyName("id")]
     public string Id { get; init; }
 
     /// <summary>
-    /// Gets or sets the identifier's type.
+    /// Gets or initializes the identifier's type.
     /// </summary>
     [JsonPropertyName("type")]
     public PodcastIdentifierType Type { get; init; }

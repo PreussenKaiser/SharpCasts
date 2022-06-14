@@ -4,24 +4,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SharpCasts.Core.Models;
 
 /// <summary>
-/// The model that represents a subscribed podcast.
+/// Represents a podcast subscription.
 /// </summary>
 public class Subscription
 {
     /// <summary>
-    /// Gets or sets the subscribed podcast's unique identifier.
+    /// Gets or initializes the subscribed podcast's unique identifier.
     /// </summary>
     [Key]
     public int Id { get; init; }
 
     /// <summary>
-    /// Gets or sets the subscribed podcast.
+    /// Gets or initializes the subscribed podcast.
     /// </summary>
     [Required]
     public int PodcastId { get; init; }
 
     /// <summary>
-    /// Gets or sets the user who subscribed to the podcast.
+    /// Gets or initializes the user who subscribed to the podcast.
     /// </summary>
     [ForeignKey(nameof(User))]
     [Required]

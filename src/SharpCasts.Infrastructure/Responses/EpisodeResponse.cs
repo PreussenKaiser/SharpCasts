@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace SharpCasts.Infrastructure.Responses;
 
 /// <summary>
-/// The class that represents a response for an episodes query.
+/// Represents a response for episodes from the <see href="https://api-docs.podchaser.com/">Podchaser API</see>.
 /// </summary>
 public class EpisodeResponse
 {

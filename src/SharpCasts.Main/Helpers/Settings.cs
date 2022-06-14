@@ -3,7 +3,7 @@
 namespace SharpCasts.Main.Helpers;
 
 /// <summary>
-/// The class which contains application session data.
+/// Contains application settings.
 /// </summary>
 public static class Settings
 {

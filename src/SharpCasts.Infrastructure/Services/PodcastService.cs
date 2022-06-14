@@ -9,9 +9,7 @@ using GraphQL.Client.Serializer.SystemTextJson;
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The service which gets podcasts from the Podchaser API.
-/// <br/>
-/// Documentation for which can be found at <see href="https://api-docs.podchaser.com/"/>.
+/// Queries for podcasts from the <see href="https://api-docs.podchaser.com/">Podchaser API</see>.
 /// </summary>
 public class PodcastService : IPodcastService
 {

@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class which represents the register page.
+/// Code behind for the RegisterPage view.
 /// </summary>
 public partial class RegisterPage : ContentPage
 {

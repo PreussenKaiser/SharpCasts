@@ -6,7 +6,7 @@ using SharpCasts.Audio;
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The service which plays audio from a url.
+/// Plays audio from a url using native APIs.
 /// </summary>
 public class PlayerService : IPlayerService
 {

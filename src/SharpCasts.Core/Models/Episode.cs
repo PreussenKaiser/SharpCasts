@@ -3,7 +3,7 @@
 namespace SharpCasts.Core.Models;
 
 /// <summary>
-/// The class that represents an episode in a podcast.
+/// Represents an episode in a podcast.
 /// </summary>
 public class Episode
 {

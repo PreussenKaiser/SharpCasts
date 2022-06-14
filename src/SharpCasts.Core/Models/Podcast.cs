@@ -3,37 +3,37 @@
 namespace SharpCasts.Core.Models;
 
 /// <summary>
-/// The model that represents a podcast.
+/// Represents a podcast.
 /// </summary>
 public class Podcast
 {
     /// <summary>
-    /// Gets or sets the unique identifier for the podcast.
+    /// Gets or initializes the unique identifier for the podcast.
     /// </summary>
     [JsonPropertyName("id")]
     [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
     public int Id { get; init; }
 
     /// <summary>
-    /// Gets or sets the podcast's title.
+    /// Gets or initializes the podcast's title.
     /// </summary>
     [JsonPropertyName("title")]
     public string Title { get; init; }
 
     /// <summary>
-    /// Gets or sets the podcast's description.
+    /// Gets or initializes the podcast's description.
     /// </summary>
     [JsonPropertyName("description")]
     public string Description { get; init; }
 
     /// <summary>
-    /// Gets or sets a url leading to an image of the podcast.
+    /// Gets or initializes a url leading to an image of the podcast.
     /// </summary>
     [JsonPropertyName("imageUrl")]
     public string ImageUrl { get; init; }
 
     /// <summary>
-    /// Gets or sets the podcast's author.
+    /// Gets or initializes the podcast's author.
     /// </summary>
     [JsonPropertyName("author")]
     public EmailContact Author { get; init; }
@@ -46,19 +46,19 @@ public class Podcast
 }
 
 /// <summary>
-/// The class that represents the 'author' property in a podcast.
+/// Represents <see cref="Podcast.Author"/>
 /// </summary>
 public class EmailContact
 {
     /// <summary>
-    /// Gets or sets the name of the author.
+    /// Gets or initializes the name of the author.
     /// </summary>
     [JsonPropertyName("name")]
     public string Name { get; init; }
 }
 
 /// <summary>
-/// The class that represents a list of episodes from a podcast.
+/// Represents a list of episodes from a podcast.
 /// </summary>
 public class EpisodeList
 {

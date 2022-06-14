@@ -3,7 +3,7 @@
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The class that represents the base view model.
+/// Represents the base view model.
 /// </summary>
 public partial class BaseViewModel : ObservableObject
 {

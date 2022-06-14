@@ -1,11 +1,15 @@
 using SharpCasts.Main.ViewModels;
 
+using SharpCasts.Core.Models;
+
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class which represents the podcast page.
-/// This page displays a podcast.
+/// The code behind for the PodcastPage view.
 /// </summary>
+/// <remarks>
+/// The <see cref="PodcastPageViewModel">viewmodel</see> for this page takes <see cref="Podcast"/> as a query parameter.
+/// </remarks>
 public partial class PodcastPage : ContentPage
 {
     /// <summary>

@@ -10,7 +10,7 @@ using SharpCasts.Main.Helpers;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The view model for the <see cref="ProfilePage"/> content page.
+/// View model for the <see cref="ProfilePage"/> content page.
 /// </summary>
 public partial class ProfilePageViewModel : BaseViewModel
 {

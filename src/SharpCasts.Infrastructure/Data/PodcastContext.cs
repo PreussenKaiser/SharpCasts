@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 namespace SharpCasts.Infrastructure.Data;
 
 /// <summary>
-/// The context which interacts with the SharpCasts Azure database.
+/// The context for the Azure MSSQL database.
 /// </summary>
 public class PodcastContext : DbContext
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PodcastContext"/> class.
     /// </summary>
-    /// <param name="options"></param>
+    /// <param name="options">Options for the context.</param>
     public PodcastContext(DbContextOptions options)
         : base(options)
     {

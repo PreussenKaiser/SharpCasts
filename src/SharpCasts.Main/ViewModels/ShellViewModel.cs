@@ -4,7 +4,7 @@ using ShellItem = SharpCasts.Core.Models.ShellItem;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The viewmodel for application shells.
+/// View model for application shells.
 /// </summary>
 /// <remarks>
 /// Shells include:

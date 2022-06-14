@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace SharpCasts.Main.Extensions.Builders;
 
 /// <summary>
-/// The class which contains <see cref="MauiAppBuilder"/> extension methods.
+/// Contains <see cref="MauiAppBuilder"/> extension methods.
 /// </summary>
 public static class MauiAppBuilderExtensions
 {

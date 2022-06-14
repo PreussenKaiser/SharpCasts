@@ -6,7 +6,7 @@ using SharpCasts.Core.Services;
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The service which gets subscribed podcasts from a remote Azure SQL Server database.
+/// Queries podcast subscriptions using <see cref="PodcastContext"/>.
 /// </summary>
 public class SubscriptionService : ISubscriptionService
 {

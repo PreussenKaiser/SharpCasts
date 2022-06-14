@@ -3,7 +3,7 @@ using SharpCasts.Main.ViewModels;
 namespace SharpCasts.Main.Views;
 
 /// <summary>
-/// The class that represents the dekstop application's shell.
+/// Code behind for the DesktopShell view.
 /// </summary>
 public partial class DesktopShell : Shell
 {

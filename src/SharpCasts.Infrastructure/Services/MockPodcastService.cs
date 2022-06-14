@@ -4,7 +4,7 @@ using SharpCasts.Core.Services;
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The class that represents an imitation of a podcast service.
+/// Represents an imitation of a podcast service.
 /// </summary>
 public class MockPodcastService : IPodcastService
 {

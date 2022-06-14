@@ -10,7 +10,7 @@ using GraphQL.Client.Http;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The view model for the <see cref="DiscoverPage"/> content page.
+/// View model for the <see cref="DiscoverPage"/> content page.
 /// </summary>
 public partial class DiscoverPageViewModel : BaseViewModel
 {

@@ -10,7 +10,7 @@ using SharpCasts.Main.Helpers;
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// The view model for the <see cref="PodcastPage"/> content page.
+/// View model for the <see cref="PodcastPage"/> content page.
 /// </summary>
 [QueryProperty(nameof(Podcast), "Podcast")]
 public partial class PodcastPageViewModel : BaseViewModel

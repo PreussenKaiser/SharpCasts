@@ -2,11 +2,12 @@
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
+using System.Security.Cryptography;
 
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// The service which gets users from an Azure database.
+/// Queries users from <see cref="PodcastContext"/>.
 /// </summary>
 public class UserService : IUserService
 {
@@ -29,6 +30,7 @@ public class UserService : IUserService
     /// <returns>Whether the task was completed or not.</returns>
     public async Task AddUser(User user)
     {
+        // TODO: Hash passwords.
         await this.database.Users.AddAsync(user);
         await this.database.SaveChangesAsync();
     }
