@@ -118,9 +118,9 @@ public partial class PodcastPageViewModel : BaseViewModel
         if (Settings.CurrentUser is null)
         {
             await Shell.Current.DisplayAlert(
-                "Could not subscribe",
-                "You need to be logged in to subscribe",
-                "OK");
+                    "Could not subscribe",
+                    "You need to be logged in to subscribe",
+                    "OK");
 
             return;
         }

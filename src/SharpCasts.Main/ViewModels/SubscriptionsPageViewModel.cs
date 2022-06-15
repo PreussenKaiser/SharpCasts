@@ -72,13 +72,13 @@ public partial class SubscriptionsPageViewModel : BaseViewModel
         if (this.SelectedSubscription is null)
             return;
 
-        Dictionary<string, object> args = new()
+        Dictionary<string, object> parameters = new()
         {
             { "Podcast", this.SelectedSubscription }
         };
 
         await Shell.Current.GoToAsync(
-            $"{nameof(PodcastPage)}", true, args);
+            $"{nameof(PodcastPage)}", true, parameters);
     }
 
     /// <summary>

@@ -71,9 +71,8 @@ public partial class LoginPageViewModel : BaseViewModel
         if (!string.IsNullOrEmpty(this.ErrorMsg))
             return;
 
-        // Set logged in user.
-        User loggedInUser = this.userService.GetUserByCredentials(loggingInUser);
-        Settings.CurrentUser = loggedInUser;
+        // Logs user in.
+        Settings.CurrentUser = this.userService.GetUserByCredentials(loggingInUser);
 
         // Navigate to profile.
         await Shell.Current.GoToAsync("..");

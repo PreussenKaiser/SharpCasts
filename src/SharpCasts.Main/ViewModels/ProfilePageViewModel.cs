@@ -29,8 +29,7 @@ public partial class ProfilePageViewModel : BaseViewModel
     /// Initializes a new instance of the <see cref="ProfilePageViewModel"/> class.
     /// </summary>
     public ProfilePageViewModel()
-    {
-        this.ProfileMenuItems = new List<MenuItem>
+        => this.ProfileMenuItems = new List<MenuItem>
         {
             new()
             {
@@ -45,7 +44,6 @@ public partial class ProfilePageViewModel : BaseViewModel
                 Route = nameof(SettingsPage)
             }
         };
-    }
 
     /// <summary>
     /// Gets the menu items for the profile navigation menu.

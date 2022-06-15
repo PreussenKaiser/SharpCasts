@@ -69,8 +69,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:Episode">
-                            <Border x:Name="Episode"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}"
+                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}"
                                     StrokeShape="RoundRectangle 16"
                                     StrokeThickness="0"
                                     Padding="16"
@@ -79,7 +78,7 @@
                                 <Grid ColumnDefinitions="Auto,*"
                                       ColumnSpacing="12">
                                     
-                                    <Button Command="{Binding Source={x:Reference Episode}, Path=Parent.BindingContext.PlayAsyncCommand}"
+                                    <Button Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:PodcastPageViewModel}}, Path=PlayAsyncCommand}"
                                             CommandParameter="{Binding .}"
                                             Style="{DynamicResource BtnOutline}"
                                             Padding="12,8"

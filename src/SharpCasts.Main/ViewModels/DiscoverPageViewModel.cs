@@ -73,12 +73,12 @@ public partial class DiscoverPageViewModel : BaseViewModel
         if (this.SelectedPodcast is null)
             return;
 
-        Dictionary<string, object> args = new()
+        Dictionary<string, object> parameters = new()
         {
             { "Podcast", this.SelectedPodcast }
         };
 
         await Shell.Current.GoToAsync(
-            $"{nameof(PodcastPage)}", true, args);
+            $"{nameof(PodcastPage)}", true, parameters);
     }
 }
