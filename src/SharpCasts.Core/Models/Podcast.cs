@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace SharpCasts.Core.Models;
 
@@ -8,9 +9,9 @@ namespace SharpCasts.Core.Models;
 public class Podcast
 {
     /// <summary>
-    /// Gets or initializes the unique identifier for the podcast.
+    /// Gets or initializes the podcast's unique identifier.
     /// </summary>
-    [JsonPropertyName("id")]
+    [JsonPropertyName("itunes_id")]
     [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
     public int Id { get; init; }
 
@@ -21,50 +22,29 @@ public class Podcast
     public string Title { get; init; }
 
     /// <summary>
-    /// Gets or initializes the podcast's description.
+    /// Gets or sets the podcast's description.
     /// </summary>
-    [JsonPropertyName("description")]
-    public string Description { get; init; }
+    public string Description { get; set; }
 
     /// <summary>
-    /// Gets or initializes a url leading to an image of the podcast.
+    /// Gets or sets the podcast's author.
     /// </summary>
-    [JsonPropertyName("imageUrl")]
-    public string ImageUrl { get; init; }
+    public string Author { get; set; }
 
     /// <summary>
-    /// Gets or initializes the podcast's author.
+    /// Gets or sets the podcast's website.
     /// </summary>
-    [JsonPropertyName("author")]
-    public EmailContact Author { get; init; }
+    public string Website { get; set; }
 
     /// <summary>
-    /// Gets or sets the podcast's list of episodes.
+    /// Gets or initializes the podcast's image url.
     /// </summary>
-    [JsonPropertyName("episodes")]
-    public EpisodeList Episodes { get; set; } = new EpisodeList();
-}
+    [JsonPropertyName("image_url")]
+    public string Image { get; init; }
 
-/// <summary>
-/// Represents <see cref="Podcast.Author"/>
-/// </summary>
-public class EmailContact
-{
     /// <summary>
-    /// Gets or initializes the name of the author.
+    /// Gets or initializes where the podcast's feed is.
     /// </summary>
-    [JsonPropertyName("name")]
-    public string Name { get; init; }
-}
-
-/// <summary>
-/// Represents a list of episodes from a podcast.
-/// </summary>
-public class EpisodeList
-{
-    /// <summary>
-    /// Gets or sets the episodes from a podcast.
-    /// </summary>
-    [JsonPropertyName("data")]
-    public List<Episode> List { get; set; }
+    [JsonPropertyName("feed_url")]
+    public string Feed { get; init; }
 }

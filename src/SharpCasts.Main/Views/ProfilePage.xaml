@@ -9,14 +9,7 @@
              Style="{DynamicResource Page}">
 
     <Shell.TitleView>
-        <Label Text="SharpCasts"
-               TextColor="White"
-               FontSize="Medium"
-               FontAttributes="Bold"
-               VerticalOptions="Center"
-               HorizontalTextAlignment="Center"
-               HorizontalOptions="CenterAndExpand"/>
-
+        <Label Style="{StaticResource Title}"/>
     </Shell.TitleView>
 
     <ContentPage.Behaviors>

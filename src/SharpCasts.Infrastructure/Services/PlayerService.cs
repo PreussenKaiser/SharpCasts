@@ -87,7 +87,7 @@ public class PlayerService : IPlayerService
                 await this.InternalPauseAsync();
             }
 
-            await this.audioService.InitializeAsync(this.CurrentEpisode.AudioUrl);
+            await this.audioService.InitializeAsync(this.CurrentEpisode.Audio.Url);
             await this.InternalPlayPauseAsync(isPlaying, position);
 
             this.NewEpisodeAdded?.Invoke(this, EventArgs.Empty);

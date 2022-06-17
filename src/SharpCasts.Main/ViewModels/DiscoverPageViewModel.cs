@@ -5,7 +5,6 @@ using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GraphQL.Client.Http;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -54,7 +53,7 @@ public partial class DiscoverPageViewModel : BaseViewModel
         {
             this.Podcasts = await this.podcastService.SearchPodcastsAsync(search);
         }
-        catch (GraphQLHttpRequestException)
+        catch (HttpRequestException)
         {
             await Shell.Current.DisplayAlert("Error",
                                              "There was a problem gettings podcasts",

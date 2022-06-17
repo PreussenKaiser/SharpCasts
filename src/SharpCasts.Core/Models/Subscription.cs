@@ -18,12 +18,13 @@ public class Subscription
     /// Gets or initializes the subscribed podcast.
     /// </summary>
     [Required]
+    [ForeignKey(nameof(Podcast))]
     public int PodcastId { get; init; }
 
     /// <summary>
     /// Gets or initializes the user who subscribed to the podcast.
     /// </summary>
-    [ForeignKey(nameof(User))]
     [Required]
+    [ForeignKey(nameof(User))]
     public int UserId { get; init; }
 }

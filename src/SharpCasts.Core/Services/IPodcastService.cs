@@ -19,12 +19,12 @@ public interface IPodcastService
     /// </summary>
     /// <param name="search">The search term to filter with.</param>
     /// <returns>Podcasts that match the search term.</returns>
-    public Task<List<Podcast>> SearchPodcastsAsync(string search);
+    public Task<IEnumerable<Podcast>> SearchPodcastsAsync(string search);
 
     /// <summary>
-    /// Gets a list of episodes from a podcast.
+    /// Gets a list of episodes from a podcast feed.
     /// </summary>
-    /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
-    /// <returns>A list of episodes from that podcast.</returns>
-    public Task<List<Episode>> GetEpisodesAsync(int podcastId);
+    /// <param name="feedUrl">The feed to get episodes from.</param>
+    /// <returns>The channel hosting the feed.</returns>
+    public Task<Channel> GetChannelAsync(string feedUrl);
 }

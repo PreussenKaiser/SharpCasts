@@ -14,7 +14,7 @@
             <VerticalStackLayout Padding="16,0">
                 <HorizontalStackLayout Padding="0,16">
                     <Frame Padding="0">
-                        <Image Source="{Binding Podcast.ImageUrl}"
+                        <Image Source="{Binding Podcast.Image}"
                                HeightRequest="128"
                                WidthRequest="128"/>
 
@@ -28,7 +28,7 @@
                                FontSize="Large"
                                Margin="0,4"/>
 
-                        <Label Text="{Binding Podcast.Author.Name}"
+                        <Label Text="{Binding Podcast.Author}"
                                TextColor="White"/>
 
                     </VerticalStackLayout>
@@ -44,15 +44,21 @@
 
                     <CollectionView.Header>
                         <VerticalStackLayout Padding="16">
-                            <Button Command="{Binding SubscribeAsyncCommand}"
-                                    IsVisible="{Binding IsNotSubscribed}"
-                                    Text="Subscribe"
-                                    HorizontalOptions="Start"/>
+                            <HorizontalStackLayout>
+                                <Button Command="{Binding SubscribeAsyncCommand}"
+                                        IsVisible="{Binding IsNotSubscribed}"
+                                        Text="Subscribe"
+                                        Margin="0,0,8,0"/>
                             
-                            <Button Command="{Binding UnsubscribeAsyncCommand}"
-                                    IsVisible="{Binding IsSubscribed}"
-                                    Text="Unsubscribe"
-                                    HorizontalOptions="Start"/>
+                                <Button Command="{Binding UnsubscribeAsyncCommand}"
+                                        IsVisible="{Binding IsSubscribed}"
+                                        Text="Unsubscribe"
+                                        Margin="0,0,8,0"/>
+
+                                <Button Style="{DynamicResource BtnOutline}"
+                                        Command="{Binding GoToWebsiteAsyncCommand}"
+                                        Text="Website"/>
+                            </HorizontalStackLayout>
 
                             <StackLayout Padding="0,12">
                                 <Label Text="{Binding Podcast.Description}"/>

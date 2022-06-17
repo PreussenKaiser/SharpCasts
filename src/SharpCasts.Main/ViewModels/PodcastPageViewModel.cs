@@ -40,7 +40,7 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// </summary>
     [ObservableProperty]
     [AlsoNotifyChangeFor(nameof(EpisodeCount))]
-    private List<Episode> episodes;
+    private IEnumerable<Episode> episodes;
 
     /// <summary>
     /// Whether the podcast has already been subscribed to or not.
@@ -80,7 +80,7 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// Gets the podcast's amount of episodes.
     /// </summary>
     public string EpisodeCount
-        => $"{this.Episodes.Count} Episodes";
+        => $"{this.Episodes.Count()} Episodes";
 
     /// <summary>
     /// Gets whether the user hasn't subscribed to the podcast or not.
@@ -99,11 +99,17 @@ public partial class PodcastPageViewModel : BaseViewModel
 
         this.IsBusy = true;
 
-        var episodes = this.podcastService.GetEpisodesAsync(this.Podcast.Id);
-        var isSubscribed = this.IfSubscribed();
+        await Task.Run(async () =>
+        {
+            Channel channel = await this.podcastService.GetChannelAsync(this.Podcast.Feed);
 
-        this.Episodes = await episodes;
-        this.IsSubscribed = await isSubscribed;
+            this.Podcast.Author = channel.Author;
+            this.Podcast.Description = channel.Description;
+            this.Podcast.Website = channel.Website;
+            this.Episodes = channel.Episodes;
+        });
+
+        this.IsSubscribed = await this.IfSubscribed();
 
         this.IsBusy = false;
     }
@@ -152,6 +158,13 @@ public partial class PodcastPageViewModel : BaseViewModel
         await this.subscriptionService.UnsubscribeAsync(subscription);
         this.IsSubscribed = false;
     }
+
+    /// <summary>
+    /// Goes to the podcast's website.
+    /// </summary>
+    [ICommand]
+    private async void GoToWebsiteAsync()
+        => await Browser.OpenAsync(this.Podcast.Website);
 
     /// <summary>
     /// Plays the currently selected episode.

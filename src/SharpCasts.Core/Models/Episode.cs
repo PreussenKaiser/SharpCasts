@@ -1,40 +1,47 @@
 ﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace SharpCasts.Core.Models;
 
 /// <summary>
 /// Represents an episode in a podcast.
 /// </summary>
+[XmlRoot("rss")]
 public class Episode
 {
     /// <summary>
     /// Gets or initializes the episodes unique identifier.
     /// </summary>
-    [JsonPropertyName("id")]
-    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
-    public int Id { get; init; }
+    [XmlElement("guid")]
+    public Guid Id { get; init; }
 
     /// <summary>
     /// Gets or initializes the episodes title.
     /// </summary>
-    [JsonPropertyName("title")]
+    [XmlElement("title")]
     public string Title { get; init; }
-
-    /// <summary>
-    /// Gets or initializes the episodes description.
-    /// </summary>
-    [JsonPropertyName("description")]
-    public string Description { get; init; }
 
     /// <summary>
     /// Gets or initializes when the episode was aired.
     /// </summary>
-    [JsonPropertyName("airDate")]
+    [XmlElement("pubDate")]
     public string Date { get; init; }
 
     /// <summary>
-    /// Gets or initializes the url leading to the episodes audio.
+    /// Gets or initializes the episodes audio.
     /// </summary>
-    [JsonPropertyName("audioUrl")]
-    public string AudioUrl { get; init; }
+    [XmlElement("enclosure")]
+    public Audio Audio { get; init; }
+}
+
+/// <summary>
+/// Represents episode audio data.
+/// </summary>
+public class Audio
+{
+    /// <summary>
+    /// Gets or initializes the audio's url.
+    /// </summary>
+    [XmlAttribute("url")]
+    public string Url { get; init; }
 }

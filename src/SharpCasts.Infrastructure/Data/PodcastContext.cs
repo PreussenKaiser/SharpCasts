@@ -1,11 +1,10 @@
-﻿using SharpCasts.Core.Models;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SharpCasts.Core.Models;
 
 namespace SharpCasts.Infrastructure.Data;
 
 /// <summary>
-/// The context for the Azure MSSQL database.
+/// The context for querying user data.
 /// </summary>
 public class PodcastContext : DbContext
 {
@@ -16,15 +15,18 @@ public class PodcastContext : DbContext
     public PodcastContext(DbContextOptions options)
         : base(options)
     {
+        SQLitePCL.Batteries_V2.Init();
+
+        this.Database.EnsureCreated();
     }
 
     /// <summary>
-    /// Gets or sets users in the database.
+    /// Gets or sets subscriptions in the database.
     /// </summary>
     public DbSet<User> Users { get; set; }
 
     /// <summary>
-    /// Gets or sets subscribed podcasts in the database.
+    /// Gets or sets subscriptions on the database.
     /// </summary>
     public DbSet<Subscription> Subscriptions { get; set; }
 }

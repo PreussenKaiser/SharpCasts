@@ -5,6 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     
     <!-- Custom -->
+    <Style x:Key="Title" TargetType="Label">
+        <Setter Property="Text" Value="SharpCasts"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+    
     <Style x:Key="Page" TargetType="ContentPage">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
     </Style>

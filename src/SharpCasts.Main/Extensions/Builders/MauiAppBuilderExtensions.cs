@@ -1,5 +1,6 @@
 ﻿using SharpCasts.Main.ViewModels;
 using SharpCasts.Main.Views;
+using SharpCasts.Main.Helpers;
 
 using SharpCasts.Audio;
 using SharpCasts.Infrastructure.Data;
@@ -8,6 +9,8 @@ using SharpCasts.Core.Services;
 
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace SharpCasts.Main.Extensions.Builders;
 
@@ -56,25 +59,32 @@ public static class MauiAppBuilderExtensions
     /// Loads services into the app builder.
     /// </summary>
     /// <param name="builder">The app builder to load services into.</param>
+    /// <param name="config">Configuration for services.</param>
     /// <returns>The builder with initialized services.</returns>
-    public static MauiAppBuilder LoadServices(this MauiAppBuilder builder)
+    public static MauiAppBuilder LoadServices(this MauiAppBuilder builder, IConfiguration config)
     {
         builder.Services.AddSingleton<IPlayerService, PlayerService>()
 #if ANDROID
-                        .AddSingleton<INativeAudioService, SharpCasts.Audio.Platforms.Android.NativeAudioService>()
-#elif WINDOWS
-                        .AddSingleton<INativeAudioService, SharpCasts.Audio.Platforms.Windows.NativeAudioService>()
-#endif
-                        .AddDbContext<PodcastContext>(options => options.UseSqlServer(BuildConnectionString()))
-#if DEBUG
-                        .AddSingleton<IPodcastService, MockPodcastService>()
-                        .AddSingleton<IUserService, MockUserService>()
-                        .AddSingleton<ISubscriptionService, MockSubscriptionService>();
+                        .AddSingleton<INativeAudioService, Audio.Platforms.Android.NativeAudioService>()
 #else
+                        .AddSingleton<INativeAudioService, Audio.Platforms.Windows.NativeAudioService>()
+#endif
                         .AddSingleton<IPodcastService, PodcastService>()
                         .AddSingleton<IUserService, UserService>()
                         .AddSingleton<ISubscriptionService, SubscriptionService>();
-#endif
+
+        Action<DbContextOptionsBuilder> options = null;
+        if (Settings.UseLocal)
+        {
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "SharpCasts.db3");
+            options = o => o.UseSqlite($"Filename={dbPath}");
+        }
+        else
+        {
+            options = o => o.UseSqlServer(BuildConnectionString(config));
+        }
+
+        builder.Services.AddDbContext<PodcastContext>(options);
 
         return builder;
     }
@@ -83,12 +93,12 @@ public static class MauiAppBuilderExtensions
     /// Builds the connection string for the database context.
     /// </summary>
     /// <returns>The connection string to the remote Azure MSSQL database.</returns>
-    private static string BuildConnectionString()
+    private static string BuildConnectionString(IConfiguration config)
     {
-        string source = Preferences.Get("Source", "");
-        string initialCatalog = Preferences.Get("InitialCatalog", "");
-        string userId = Preferences.Get("UserID", "");
-        string password = Preferences.Get("Password", "");
+        string source = config["Database:Source"];
+        string initialCatalog = config["Database:InitialCatalog"];
+        string userId = config["Database:UserID"];
+        string password = config["Database:Password"];
 
         SqlConnectionStringBuilder connectionString = new()
         {

@@ -16,14 +16,7 @@
     </ContentPage.Behaviors>
 
     <Shell.TitleView>
-        <Label Text="SharpCasts"
-               TextColor="White"
-               FontSize="Medium"
-               FontAttributes="Bold"
-               VerticalOptions="Center"
-               HorizontalTextAlignment="Center"
-               HorizontalOptions="CenterAndExpand"/>
-
+        <Label Style="{StaticResource Title}"/>
     </Shell.TitleView>
 
     <RefreshView Command="{Binding RefreshAsyncCommand}"
@@ -56,7 +49,7 @@
                                     WidthRequest="114"
                                     HeightRequest="114">
 
-                                <Image Source="{Binding ImageUrl}"/>
+                                <Image Source="{Binding Image}"/>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

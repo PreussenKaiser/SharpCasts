@@ -1,144 +1,92 @@
-﻿using SharpCasts.Infrastructure.Responses;
-
+﻿using Microsoft.Extensions.Configuration;
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
-
-using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.SystemTextJson;
+using SharpCasts.Infrastructure.Responses;
+using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace SharpCasts.Infrastructure.Services;
 
 /// <summary>
-/// Queries for podcasts from the <see href="https://api-docs.podchaser.com/">Podchaser API</see>.
+/// The service which gets podcasts from the <see href="https://allfeeds.ai/api">AllFeeds</see> API.
 /// </summary>
 public class PodcastService : IPodcastService
 {
     /// <summary>
-    /// The client to query Podchaser with.
+    /// The client to send requests with.
     /// </summary>
-    private readonly GraphQLHttpClient client;
+    private readonly HttpClient client;
+
+    /// <summary>
+    /// The key for the API.
+    /// </summary>
+    private readonly string apiKey;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PodcastService"/> class.
     /// </summary>
-    public PodcastService()
+    /// <param name="config">Configuration for the services <see cref="HttpClient"/>.</param>
+    public PodcastService(IConfiguration config)
     {
-        string endpoint = Preferences.Get("Endpoint", "");
-        string accessToken = Preferences.Get("AccessToken", "");
+        this.client = new HttpClient()
+        {
+            BaseAddress = new Uri(config["Api:Endpoint"])
+        };
 
-        this.client = new GraphQLHttpClient(
-            endpoint,
-            new SystemTextJsonSerializer());
-
-        this.client.HttpClient.DefaultRequestHeaders
-                                .Add("Authorization", $"Bearer {accessToken}");
+        this.apiKey = config["Api:Key"];
     }
 
     /// <summary>
-    /// Gets a podcast from the API.
+    /// Gets a podcast by it's unique identifier.
     /// </summary>
-    /// <param name="podcastId">The identifier of the podcast to get.</param>
-    /// <returns>The podcast which matched the supplied identifier.</returns>
+    /// <param name="podcastId">The identifier of the podcast.</param>
+    /// <returns>The found podcast.</returns>
     public async Task<Podcast> GetPodcastAsync(int podcastId)
     {
-        PodcastIdentifier identifier = new()
-        {
-            Id = podcastId.ToString(),
-            Type = PodcastIdentifierType.PODCHASER
-        };
+        string query = $"podcast_by_itunesid?key={this.apiKey}&itunes_id={podcastId}";
 
-        GraphQLHttpRequest request = new()
-        {
-            Query = @"
-            query GetPodcast($identifier: PodcastIdentifier!) {
-                podcast(identifier: $identifier) {
-                    id,
-                    title,
-                    description,
-                    imageUrl,
-                    author {
-                        name
-                    }
-                }
-            }",
-            OperationName = "GetPodcast",
-            Variables = new { identifier }
-        };
+        HttpRequestMessage request = new(HttpMethod.Get, query);
+        HttpResponseMessage response = await this.client.SendAsync(request);
 
-        var response = await this.client.SendQueryAsync<PodcastResponse>(request);
-        Podcast podcast = response.Data.Data.Podcasts.FirstOrDefault();
+        using Stream body = await response.Content.ReadAsStreamAsync();
+        var podcast = await JsonSerializer.DeserializeAsync<Podcast>(body);
 
         return podcast;
     }
 
     /// <summary>
-    /// Gets podcasts from the API that match the search term.
+    /// Searches for a podcast in the API.
     /// </summary>
-    /// <param name="search">The search term to filter with.</param>
-    /// <returns>A list of podcasts that match the query.</returns>
-    public async Task<List<Podcast>> SearchPodcastsAsync(string search)
+    /// <param name="search">The search term to use.</param>
+    /// <returns>An enumerable of podcasts.</returns>
+    public async Task<IEnumerable<Podcast>> SearchPodcastsAsync(string search)
     {
-        GraphQLHttpRequest request = new()
-        {
-            Query = @"
-            query Search($search: String) {
-                podcasts(searchTerm: $search) {
-                    data {
-                        id,
-                        title,
-                        description,
-                        imageUrl,
-                        author {
-                            name
-                        }
-                    }
-                }
-            }",
-            OperationName = "Search",
-            Variables = new { search }
-        };
+        string query = $"find_podcasts?key={this.apiKey}&keyword={search}";
 
-        var response = await this.client.SendQueryAsync<PodcastResponse>(request);
-        List<Podcast> podcasts = response.Data.Data.Podcasts;
+        HttpRequestMessage request = new(HttpMethod.Get, query);
+        HttpResponseMessage response = await this.client.SendAsync(request);
 
-        return podcasts;
+        using Stream body = await response.Content.ReadAsStreamAsync();
+        var podcasts = await JsonSerializer.DeserializeAsync<PodcastResponse>(body);
+
+        return podcasts.Podcasts;
     }
 
     /// <summary>
-    /// Gets a list of episodes from a podcast.
+    /// Gets a channel from a feed.
     /// </summary>
-    /// <param name="podcastId">The identifier of the podcast to get episodes from.</param>
-    /// <returns>Episodes from that podcast.</returns>
-    public async Task<List<Episode>> GetEpisodesAsync(int podcastId)
+    /// <param name="feedUrl">The feed to get the channel from.</param>
+    /// <returns>The channel which hosts the feed.</returns>
+    public async Task<Channel> GetChannelAsync(string feedUrl)
     {
-        PodcastIdentifier identifier = new()
-        {
-            Id = podcastId.ToString(),
-            Type = PodcastIdentifierType.PODCHASER
-        };
+        HttpRequestMessage request = new(HttpMethod.Get, feedUrl);
+        HttpResponseMessage response = await this.client.SendAsync(request);
 
-        GraphQLHttpRequest request = new()
-        {
-            Query = @"
-            query GetEpisodes($identifier: PodcastIdentifier!) {
-                podcast(identifier: $identifier) {
-                    episodes {
-                        data {
-                            title,
-                            description,
-                            airDate,
-                            audioUrl
-                        }
-                    }
-                }
-            }",
-            OperationName = "GetEpisodes",
-            Variables = new { identifier }
-        };
+        using Stream body = await response.Content.ReadAsStreamAsync();
+        XmlSerializer serializer = new(typeof(EpisodeResponse));
 
-        var response = await this.client.SendQueryAsync<EpisodeResponse>(request);
-        List<Episode> episodes = response.Data.Podcast.Episodes.List;
+        var episodes = (EpisodeResponse)serializer.Deserialize(body);
 
-        return episodes;
+        return episodes.Channel;
     }
 }

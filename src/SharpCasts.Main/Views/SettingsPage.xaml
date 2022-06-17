@@ -23,6 +23,7 @@
 
             <VerticalStackLayout>
                 <Grid ColumnDefinitions="2*,8*"
+                      RowDefinitions="*,*"
                       ColumnSpacing="8">
                     
                     <!-- Dark mode -->
@@ -31,6 +32,12 @@
                            Text="Dark mode"
                            Margin="0,11,0,0"/>
                     
+                    <!-- Local data storage -->
+                    <Switch Grid.Row="1" IsToggled="{Binding StoreDataLocally}"/>
+                    <Label Grid.Column="1"
+                           Grid.Row="1"
+                           Text="Store user data locally"/>
+
                 </Grid>
 
                 <Label Text="{Binding AppVersion}"

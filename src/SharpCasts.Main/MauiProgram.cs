@@ -25,42 +25,23 @@ public static class MauiProgram
 	{
 		MauiAppBuilder builder = MauiApp.CreateBuilder();
 
+        var config = BuildConfig();
+        builder.Configuration.AddConfiguration(config);
+
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .LoadViews()
             .LoadViewmodels()
-            .LoadServices()
+            .LoadServices(config)
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular")
 				     .AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-        LoadPreferences();
-
 		return builder.Build();
 	}
-
-    /// <summary>
-    /// Sets application preferences.
-    /// </summary>
-    private static void LoadPreferences()
-    {
-        var config = BuildConfig();
-
-        // Api settings.
-        Preferences.Set("Endpoint", config["Api:Endpoint"]);
-        Preferences.Set("ApiKey", config["Api:Key"]);
-        Preferences.Set("ApiSecret", config["Api:Secret"]);
-        Preferences.Set("AccessToken", config["Api:AccessToken"]);
-
-        // Database settings.
-        Preferences.Set("Source", config["Database:Source"]);
-        Preferences.Set("InitialCatalog", config["Database:InitialCatalog"]);
-        Preferences.Set("UserID", config["Database:UserID"]);
-        Preferences.Set("Password", config["Database:Password"]);
-    }
 
     /// <summary>
     /// Builds application configuration.

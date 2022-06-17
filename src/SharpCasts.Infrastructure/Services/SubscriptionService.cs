@@ -61,9 +61,11 @@ public class SubscriptionService : ISubscriptionService
     /// <returns>The found subscription, null if none were found.</returns>
     public async Task<Subscription> GetSubscriptionAsync(int userId, int podcastId)
     {
-        Subscription subscription = await this.database.Subscriptions.FindAsync(userId, podcastId);
+        Subscription subscription = (Subscription)this.database.Subscriptions
+                                                 .Where(s => s.UserId == userId
+                                                             && s.PodcastId == podcastId);
 
-        return subscription;
+        return await Task.FromResult(subscription);
     }
 
     /// <summary>

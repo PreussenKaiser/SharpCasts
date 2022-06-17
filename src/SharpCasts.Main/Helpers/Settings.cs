@@ -43,4 +43,13 @@ public static class Settings
             ThemeHelper.SetTheme();
         }
     }
+
+    /// <summary>
+    /// Gets or sets whether to store user data locally or not.
+    /// </summary>
+    public static bool UseLocal
+    {
+        get => Preferences.Get(nameof(UseLocal), true);
+        set => Preferences.Set(nameof(UseLocal), value);
+    }
 }

@@ -27,6 +27,15 @@ public partial class SettingsPageViewModel : BaseViewModel
     }
 
     /// <summary>
+    /// Gets or sets whether to store user data locally or not.
+    /// </summary>
+    public bool StoreDataLocally
+    {
+        get => Settings.UseLocal;
+        set => Settings.UseLocal = value;
+    }
+
+    /// <summary>
     /// Gets the current version of the application.
     /// </summary>
     public string AppVersion

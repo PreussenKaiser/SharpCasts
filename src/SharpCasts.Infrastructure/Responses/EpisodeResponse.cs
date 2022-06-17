@@ -1,16 +1,17 @@
 ﻿using SharpCasts.Core.Models;
-using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace SharpCasts.Infrastructure.Responses;
 
 /// <summary>
 /// Represents a response for episodes from the <see href="https://api-docs.podchaser.com/">Podchaser API</see>.
 /// </summary>
+[XmlRoot("rss")]
 public class EpisodeResponse
 {
     /// <summary>
-    /// Gets or initializes the podcast containing the episodes.
+    /// Gets or initializes channel information.
     /// </summary>
-    [JsonPropertyName("podcast")]
-    public Podcast Podcast { get; init; }
+    [XmlElement("channel")]
+    public Channel Channel { get; init; }
 }

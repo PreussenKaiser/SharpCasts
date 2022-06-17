@@ -81,6 +81,9 @@ public partial class RegisterPageViewModel : BaseViewModel
 
         // Logs the user in.
         Settings.CurrentUser = this.userService.GetUserByCredentials(registeringUser);
+
+        // Navigate to profile.
+        await Shell.Current.GoToAsync("..");
     }
 
     /// <summary>
