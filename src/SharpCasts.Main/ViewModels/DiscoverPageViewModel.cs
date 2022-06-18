@@ -5,6 +5,7 @@ using SharpCasts.Core.Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SharpCasts.Core.Exceptions;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -58,6 +59,12 @@ public partial class DiscoverPageViewModel : BaseViewModel
             await Shell.Current.DisplayAlert("Error",
                                              "There was a problem gettings podcasts",
                                              "OK");
+        }
+        catch (UnknownPodcastException ex)
+        {
+            await Shell.Current.DisplayAlert(ex.Message,
+                                            null,
+                                            "Ok");
         }
 
         this.IsBusy = false;

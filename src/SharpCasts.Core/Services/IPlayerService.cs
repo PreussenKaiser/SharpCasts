@@ -8,10 +8,16 @@ namespace SharpCasts.Core.Services;
 public interface IPlayerService
 {
     /// <summary>
-    /// Plays audio asynchronously.
+    /// Plays a podcast episode asynchronously.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
-    /// <param name="podcast">The podcast whish is hosting the episode.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public Task PlayAsync(Episode episode, Podcast podcast);
+    public Task PlayAsync(Episode episode);
+
+    /// <summary>
+    /// Pauses a podcast episode asynchronously.
+    /// </summary>
+    /// <param name="episode">The episode to pause.</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public Task PauseAsync(Episode episode);
 }

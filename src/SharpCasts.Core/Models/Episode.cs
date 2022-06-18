@@ -1,36 +1,58 @@
-﻿using System.Text.Json.Serialization;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace SharpCasts.Core.Models;
 
 /// <summary>
 /// Represents an episode in a podcast.
 /// </summary>
-[XmlRoot("rss")]
+[XmlRoot("rss", Namespace = ITUNES)]
 public class Episode
 {
     /// <summary>
+    /// The url to the 'itunes' xml namespace.
+    /// </summary>
+    private const string ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd";
+
+    /// <summary>
     /// Gets or initializes the episodes unique identifier.
     /// </summary>
-    [XmlElement("guid")]
+    [XmlElement("guid", Namespace = "")]
     public Guid Id { get; init; }
 
     /// <summary>
     /// Gets or initializes the episodes title.
     /// </summary>
-    [XmlElement("title")]
+    [XmlElement("title", Namespace = "")]
     public string Title { get; init; }
+
+    /// <summary>
+    /// Gets or initializes the episodes subtitle.
+    /// </summary>
+    [XmlElement("subtitle")]
+    public string Subtitle { get; init; }
+
+    /// <summary>
+    /// Gets or initializes the episodes author.
+    /// </summary>
+    [XmlElement("author", Namespace = "")]
+    public string Author { get; init; }
+
+    /// <summary>
+    /// Gets or initializes the episodes image.
+    /// </summary>
+    [XmlElement("image")]
+    public Image Image { get; init; }
 
     /// <summary>
     /// Gets or initializes when the episode was aired.
     /// </summary>
-    [XmlElement("pubDate")]
+    [XmlElement("pubDate", Namespace = "")]
     public string Date { get; init; }
 
     /// <summary>
     /// Gets or initializes the episodes audio.
     /// </summary>
-    [XmlElement("enclosure")]
+    [XmlElement("enclosure", Namespace = "")]
     public Audio Audio { get; init; }
 }
 
@@ -44,4 +66,16 @@ public class Audio
     /// </summary>
     [XmlAttribute("url")]
     public string Url { get; init; }
+}
+
+/// <summary>
+/// Represents the episodes image.
+/// </summary>
+public class Image
+{
+    /// <summary>
+    /// Gets or initializes a url leading to the image.
+    /// </summary>
+    [XmlAttribute("href")]
+    public string Href { get; init; }
 }

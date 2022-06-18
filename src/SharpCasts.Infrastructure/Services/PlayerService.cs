@@ -46,11 +46,6 @@ public class PlayerService : IPlayerService
     public Episode CurrentEpisode { get; set; }
 
     /// <summary>
-    /// Gets or sets the currently playing podcast.
-    /// </summary>
-    public Podcast CurrentPodcast { get; set; }
-
-    /// <summary>
     /// Gets or sets whether the service is playing or not.
     /// </summary>
     public bool IsPlaying { get; set; }
@@ -65,18 +60,49 @@ public class PlayerService : IPlayerService
     /// Plays a podcast episode asynchronously.
     /// </summary>
     /// <param name="episode">The episode to play.</param>
-    /// <param name="podcast">The podcast to play the episode from.</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public Task PlayAsync(Episode episode)
+    {
+        bool isOtherEpisode = this.CurrentEpisode?.Id != episode.Id;
+        bool isPlaying = isOtherEpisode || !this.audioService.IsPlaying;
+        double position = isOtherEpisode ? 0 : this.CurrentPosition;
+
+        if (this.CurrentEpisode is not null)
+        {
+            string message = isPlaying
+                ? $"Episode with title '{this.CurrentEpisode.Title}' will start playing"
+                : $"Episode with title '{this.CurrentEpisode.Title}' will be paused";
+
+            SemanticScreenReader.Announce(message);
+        }
+
+        return this.PlayAsync(episode, isPlaying, position);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="episode"></param>
+    /// <returns></returns>
+    public Task PauseAsync(Episode episode)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Plays a podcast episode asynchronously.
+    /// </summary>
+    /// <param name="episode">The episode to play.</param>
     /// <param name="isPlaying">Whether the episode is playing or not.</param>
     /// <param name="position">Where to start playing from.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public async Task PlayAsync(Episode episode, Podcast podcast,
-                                bool isPlaying, double position = 0)
+    public async Task PlayAsync(Episode episode, bool isPlaying,
+                                double position = 0)
     {
         if (episode is null)
             return;
 
         bool isOtherEpisode = this.CurrentEpisode?.Id != episode.Id;
-        this.CurrentPodcast = podcast;
 
         if (isOtherEpisode)
         {
@@ -98,30 +124,6 @@ public class PlayerService : IPlayerService
         }
 
         this.IsPlayingChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    /// <summary>
-    /// Plays a podcast episode asynchronously.
-    /// </summary>
-    /// <param name="episode">The episode to play.</param>
-    /// <param name="podcast">The podcast that osted the episode.</param>
-    /// <returns>Whether the task was completed or not.</returns>
-    public Task PlayAsync(Episode episode, Podcast podcast)
-    {
-        bool isOtherEpisode = this.CurrentEpisode?.Title != episode.Title;
-        bool isPlaying = isOtherEpisode || !this.audioService.IsPlaying;
-        double position = isOtherEpisode ? 0 : this.CurrentPosition;
-
-        if (this.CurrentEpisode is not null)
-        {
-            string message = isPlaying
-                ? $"Episode with title '{this.CurrentEpisode.Title}' will start playing"
-                : $"Episode with title '{this.CurrentEpisode.Title}' will be paused";
-
-            SemanticScreenReader.Announce(message);
-        }
-
-        return this.PlayAsync(episode, podcast, isPlaying, position);
     }
 
     /// <summary>

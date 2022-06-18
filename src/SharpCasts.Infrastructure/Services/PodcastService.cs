@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SharpCasts.Core.Exceptions;
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
 using SharpCasts.Infrastructure.Responses;
@@ -59,6 +60,7 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="search">The search term to use.</param>
     /// <returns>An enumerable of podcasts.</returns>
+    /// <exception cref="UnknownPodcastException">Thrown when the search term returns no results.</exception>
     public async Task<IEnumerable<Podcast>> SearchPodcastsAsync(string search)
     {
         string query = $"find_podcasts?key={this.apiKey}&keyword={search}";
@@ -67,7 +69,16 @@ public class PodcastService : IPodcastService
         HttpResponseMessage response = await this.client.SendAsync(request);
 
         using Stream body = await response.Content.ReadAsStreamAsync();
-        var podcasts = await JsonSerializer.DeserializeAsync<PodcastResponse>(body);
+        PodcastResponse podcasts = new();
+
+        try
+        {
+            podcasts = await JsonSerializer.DeserializeAsync<PodcastResponse>(body);
+        }
+        catch (JsonException)
+        {
+            throw new UnknownPodcastException($"Could not find any podcasts matching '{search}'");
+        }
 
         return podcasts.Podcasts;
     }

@@ -75,30 +75,27 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="m:Episode">
+                            
                             <Border BackgroundColor="{AppThemeBinding Light={StaticResource Light}, Dark={StaticResource Black}}"
                                     StrokeShape="RoundRectangle 16"
                                     StrokeThickness="0"
                                     Padding="16"
                                     Margin="16,8">
 
-                                <Grid ColumnDefinitions="Auto,*"
-                                      ColumnSpacing="12">
-                                    
-                                    <Button Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:PodcastPageViewModel}}, Path=PlayAsyncCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Style="{DynamicResource BtnOutline}"
-                                            Padding="12,8"
-                                            Text=">"
-                                            CornerRadius="50"
-                                            VerticalOptions="Center"/>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:PodcastPageViewModel}}, Path=GoToEpisodeAsyncCommand}"
+                                        CommandParameter="{Binding .}"/>
 
-                                    <VerticalStackLayout Grid.Column="1">
-                                        <Label Text="{Binding Date}"/>
-                                        <Label Text="{Binding Title}"
-                                               FontSize="Medium"/>
+                                </Border.GestureRecognizers>
 
-                                    </VerticalStackLayout>
-                                </Grid>
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Medium"/>
+                                    <Label Text="{Binding Date}"
+                                           Opacity=".8"/>
+
+                                </VerticalStackLayout>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

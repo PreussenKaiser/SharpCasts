@@ -29,6 +29,7 @@ public partial class App : Application
 
         // Podcast routes.
         Routing.RegisterRoute(nameof(PodcastPage), typeof(PodcastPage));
+        Routing.RegisterRoute(nameof(EpisodePage), typeof(EpisodePage));
 
         // Profile routes.
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));

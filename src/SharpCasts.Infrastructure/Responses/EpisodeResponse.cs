@@ -1,4 +1,5 @@
 ﻿using SharpCasts.Core.Models;
+
 using System.Xml.Serialization;
 
 namespace SharpCasts.Infrastructure.Responses;

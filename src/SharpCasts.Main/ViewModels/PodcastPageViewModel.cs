@@ -26,11 +26,6 @@ public partial class PodcastPageViewModel : BaseViewModel
     private readonly ISubscriptionService subscriptionService;
 
     /// <summary>
-    /// The service to play audio with.
-    /// </summary>
-    private readonly IPlayerService playerService;
-
-    /// <summary>
     /// The podcast to display.
     /// </summary>
     private Podcast podcast;
@@ -55,12 +50,10 @@ public partial class PodcastPageViewModel : BaseViewModel
     /// <param name="podcastService">The service to get podcast episodes with.</param>
     /// <param name="subscriptionService">The service to handle podcast subscriptions.</param>
     public PodcastPageViewModel(IPodcastService podcastService,
-                                ISubscriptionService subscriptionService,
-                                IPlayerService playerService)
+                                ISubscriptionService subscriptionService)
     {
         this.podcastService = podcastService;
         this.subscriptionService = subscriptionService;
-        this.playerService = playerService;
     }
 
     /// <summary>
@@ -167,13 +160,23 @@ public partial class PodcastPageViewModel : BaseViewModel
         => await Browser.OpenAsync(this.Podcast.Website);
 
     /// <summary>
-    /// Plays the currently selected episode.
-    /// Called when the user opts to play an episode.
+    /// Navigates to <see cref="EpisodePage"/> asynchronously.
     /// </summary>
-    /// <param name="episode">The episode to play.</param>
+    /// <param name="episode">The episode to pass into the page.</param>\
     [ICommand]
-    private async void PlayAsync(Episode episode)
-        => await this.playerService.PlayAsync(episode, this.Podcast);
+    private async void GoToEpisodeAsync(Episode episode)
+    {
+        if (episode is null)
+            return;
+
+        Dictionary<string, object> args = new()
+        {
+            { "Episode", episode }
+        };
+
+        await Shell.Current.GoToAsync(
+            $"{nameof(EpisodePage)}", true, args);
+    }
 
     /// <summary>
     /// Determines if the current user has subscribed to this podcast.

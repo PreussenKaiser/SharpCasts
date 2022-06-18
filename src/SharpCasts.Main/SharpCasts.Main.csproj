@@ -50,7 +50,6 @@
 	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Images\discover.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
-	  <None Remove="Resources\Images\settings.svg" />
 	  <None Remove="Resources\Images\subscriptions.svg" />
 	</ItemGroup>
 
@@ -89,6 +88,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DiscoverPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EpisodePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">
