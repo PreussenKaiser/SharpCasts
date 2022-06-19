@@ -26,6 +26,11 @@ public class PlayerService : IPlayerService
     private readonly INativeAudioService audioService;
 
     /// <summary>
+    /// Whether audio is playing or not.
+    /// </summary>
+    private bool isPlaying;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PlayerService"/> class.
     /// </summary>
     /// <param name="audioService">The native audio service to play audio with.</param>
@@ -35,20 +40,20 @@ public class PlayerService : IPlayerService
 
         this.audioService.IsPlayingChanged += (object sender, bool e) =>
         {
-            IsPlaying = e;
-            IsPlayingChanged?.Invoke(this, EventArgs.Empty);
+            this.IsPlaying = e;
+            this.IsPlayingChanged?.Invoke(this, EventArgs.Empty);
         };
     }
-
-    /// <summary>
-    /// Gets or sets the current episode.
-    /// </summary>
-    public Episode CurrentEpisode { get; set; }
 
     /// <summary>
     /// Gets or sets whether the service is playing or not.
     /// </summary>
     public bool IsPlaying { get; set; }
+
+    /// <summary>
+    /// Gets or sets the current episode.
+    /// </summary>
+    public Episode CurrentEpisode { get; set; }
 
     /// <summary>
     /// Gets the player's current position.
@@ -65,7 +70,9 @@ public class PlayerService : IPlayerService
     {
         bool isOtherEpisode = this.CurrentEpisode?.Id != episode.Id;
         bool isPlaying = isOtherEpisode || !this.audioService.IsPlaying;
-        double position = isOtherEpisode ? 0 : this.CurrentPosition;
+        double position = isOtherEpisode
+            ? 0
+            : this.CurrentPosition;
 
         if (this.CurrentEpisode is not null)
         {
@@ -80,13 +87,16 @@ public class PlayerService : IPlayerService
     }
 
     /// <summary>
-    /// 
+    /// Pauses the currently playing episode.
     /// </summary>
-    /// <param name="episode"></param>
-    /// <returns></returns>
-    public Task PauseAsync(Episode episode)
+    /// <param name="episode">The episode to pause</param>
+    /// <returns>Whether the task was completed or not.</returns>
+    public async Task PauseAsync(Episode episode)
     {
-        throw new NotImplementedException();
+        if (episode.Id != this.CurrentEpisode?.Id)
+            return;
+
+        await this.InternalPauseAsync();
     }
 
     /// <summary>

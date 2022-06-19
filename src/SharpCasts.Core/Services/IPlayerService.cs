@@ -8,6 +8,16 @@ namespace SharpCasts.Core.Services;
 public interface IPlayerService
 {
     /// <summary>
+    /// Gets or sets the current playing episode.
+    /// </summary>
+    public Episode CurrentEpisode { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether media is playing or not.
+    /// </summary>
+    public bool IsPlaying { get; set; }
+
+    /// <summary>
     /// Plays a podcast episode asynchronously.
     /// </summary>
     /// <param name="episode">The episode to play.</param>

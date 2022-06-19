@@ -60,7 +60,7 @@ public partial class DiscoverPageViewModel : BaseViewModel
                                              "There was a problem gettings podcasts",
                                              "OK");
         }
-        catch (UnknownPodcastException ex)
+        catch (NullPodcastException ex)
         {
             await Shell.Current.DisplayAlert(ex.Message,
                                             null,

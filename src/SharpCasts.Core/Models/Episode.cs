@@ -16,8 +16,12 @@ public class Episode
     /// <summary>
     /// Gets or initializes the episodes unique identifier.
     /// </summary>
+    /// <remarks>
+    /// Ideally this would be a <see cref="Guid"/>, but some feeds have CDATA attributes and I don't know how to parse that.
+    /// </remarks>
+    [XmlText]
     [XmlElement("guid", Namespace = "")]
-    public Guid Id { get; init; }
+    public string Id { get; init; }
 
     /// <summary>
     /// Gets or initializes the episodes title.

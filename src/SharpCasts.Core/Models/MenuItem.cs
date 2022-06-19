@@ -9,14 +9,14 @@
 public class MenuItem
 {
     /// <summary>
-    /// Gets or initializes the menu item's icon.
-    /// </summary>
-    public string Icon { get; init; }
-
-    /// <summary>
     /// Gets or initializes the menu item's name.
     /// </summary>
     public string Name { get; init; }
+
+    /// <summary>
+    /// Gets or initializes the menu item's icon.
+    /// </summary>
+    public string Icon { get; init; }
 
     /// <summary>
     /// Gets or initializes where the menu item will navigate to.

@@ -1,11 +1,11 @@
-﻿using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Helpers;
+using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using MenuItem = SharpCasts.Core.Models.MenuItem;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
@@ -34,12 +34,6 @@ public partial class ProfilePageViewModel : BaseViewModel
             new()
             {
                 Icon = string.Empty,
-                Name = "Downloads",
-                Route = string.Empty
-            },
-            new()
-            {
-                Icon = "settings.png",
                 Name = "Settings",
                 Route = nameof(SettingsPage)
             }

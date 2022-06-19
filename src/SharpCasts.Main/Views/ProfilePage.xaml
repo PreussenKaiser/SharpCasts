@@ -108,11 +108,9 @@
                                 Padding="16"
                                 Margin="0,8">
 
-
                             <Grid ColumnDefinitions="Auto,*"
                                   ColumnSpacing="16">
-                                
-                                <Image Source="{Binding Icon}"/>
+
                                 <Label Grid.Column="1"
                                        Text="{Binding Name}"
                                        FontSize="Medium"/>

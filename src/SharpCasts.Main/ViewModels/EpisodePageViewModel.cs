@@ -25,9 +25,10 @@ public partial class EpisodePageViewModel : BaseViewModel
     private Episode episode;
 
     /// <summary>
-    /// Whether the episode is playing or not.
+    /// Whether audio is playing or not.
     /// </summary>
     [ObservableProperty]
+    [AlsoNotifyChangeFor(nameof(IsNotPlaying))]
     private bool isPlaying;
 
     /// <summary>
@@ -43,15 +44,42 @@ public partial class EpisodePageViewModel : BaseViewModel
     public Episode Episode
     {
         get => this.episode;
-        init => this.SetProperty(ref this.episode, value);
+        init
+        {
+            this.SetProperty(ref this.episode, value);
+
+            this.IsPlaying = this.playerService.IsPlaying
+                && this.playerService.CurrentEpisode?.Id == this.Episode.Id;
+        } 
+    }
+        
+
+    /// <summary>
+    /// Gets whether an episode isn't playing or not.
+    /// </summary>
+    public bool IsNotPlaying
+        => !this.IsPlaying;
+
+    /// <summary>
+    /// Plays the current episode.
+    /// </summary>
+    [ICommand]
+    private async void PlayAsync()
+    {
+        await this.playerService.PlayAsync(this.Episode);
+        this.IsPlaying = true;
     }
 
     /// <summary>
-    /// Plays the currently selected episode.
-    /// Called when the user opts to play an episode.
+    /// Pauses the current episode.
     /// </summary>
-    /// <param name="episode">The episode to play.</param>
     [ICommand]
-    private async void PlayAsync(Episode episode)
-        => await this.playerService.PlayAsync(episode);
+    private async void PauseAsync()
+    {
+        if (!this.IsPlaying)
+            return;
+
+        await this.playerService.PauseAsync(this.Episode);
+        this.IsPlaying = false;
+    }
 }

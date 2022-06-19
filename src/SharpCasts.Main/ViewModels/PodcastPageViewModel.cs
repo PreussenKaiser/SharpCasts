@@ -6,6 +6,7 @@ using SharpCasts.Core.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SharpCasts.Main.Helpers;
+using SharpCasts.Core.Exceptions;
 
 namespace SharpCasts.Main.ViewModels;
 

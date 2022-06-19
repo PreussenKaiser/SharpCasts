@@ -60,7 +60,7 @@ public class PodcastService : IPodcastService
     /// </summary>
     /// <param name="search">The search term to use.</param>
     /// <returns>An enumerable of podcasts.</returns>
-    /// <exception cref="UnknownPodcastException">Thrown when the search term returns no results.</exception>
+    /// <exception cref="NullPodcastException">Thrown when the search term returns no results.</exception>
     public async Task<IEnumerable<Podcast>> SearchPodcastsAsync(string search)
     {
         string query = $"find_podcasts?key={this.apiKey}&keyword={search}";
@@ -77,7 +77,7 @@ public class PodcastService : IPodcastService
         }
         catch (JsonException)
         {
-            throw new UnknownPodcastException($"Could not find any podcasts matching '{search}'");
+            throw new NullPodcastException($"Could not find any podcasts matching '{search}'");
         }
 
         return podcasts.Podcasts;

@@ -38,22 +38,20 @@
                         Padding="16,24">
 
                     <StackLayout>
-                        <Grid ColumnDefinitions="*,*,*"
-                              ColumnSpacing="24"
-                              HorizontalOptions="Center">
-                            
-                            <ImageButton Source="skip_back_dark.png"
-                                         HeightRequest="16"/>
+                        <Button Grid.Column="1"
+                                IsVisible="{Binding IsNotPlaying}"
+                                Command="{Binding PlayAsyncCommand}"
+                                Style="{DynamicResource BtnOutline}"
+                                Text="Play"
+                                HorizontalOptions="Center"/>
 
-                            <Label Grid.Column="1"
-                                   Text="Play/Pause"
-                                   TextColor="White"/>
+                        <Button Grid.Column="1"
+                                IsVisible="{Binding IsPlaying}"
+                                Command="{Binding PauseAsyncCommand}"
+                                Style="{DynamicResource BtnOutline}"
+                                Text="Pause"
+                                HorizontalOptions="Center"/>
 
-                            <Label Grid.Column="2"
-                                   Text="Forward"
-                                   TextColor="White"/>
-                            
-                        </Grid>
                     </StackLayout>
                 </Border>
             </Grid>
