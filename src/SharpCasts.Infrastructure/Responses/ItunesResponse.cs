@@ -5,13 +5,13 @@ using System.Text.Json.Serialization;
 namespace SharpCasts.Infrastructure.Responses;
 
 /// <summary>
-/// Represents a podcasts response from <see href="https://allfeeds.ai/api"/>.
+/// Represents a podcast by itunes id response from <see href="https://allfeeds.ai/api"/>.
 /// </summary>
-public class PodcastResponse
+public class ItunesResponse
 {
     /// <summary>
-    /// Gets or initializes the podcasts in the response.
+    /// Gets or initializes the podcast in the response.
     /// </summary>
     [JsonPropertyName("results")]
-    public IEnumerable<Podcast> Podcasts { get; set; }
+    public Podcast Podcast { get; init; }
 }

@@ -1,4 +1,5 @@
-﻿using SharpCasts.Main.Views;
+﻿using SharpCasts.Main.Helpers;
+using SharpCasts.Main.Views;
 
 using SharpCasts.Core.Models;
 using SharpCasts.Core.Services;
@@ -7,12 +8,11 @@ using SharpCasts.Core.Validation.Inputs;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SharpCasts.Main.Helpers;
 
 namespace SharpCasts.Main.ViewModels;
 
 /// <summary>
-/// View model for the <see cref="RegisterPage"/> content page.
+/// The view model for the <see cref="RegisterPage"/> content page.
 /// </summary>
 public partial class RegisterPageViewModel : BaseViewModel
 {
@@ -77,7 +77,7 @@ public partial class RegisterPageViewModel : BaseViewModel
             Password = this.Password
         };
 
-        await this.userService.AddUser(registeringUser);
+        await this.userService.AddUserAsync(registeringUser);
 
         // Logs the user in.
         Settings.CurrentUser = this.userService.GetUserByCredentials(registeringUser);
@@ -94,5 +94,6 @@ public partial class RegisterPageViewModel : BaseViewModel
             .Reset()
             .AddInput(new TextInput("Username", this.Username, 32))
             .AddInput(new TextInput("Password", this.Password, 128))
+            .AddInput(new RegisterInput(this.Username, this.userService))
             .Validate();
 }

@@ -12,7 +12,14 @@ public interface IUserService
     /// </summary>
     /// <param name="user">The user to add.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public Task AddUser(User user);
+    public Task AddUserAsync(User user);
+
+    /// <summary>
+    /// Gets a user by their unique identifier.
+    /// </summary>
+    /// <param name="id">The user to get.</param>
+    /// <returns>The found user.</returns>
+    public Task<User> GetUserAsync(int id);
 
     /// <summary>
     /// Gets a user from the service using their credentials.
@@ -22,16 +29,16 @@ public interface IUserService
     public User GetUserByCredentials(User user);
 
     /// <summary>
-    /// Gets a user by their unique identifier.
+    /// Gets a user from the service by their username.
     /// </summary>
-    /// <param name="id">The user to get.</param>
+    /// <param name="username">The username to search for.</param>
     /// <returns>The found user.</returns>
-    public Task<User> GetUser(int id);
+    public User GetUserByUsername(string username);
 
     /// <summary>
     /// Removes a user from the service.
     /// </summary>
     /// <param name="user">The user to remove.</param>
     /// <returns>Whether the task was completed or not.</returns>
-    public Task RemoveUser(User user);
+    public Task RemoveUserAsync(User user);
 }

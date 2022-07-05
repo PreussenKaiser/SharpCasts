@@ -3,14 +3,13 @@ using SharpCasts.Main.Views;
 using SharpCasts.Main.Helpers;
 
 using SharpCasts.Audio;
+using SharpCasts.Core.Services;
 using SharpCasts.Infrastructure.Data;
 using SharpCasts.Infrastructure.Services;
-using SharpCasts.Core.Services;
 
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 
 namespace SharpCasts.Main.Extensions.Builders;
 

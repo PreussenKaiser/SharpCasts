@@ -14,14 +14,14 @@ public class User
     public int Id { get; init; }
 
     /// <summary>
-    /// Gets or initializes the user's name.
+    /// Gets or sets the user's name.
     /// </summary>
     [Required]
-    public string Name { get; init; }
+    public string Name { get; set; }
 
     /// <summary>
-    /// Gets or initializes the user's password.
+    /// Gets or sets the user's password.
     /// </summary>
     [Required]
-    public string Password { get; init; }
+    public string Password { get; set; }
 }

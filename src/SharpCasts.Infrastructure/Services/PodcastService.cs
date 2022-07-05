@@ -50,9 +50,9 @@ public class PodcastService : IPodcastService
         HttpResponseMessage response = await this.client.SendAsync(request);
 
         using Stream body = await response.Content.ReadAsStreamAsync();
-        var podcast = await JsonSerializer.DeserializeAsync<Podcast>(body);
+        var podcast = await JsonSerializer.DeserializeAsync<ItunesResponse>(body);
 
-        return podcast;
+        return podcast.Podcast;
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class PodcastService : IPodcastService
         {
             podcasts = await JsonSerializer.DeserializeAsync<PodcastResponse>(body);
         }
-        catch (JsonException)
+        catch (JsonException ex)
         {
             throw new NullPodcastException($"Could not find any podcasts matching '{search}'");
         }

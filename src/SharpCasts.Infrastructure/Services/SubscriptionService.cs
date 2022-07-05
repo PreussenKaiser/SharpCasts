@@ -35,10 +35,10 @@ public class SubscriptionService : ISubscriptionService
 
 
     /// <summary>
-    /// 
+    /// Gets subscriptions from a user.
     /// </summary>
-    /// <param name="userId"></param>
-    /// <returns></returns>
+    /// <param name="userId">The identifier of the user to get subscriptions for.</param>
+    /// <returns>Subscriptions from that user.</returns>
     public async Task<List<Subscription>> GetSubscriptionsForAsync(int userId)
     {
         List<Subscription> foundSubs = new();
@@ -61,11 +61,12 @@ public class SubscriptionService : ISubscriptionService
     /// <returns>The found subscription, null if none were found.</returns>
     public async Task<Subscription> GetSubscriptionAsync(int userId, int podcastId)
     {
-        Subscription subscription = (Subscription)this.database.Subscriptions
-                                                 .Where(s => s.UserId == userId
+        var subscription = this.database.Subscriptions.Where(s => s.UserId == userId
                                                              && s.PodcastId == podcastId);
 
-        return await Task.FromResult(subscription);
+        return subscription.Count() == 0
+            ? null
+            : await Task.FromResult(subscription.First());
     }
 
     /// <summary>

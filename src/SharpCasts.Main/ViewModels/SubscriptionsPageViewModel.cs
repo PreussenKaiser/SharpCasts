@@ -94,15 +94,13 @@ public partial class SubscriptionsPageViewModel : BaseViewModel
         List<Podcast> subscribedPodcasts = new();
         List<Subscription> subscriptions = await this.subscriptionService.GetSubscriptionsForAsync(userId);
 
-        subscriptions.ForEach(async s =>
-        {
-            if (s.UserId == userId)
+        foreach (Subscription subscription in subscriptions)
+            if (subscription.UserId == userId)
             {
-                Podcast podcast = await this.podcastService.GetPodcastAsync(s.PodcastId);
+                Podcast podcast = await this.podcastService.GetPodcastAsync(subscription.PodcastId);
 
                 subscribedPodcasts.Add(podcast);
             }
-        });
 
         return subscribedPodcasts;
     }
